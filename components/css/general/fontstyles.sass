@@ -1,0 +1,46 @@
+p
+	font-family: Roboto-Light
+	font-size: 14px 
+strong
+	font-family: Roboto-Bold
+h1
+	font-family: Bagnard-Sans
+	padding: 15px
+	color: $main-color
+h1 > a.main-logo
+	
+	background: url($logo) center /contain no-repeat
+	width: 100%
+	display: flex
+	cursor: pointer
+	text-indent: -9999px
+	@include devices
+		height: 8rem
+	@include desktop
+		height: 15rem
+
+a.btn
+	text-decoration: none
+.fa-regular
+	font-family: Font-Awesome-Regular
+.fa-brand
+	font-family: Font-Awesome-Brand
+.fa-solid
+	font-family: Font-Awesome-Solid
+.center
+	text-align: center
+.justify
+	text-align: justify
+.secondary-text
+	color: $secondary-color
+.m-center
+	@include mobile
+		text-align: center
+.fill
+	width: 100%
+.small
+	font-size: 12px
+	color: $third-color
+	font-style: italic
+.info 
+	color: $valid-color

@@ -1,0 +1,6 @@
+/node_modules
+/.npm-global
+/.git
+credentials.json
+config.json
+package-lock.json

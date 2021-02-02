@@ -1,0 +1,46 @@
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link
+	color: $main-color
+	background-color: $default
+	border-color: $main-color $main-color $default
+	text-decoration: none
+	border-radius: 0
+	border: 2px solid
+	border-bottom: none
+	&:hover
+		color: $default
+		background-color: $main-color
+		border-color: $main-color
+		text-decoration: none
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active 
+	text-decoration: none
+	border-radius: 0
+	border: 2px solid $main-color
+	border-bottom: none
+	color: $fourth-color
+	background-color: $default
+	border-color: $fourth-color $fourth-color $default
+
+.nav-tabs
+	font-family: Roboto-Bold
+	border-bottom: none
+	padding-left: 20px
+	padding-right: 20px
+	&>li:first-of-type
+		&>a
+			border-right: none
+	&>li:last-of-type
+		&>a
+			border-left: none
+	&>li:first-of-type
+		&>a.active
+			border-right: none
+	&>li:last-of-type
+		&>a.active
+			border-left: none
+	@include desktop
+		margin-right: -15px
+		margin-left: -15px
+		padding-left: 0px
+		padding-right: 0px
+	

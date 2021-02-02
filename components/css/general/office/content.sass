@@ -1,0 +1,43 @@
+#office
+    &+.first-content
+        @include devices
+            margin-top: 5em
+        &:before
+            @include desktop
+                content: ""
+                display: inline-block
+                background: no-repeat url(/assets/images/banner/office-banner-1.svg) 50%/contain
+                width: 100%
+                height: 14em
+
+.backoffice-panel 
+    &>.row
+        border: 2px solid $main-color
+        border-radius: 5px
+hr 
+    &.separator
+        border-bottom: 1px solid $main-color
+        margin-top: 5px
+        margin-bottom: 15px
+        width: 100%
+
+h3.title
+    margin: 0
+    padding: 0.5em 2em
+    color: $default
+    background-color: $secondary-color
+    font-family: Bagnard-Sans
+    &::before
+        font-family: 'Font-Awesome-Solid'
+        content: '\f105' 
+        margin-right: 0.5em
+    &.b-border
+        border-bottom: 2px solid $secondary-color
+        border-top-left-radius: 2px
+        border-top-right-radius: 2px
+    &.p-border
+        border-bottom: 2px solid $main-color
+        background-color: $main-color
+        border-top-left-radius: 2px
+        border-top-right-radius: 2px
+

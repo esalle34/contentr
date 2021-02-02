@@ -1,0 +1,141 @@
+@mixin btn-border($color)
+	border : solid 2px $color
+@mixin background($color)
+	background : $color
+
+@mixin btn($color, $secondaryColor, $boxShadow)
+
+	color: $color
+	@include btn-border($color)
+	@include background($secondaryColor)
+	@include mobile
+		font-size: 0.8rem
+	@include tablet-portrait
+		font-size: 0.8rem
+	@include desktop
+		font-size: 1rem
+
+	&:hover
+		color: $secondaryColor
+		@include btn-border($color)
+		@include background($color)
+		box-shadow: $boxShadow
+
+	&:not(:disabled)
+
+		&:not(.disabled)
+
+			&:active
+				color: $secondaryColor
+				@include btn-border($color)
+				@include background($color)
+				box-shadow: $boxShadow
+
+				&:focus
+					box-shadow: $boxShadow
+
+	&:active
+		color: $secondaryColor
+		@include btn-border($color)
+		@include background($color)
+		box-shadow: $boxShadow
+
+	&:focus
+		color: $secondaryColor
+		@include btn-border($color)
+		@include background($color)
+		box-shadow: $boxShadow
+
+.btn-append
+	@include btn($fourth-color, $default, $main-shadow)
+	width: 3em
+	cursor: auto !important
+.btn-menu
+	@include btn($default,$main-color, $main-shadow)
+	cursor: pointer !important
+	font-family: Roboto-Bold
+	@include devices
+		margin-left: 0
+		min-width: -webkit-fill-available
+		min-width: -moz-available
+	@include desktop
+		margin-left : 1em
+		min-width: 6em
+.navbar-brand
+	text-indent: 100%
+	white-space: nowrap
+	overflow: hidden
+	background: url($simplelogo) 50%/contain no-repeat
+	width: 2em
+	height: 2em
+	cursor: pointer
+.btn-append.action
+	@include btn($main-color, $default, $main-shadow)
+	cursor: pointer !important
+
+.input-hasError + .input-group-append > .btn-append
+	@include btn($danger-color, $default, $danger-color-bg)
+	width: 3em
+	cursor: auto !important
+
+.btn-prepend
+	@include btn($secondary-color, $default, $main-shadow)
+	width: 3em
+	cursor: auto !important
+
+.next
+	margin-left: auto
+.container-back
+	order: 1
+	flex: 1
+.container-next
+	order: 2
+	flex: 1
+
+.btn-prepend.action
+	@include btn($main-color, $default, $main-shadow)
+	width: 3em
+
+.btn-primary
+	@include btn($valid-color, $default, $valid-shadow)
+
+.btn-secondary
+	@include btn($secondary-color, $default, $secondary-shadow)
+	&.r-bold
+		font-family: Roboto-Bold
+	&.page-btn
+		@include btn($default, $secondary-color, $secondary-shadow)
+.page-btn
+	width: 1em
+	padding: 0.3em
+	&.current
+		width: 1em
+		padding: 0.3em
+		@include btn($secondary-color, $default, $secondary-shadow)
+
+.table-flex-btn
+	display: flex
+	&.row-reverse
+		flex-direction: row-reverse
+
+.btn-append
+	color: #005da3
+	border: solid #005da3 2px
+.btn-append:hover
+	color: #fff
+	background: #005da3
+.btn-prepend
+	color: #005da3
+	border: solid #005da3 2px
+.btn-prepend:hover
+	color: #fff
+	background: #005da3
+.btn.btn-menu.nav-link
+	color: $header-color
+	&:hover
+		color: $main-color
+	&:active
+		color: $main-color
+	&:focus
+		color: $main-color
+

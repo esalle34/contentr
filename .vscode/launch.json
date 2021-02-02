@@ -1,0 +1,59 @@
+{
+    "configurations": [
+
+        
+
+
+
+        {
+            "type": "node-terminal",
+            "name": "Run Script: build-data",
+            "request": "launch",
+            "command": "npm run build-data",
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "node-terminal",
+            "name": "Run Script: prod",
+            "request": "launch",
+            "command": "npm run prod",
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "node-terminal",
+            "name": "Run Script: dev",
+            "request": "launch",
+            "command": "npm run dev",
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "node-terminal",
+            "name": "Run Script: clean",
+            "request": "launch",
+            "command": "npm run clean",
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "node-terminal",
+            "name": "Run Script: build",
+            "request": "launch",
+            "command": "npm run build",
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "node-terminal",
+            "name": "Run Script: clean-build",
+            "request": "launch",
+            "command": "npm run clean-build",
+            "cwd": "${workspaceFolder}"
+        }
+        ,
+        {
+            "type": "node-terminal",
+            "name": "Run Script: clean-build-local",
+            "request": "launch",
+            "command": "npm run clean-build-local",
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}

@@ -1,0 +1,54 @@
+form
+	&>div
+		padding: 15px
+
+.shadow-panel > div
+		border-radius: 10px
+		box-shadow: 0 0 0.3rem rgba(0,0,0,0.7)
+
+
+.input-hasError
+
+		border: 1px solid $danger-color
+		border-radius: 5px
+		background-color: $danger-color-bg
+.label-hasError
+		
+		font-family : Roboto-Bold
+		color : #FF5252
+		font-size: 12px
+		padding-left : 2px
+
+.form-control
+	&:focus
+		box-shadow: $main-shadow
+	&:active
+		box-shadow: $main-shadow
+
+.progress
+	width: 100% 
+
+.form-group
+	box-sizing: border-box
+
+.forwardable-form
+	width : 100%
+
+.forwardable-form > .current
+	display : flex
+
+.forwardable-form > :not(.current)
+	display : none
+.form-check-input
+	position: relative
+	margin-left: 0
+.form-check-flex
+	width: 100%
+	display: flex
+	&>.form-check-label
+		order:0
+		&>div
+			word-break: break-word
+	&>.flex-checkbox
+		order:1
+		margin-left: auto

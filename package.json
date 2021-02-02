@@ -1,0 +1,92 @@
+{
+  "name": "contentr.fr",
+  "version": "0.1.4",
+  "description": "Contentr App",
+  "main": "webpack.config.js",
+  "engines": {
+    "node": "12.18.3",
+    "npm": "6.14.6"
+  },
+  "scripts": {
+    "build-data": "node install.js",
+    "clean": "rimraf build/**",
+    "build": "babel --ignore 'dist/**' --ignore 'node_modules/**' ./ -d build",
+    "build-local": "babel --ignore dist/** --ignore node_modules/** ./ -d build",
+    "clean-build": "concurrently \"npm run clean\" \"npm run build\"",
+    "clean-build-local": "concurrently \"npm run clean\" \"npm run build-local\"",
+    "development-process": "webpack --mode development",
+    "production-process": "webpack --mode production",
+    "dev": "set IP=127.0.0.1&&set PORT=80&&set NODE_ENV=development&&set NODE_SRC=./&& babel-node ./start.js",
+    "prod": "set IP=127.0.0.1&&set PORT=80&&set NODE_ENV=production&&set NODE_SRC=./&& babel-node ./start.js",
+    "cloud-data-build": "set NODE_ENV=cloudbuild&& node install.js",
+    "cloud-prod": "set IP=0.0.0.0&&set NODE_ENV=cloudprod&&set NODE_SRC='build/'&& node ./build/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/esalle34/cms_project"
+  },
+  "keywords": [
+    "Eric Salle"
+  ],
+  "author": "Eric Salle",
+  "license": "© Eric Salle 2020-2021. All rights reserved",
+  "bugs": {
+    "url": "https://github.com/esalle34/cms_project/issues"
+  },
+  "homepage": "https://github.com/esalle34/cms_project#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.12.1",
+    "@babel/core": "^7.12.7",
+    "@babel/node": "^7.12.6",
+    "@babel/preset-env": "^7.7.4",
+    "@babel/preset-flow": "^7.12.1",
+    "@babel/preset-react": "^7.7.4",
+    "babel-loader": "^8.2.1",
+    "babel-plugin-root-import": "^6.5.0",
+    "bootstrap": "^4.5.0",
+    "concurrently": "^5.3.0",
+    "css-loader": "^3.2.0",
+    "file-loader": "^5.0.2",
+    "jquery": "^3.5.1",
+    "mini-css-extract-plugin": "^0.9.0",
+    "optimize-css-assets-webpack-plugin": "^3.2.1",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-parallax": "^3.0.3",
+    "react-redux": "^7.2.0",
+    "react-slick": "^0.25.2",
+    "redux": "^4.0.5",
+    "rimraf": "^3.0.2",
+    "sass": "^1.26.10",
+    "sass-loader": "^9.0.2",
+    "slick-carousel": "^1.8.1",
+    "style-loader": "^1.0.1",
+    "superagent": "^5.1.1",
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-fix-style-only-entries": "^0.5.1"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.828.0",
+    "express": "^4.17.1",
+    "express-mysql-session": "^2.1.4",
+    "express-session": "^1.17.1",
+    "imagemin": "^7.0.1",
+    "imagemin-gifsicle": "^7.0.0",
+    "imagemin-jpegoptim": "^7.0.0",
+    "imagemin-mozjpeg": "^9.0.0",
+    "imagemin-optipng": "^8.0.0",
+    "imagemin-svgo": "^8.0.0",
+    "js-sha512": "^0.8.0",
+    "livereload": "^0.9.1",
+    "mime-types": "^2.1.28",
+    "multer": "^1.4.2",
+    "mysql2": "^2.2.5",
+    "nodemon": "^2.0.4",
+    "rootpath": "^0.1.2",
+    "s3fs": "^2.5.0",
+    "serve-favicon": "^2.5.0",
+    "uuid": "^8.3.0"
+  }
+}

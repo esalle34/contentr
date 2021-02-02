@@ -1,0 +1,37 @@
+name:  CI/CD for aws S3
+
+on:
+  # Trigger the workflow on push or pull request,
+  # but only for the master branch
+  push:
+    branches:
+      -  master
+
+jobs:
+  primary:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: install dependencies
+        run: npm install
+      - name: files post-process
+        run: npm run production-process
+      - name: build server
+        run: npm run clean-build
+      - name: Generate deployment package
+        run: zip -r deploy.zip . -x '*.git*'
+        
+      - name: Deploy to EB
+        uses: einaregilsson/beanstalk-deploy@v14
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: ${{ secrets.AWS_SECRET_APP_NAME }}
+          environment_name: ${{ secrets.AWS_SECRET_ENVIRONMENT_NAME }}
+          version_label: 0.1.4
+          region: eu-west-3
+          deployment_package: deploy.zip

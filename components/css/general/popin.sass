@@ -1,0 +1,24 @@
+.popin
+	position: absolute
+	z-index: 200
+	width: 100%
+	top:0
+	left:0
+	height: 100%
+	background-color: rgba(255,255,255,0.5)
+	&.search-engine-popin
+		position: relative
+
+.popin > div
+
+	text-align : center
+	position: relative
+	top: 50%
+	transform: translateY(-50%)
+.popin > div > img
+	width: 20%
+	height: auto
+.search-engine-popin
+	&>div
+		&>img.popin-img
+			width: 80%
