@@ -476,8 +476,10 @@ export class RouteFactory extends Object {
                         let index = req.app._router.stack.findIndex(r => (typeof r.route != "undefined" ? r.route.path == result.uri ? true : false : false));
                         if (index != -1) {
                             req.app._router.stack.splice(index, 1);
-                            let autoScaling = awsAutoScaling.init();
-                            awsAutoScaling.refreshAllInstances(autoScaling);
+                            if(process.env.AWS_ENV){
+                                let autoScaling = awsAutoScaling.init();
+                                awsAutoScaling.refreshAllInstances(autoScaling);
+                            }
                         }
                         
                     }
@@ -489,8 +491,10 @@ export class RouteFactory extends Object {
                     let index = req.app._router.stack.findIndex(r => (typeof r.route != "undefined" ? r.route.path == uri.uri ? true : false : false));
                     if (index != -1) {
                         req.app._router.stack.splice(index, 1);
-                        let autoScaling = awsAutoScaling.init();
-                        awsAutoScaling.refreshAllInstances(autoScaling);
+                        if(process.env.AWS_ENV){
+                            let autoScaling = awsAutoScaling.init();
+                            awsAutoScaling.refreshAllInstances(autoScaling);
+                        }
                     }
                 }
 
@@ -511,8 +515,10 @@ export class RouteFactory extends Object {
 
             routeBuilder.buildRoute(route, req.app, ro.i18n);
             routeBuilder.build404Routes(req.app, ro.i18n);
-            let autoScaling = awsAutoScaling.init();
-            awsAutoScaling.refreshAllInstances(autoScaling);
+            if(process.env.AWS_ENV){
+                let autoScaling = awsAutoScaling.init();
+                awsAutoScaling.refreshAllInstances(autoScaling);
+            }
 
 
         })
