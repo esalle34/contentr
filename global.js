@@ -20,7 +20,7 @@ let ROUTE_PERMISSIONS_PREFIX = "mandatory";
 let HOME_PATH = "/";
 let config;
 try{
-	config = require(path.resolve(root_path + "/config.json"));
+	config = require(path.resolve(PROJECT_DIR + "/config.json"));
 }catch(error){
 	
 }
