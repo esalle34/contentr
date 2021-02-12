@@ -133,6 +133,26 @@ a.dropdown-item
 	height: 320px
 .border-box
 		box-sizing: border-box
+.rotate
+	&-90
+		display: inline-block
+		transform: rotate(90deg)
+	&-180
+		display: inline-block
+		transform: rotate(180deg)
+.flip
+	&-horizontal
+		display: inline-block
+		transform: scaleX(-1)
+		-moz-transform: scaleX(-1)
+		-webkit-transform: scaleX(-1)
+		-ms-transform: scaleX(-1)
+	&-vertical
+		display: inline-block
+		transform: scaleY(-1)
+		-moz-transform: scaleY(-1)
+		-webkit-transform: scaleY(-1)
+		-ms-transform: scaleY(-1)
 .mobile-only
 	@include mobile-only
 .desktop-only
