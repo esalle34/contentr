@@ -90,6 +90,7 @@ module.exports = {
 	"Dropdown" : "Dropdown",
 	"Options" : "Options",
 	"Google" : "Google",
+	"Element" : "Element",
 	"Homepage" : "Homepage",
 	"Parameters" : "Parameters",
 	"Purge cache" : "Purge cache",

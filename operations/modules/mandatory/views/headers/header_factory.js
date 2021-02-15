@@ -36,7 +36,7 @@ export class HeaderFactory extends Object {
 
 		let _query = {
 
-			header: `JSON_OBJECT('name', headers.name, 'element', headers.element) as header, JSON_ARRAYAGG(JSON_OBJECT("id", helems.id, "header_element_id", helems.header_element_id, "elem", helems.element, "args", helems.args, "value", helems.value, 'uri', (SELECT uri FROM uri WHERE id = helems.uri_id))) as helems`,
+			header: `JSON_OBJECT('name', headers.name, 'element', headers.element) as header, JSON_ARRAYAGG(JSON_OBJECT("name", helems.name, "id", helems.id, "header_element_id", helems.header_element_id, "elem", helems.element, "args", helems.args, "value", helems.value, 'uri', (SELECT uri FROM uri WHERE id = helems.uri_id))) as helems`,
 
 		}
 

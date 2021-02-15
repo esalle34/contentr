@@ -91,6 +91,7 @@ module.exports = {
 	"Enter" : "Entrer",
 	"Search" : "Rechercher",
 	"Google" : "Google",
+	"Element" : "Element",
 	"Parameters" : "Paramètres",
 	"Purge cache" : "Purger le cache",
 	"Homepage" : "Accueil",
