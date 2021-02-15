@@ -315,37 +315,70 @@ module.exports = {
 
 	},
 
-	searchRoutes(params, res, edit = false) {
+	search_route: (route, req, res, prefix, next) => {
+
+		let body = view_service.checkAccessRights(route, req, res, null, false);
+
+		if (body != null && body.hasError) {
+			if (typeof body.redirectUri != "undefined") {
+				return res.status(403).send(Object.assign({}, { redirect: body.redirectUri }));
+			}
+		}
+
+		let params = req.body;
+
+		switch (prefix) {
+			case "search":
+				return searchRoutes(params, res, false, true);
+				break;
+
+		}
+
+	},
+
+	searchRoutes(params, res, edit = false, system = false) {
 
 		let routeFactory = new RouteFactory();
 
-		if (typeof params.page == "undefined" || params.page == null) {
+		if(system){
 
-			if (typeof params.value != "undefined" && params.value != null) {
-
-				routeFactory.fetchRoutes(edit ? routeFactory.getQueryPrefix("search_engine_w_edit") : routeFactory.getQueryPrefix("search_engine"), params.value, global.DEFAULT_SEARCH_ITEMS, 1, edit).then((results) => {
-
-					return res.status(200).send(results);
-
-				})
-
-			} else {
-
-				routeFactory.fetchRoutes(edit ? routeFactory.getQueryPrefix("search_engine_w_edit") : routeFactory.getQueryPrefix("search_engine"), params.value, global.DEFAULT_SEARCH_ITEMS, 1, edit).then((results) => {
-
-					return res.status(200).send(results);
-
-				})
-
-			}
-
-		} else {
-			let page = (params.page - 1) * 10;
-			routeFactory.fetchRoutes(edit ? routeFactory.getQueryPrefix("search_engine_w_edit") : routeFactory.getQueryPrefix("search_engine"), params.value, global.DEFAULT_SEARCH_ITEMS, page, edit).then((results) => {
-
+			routeFactory.fetchRoutes(routeFactory.getQueryPrefix("search_engine"), params.value, null, null, edit, system).then((results) => {
+	
 				return res.status(200).send(results);
 
 			})
+
+		}else{
+
+			if (typeof params.page == "undefined" || params.page == null) {
+
+				if (typeof params.value != "undefined" && params.value != null) {
+	
+					routeFactory.fetchRoutes(edit ? routeFactory.getQueryPrefix("search_engine_w_edit") : routeFactory.getQueryPrefix("search_engine"), params.value, global.DEFAULT_SEARCH_ITEMS, 1, edit).then((results) => {
+	
+						return res.status(200).send(results);
+	
+					})
+	
+				} else {
+	
+					routeFactory.fetchRoutes(edit ? routeFactory.getQueryPrefix("search_engine_w_edit") : routeFactory.getQueryPrefix("search_engine"), params.value, global.DEFAULT_SEARCH_ITEMS, 1, edit).then((results) => {
+	
+						return res.status(200).send(results);
+	
+					})
+	
+				}
+	
+			} else {
+				let page = (params.page - 1) * global.DEFAULT_SEARCH_ITEMS;
+				routeFactory.fetchRoutes(edit ? routeFactory.getQueryPrefix("search_engine_w_edit") : routeFactory.getQueryPrefix("search_engine"), params.value, global.DEFAULT_SEARCH_ITEMS, page, edit).then((results) => {
+	
+					return res.status(200).send(results);
+	
+				})
+			}
+
 		}
 
 	},

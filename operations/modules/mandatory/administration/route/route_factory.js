@@ -533,11 +533,11 @@ export class RouteFactory extends Object {
             let count_q;
             let callback_q;
             if (addHomepage) {
-                main_q = db_transaction.db_quick_query(`SELECT ${data} FROM uri AS u INNER JOIN pages as p ON p.uri_id = u.id WHERE ((u.uri LIKE ? OR u.root_id LIKE ? OR p.title LIKE ?) AND u.isSystem = ${isSystem}) OR u.uri = '/' ORDER BY u.lastModifiedAt DESC LIMIT ${pageNumber != null ? pageNumber + ', ' : ""} ${itemsNumber}`, [`%${value}%`, `%${value}%`, `%${value}%`], null, false);
-                count_q = `SELECT COUNT(u.id) as count FROM uri AS u INNER JOIN pages as p ON p.uri_id = u.id WHERE ((u.uri LIKE ? OR u.root_id LIKE ? OR p.title LIKE ?) AND u.isSystem = ${isSystem}) OR u.uri = '/'`;
+                main_q = db_transaction.db_quick_query(`SELECT ${data} FROM uri AS u INNER JOIN pages as p ON p.uri_id = u.id WHERE ((u.uri LIKE ? OR u.root_id LIKE ? OR p.title LIKE ?) ${isSystem == false ? "AND u.isSystem = false" : "" }) OR u.uri = '/' ORDER BY u.lastModifiedAt ${itemsNumber!=null ? "DESC LIMIT" : ""}  ${pageNumber != null ? pageNumber + ', ' : ""} ${itemsNumber != null ? itemsNumber : ""}`, [`%${value}%`, `%${value}%`, `%${value}%`], null, false);
+                count_q = `SELECT COUNT(u.id) as count FROM uri AS u INNER JOIN pages as p ON p.uri_id = u.id WHERE ((u.uri LIKE ? OR u.root_id LIKE ? OR p.title LIKE ?) ${isSystem == false ? "AND u.isSystem = false" : "" }) OR u.uri = '/'`;
             } else {
-                main_q = db_transaction.db_quick_query(`SELECT ${data} FROM uri AS u INNER JOIN pages as p ON p.uri_id = u.id WHERE (u.uri LIKE ? OR u.root_id LIKE ? OR p.title LIKE ?) AND u.isSystem = ${isSystem} ORDER BY u.lastModifiedAt DESC LIMIT ${pageNumber != null ? pageNumber + ', ' : ""} ${itemsNumber}`, [`%${value}%`, `%${value}%`, `%${value}%`], null, false);
-                count_q = `SELECT COUNT(u.id) as count FROM uri AS u INNER JOIN pages as p ON p.uri_id = u.id WHERE (u.uri LIKE ? OR u.root_id LIKE ? OR p.title LIKE ?) AND u.isSystem = ${isSystem}`;
+                main_q = db_transaction.db_quick_query(`SELECT ${data} FROM uri AS u INNER JOIN pages as p ON p.uri_id = u.id WHERE (u.uri LIKE ? OR u.root_id LIKE ? OR p.title LIKE ?) ${isSystem == false ? "AND u.isSystem = false" : "" } ORDER BY u.lastModifiedAt ${itemsNumber!=null ? "DESC LIMIT" : ""} ${pageNumber != null ? pageNumber + ', ' : ""} ${itemsNumber != null ? itemsNumber : ""}`, [`%${value}%`, `%${value}%`, `%${value}%`], null, false);
+                count_q = `SELECT COUNT(u.id) as count FROM uri AS u INNER JOIN pages as p ON p.uri_id = u.id WHERE (u.uri LIKE ? OR u.root_id LIKE ? OR p.title LIKE ?) ${isSystem == false ? "AND u.isSystem = false" : "" }`;
             }
 
 

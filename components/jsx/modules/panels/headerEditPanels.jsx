@@ -106,7 +106,7 @@ const HeaderEditPanels = (args)=>{
 
     }
 
-    const createElement = (e)=>{
+    const createElement = async (e)=>{
 
         if(e.target.tagName == "BUTTON" || e.target.tagName == "I"){
 
@@ -128,7 +128,8 @@ const HeaderEditPanels = (args)=>{
                 <div id="add-new" className="btn btn-secondary" onClick={(e)=>createElement(e)}>{i18n.translate("Add New")}</div>
             </div>
             <div id="new-elements"></div>
-            </React.Fragment>
+            </React.Fragment>;
+
             if(plus.parentNode.nextSibling.firstChild.id.includes("add-element")){
 
                 ReactDOM.render(
@@ -139,10 +140,13 @@ const HeaderEditPanels = (args)=>{
             }
 
         }else{
-            console.log("hello world")
+            let newList = headerElsList.body;
+            newList.push({id: newList.length + originalHeaderElsList.body[0].id, header_element_id: null, name: null, value: null, args:null, elem: e.target.parentNode.previousSibling.firstChild.value, isOpened: true, isEditable: true})
+            await setItemsList();
         }
 
     }
+    
 
     const changePosition= async (e, direction)=>{
 
@@ -260,6 +264,22 @@ const HeaderEditPanels = (args)=>{
         
     }
 
+    const submitItem = async(e, header_el)=>{
+        e.preventDefault();
+        let newEl = Object.assign({}, header_el);
+        Array.from(e.target.elements).map(input=>{
+            let key = input.name;
+            if(key != null && key.length>0){
+                newEl = Object.assign({}, newEl, {[key] : input.value});
+            }
+        });
+        newEl = Object.assign({}, newEl, {isEditable : false});
+        let newList = headerElsList.body;
+        newList[parseInt(newEl.id) - parseInt(originalHeaderElsList.body[0].id)] = newEl;
+        headerElsList = Object.assign({}, headerElsList, { body : newList})
+        await setItemsList();
+    }
+
     const setItemsList = ()=>{
 
         let dragzone = [];
@@ -320,7 +340,7 @@ const HeaderEditPanels = (args)=>{
                                         </div>
                                         </h3>
                                     </a>
-                                    {(typeof header_el.isEditable == "undefined" || header_el.isEditable == false) ? <HeaderAccordionElement header_el={header_el} index={index} children={children} dragStart={dragStart} dragOver={dragOver}/> : <HeaderAccordionEditableElement header_el={header_el} index={index} children={children} dragStart={dragStart} dragOver={dragOver}/>}
+                                    {(typeof header_el.isEditable == "undefined" || header_el.isEditable == false) ? <HeaderAccordionElement header_el={header_el} index={index} children={children} dragStart={dragStart} dragOver={dragOver}/> : <HeaderAccordionEditableElement header_el={header_el} index={index} children={children} submitItem={submitItem} dragStart={dragStart} dragOver={dragOver}/>}
                                     {index == nestedArray.length ? undefined : <hr onDragOver={(e)=>dragOver(e)} className="dropzone"  data-header_element_id={header_el.header_element_id} key={`hrafter-${header_el.id}`} id={`hrafter-${header_el.id}`}/>}
                                     </React.Fragment>)
 

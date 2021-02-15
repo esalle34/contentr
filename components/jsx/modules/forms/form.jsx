@@ -185,6 +185,7 @@ class Form extends React.Component {
 					let parsedDataSet = JSON.parse(has_dataset.getAttribute("dataset"));
 					let ms = has_dataset.closest("form").querySelector("#ms");
 					let RenderingTpl = officeRegistry[parsedDataSet["search-engine"]['renderingTpl']];
+					
 					let renderTo;
 					let searchMs = ms.value.split("::");
 					searchMs[1] = "search";
@@ -228,10 +229,10 @@ class Form extends React.Component {
 					})
 					if (parsedDataSet["search-engine"].renderOnLoad) {
 
-						if (typeof renderTo != "undefined") {
+						if (typeof renderTo != "undefined" && renderTo.firstChild == null) {
 							this.addLoader(renderTo, "search-engine-popin", true);
+							searchEngine();
 						}
-						searchEngine();
 
 					}
 					let timer;
