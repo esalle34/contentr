@@ -64,10 +64,8 @@ export const i18n = {
 				let tr_string = i18nRegistry[i18n.getLang(lang)][string];
 
 				if(typeof tr_string == "undefined"){
-	
-					console.error("This message : '" + string + "' has no translation yet, please add it." );
-	
-					return undefined;
+		
+					return string;
 	
 				}
 	
@@ -102,10 +100,8 @@ export const i18n = {
 				}
 	
 				if(typeof tr_string == "undefined"){
-	
-					console.error("This message has no translation yet, please add it.");
-	
-					return undefined;
+		
+					return string;
 	
 				}
 	

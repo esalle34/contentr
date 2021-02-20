@@ -73,6 +73,7 @@ module.exports = {
 	"Select" : "Select",
 	"Edit" : "Edit",
 	"Remove" : "Remove",
+	"Manage" : "Manage",
 	"Enter" : "Enter",
 	"Search" : "Search",
 	"Check" : "Check",

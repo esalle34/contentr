@@ -482,61 +482,11 @@ module.exports = {
 
 		},
 
-		administration_create_header_form : {
-
-			uri : {
-				name : `INSERT_uri_header_create_form`,
-				query : `INSERT INTO uri (uri, feature, root_id, isSystem, isPublished) VALUES ('/administrate/header/create', 'headers_Create', 'create-header-form', true, true)`,
-				message : `INSERTing /administrate/header/create uri`
-			},
-			callback : {
-				name : `INSERT_header_create_form_callback`,
-				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'getForm', 'create_header_form' )`,
-				message : `INSERTing create-header-form callback`
-			},
-			pages : {
-				name : `INSERT_logout`,
-				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "get", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'getForm' AND form_name = 'create_header_form' ), (SELECT id FROM uri WHERE root_id = "create-header-form"), "create-header-form")`,
-				message : `INSERTing /administrate/header/create section` 
-			},
-			pages_permissions : {
-				name : `INSERT_header_create_form_permissions`,
-				query : `INSERT INTO pages_permissions (${global_transaction.ROUTE_PERMISSIONS_PREFIX}Logout, ${global_transaction.ROUTE_PERMISSIONS_PREFIX}Login, ${global_transaction.ROUTE_PERMISSIONS_PREFIX}Contributor, ${global_transaction.ROUTE_PERMISSIONS_PREFIX}Administrator, page_id) VALUES (false, true, true, false, (SELECT id FROM pages where root_id='create-header-form'))`,
-				message : `INSERTing /administrate/header/create permissions`,
-			},
-
-		},
-
-		administration_create_header : {
-
-			uri : {
-				name : `INSERT_uri_header_create`,
-				query : `INSERT INTO uri (uri, root_id, isSystem, isPublished) VALUES ('/administrate/header/create/post', 'create-header', true, true)`,
-				message : `INSERTing /administrate/header/create/post uri`
-			},
-			callback : {
-				name : `INSERT_header_create_callback`,
-				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'validateForm', 'create_header_form' )`,
-				message : `INSERTing create-header callback`
-			},
-			pages : {
-				name : `INSERT_logout`,
-				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'validateForm' AND form_name = 'create_header_form' ), (SELECT id FROM uri WHERE root_id = "create-header"), "create-header")`,
-				message : `INSERTing /administrate/header/create/post section` 
-			},
-			pages_permissions : {
-				name : `INSERT_header_create_permissions`,
-				query : `INSERT INTO pages_permissions (${global_transaction.ROUTE_PERMISSIONS_PREFIX}Logout, ${global_transaction.ROUTE_PERMISSIONS_PREFIX}Login, ${global_transaction.ROUTE_PERMISSIONS_PREFIX}Contributor, ${global_transaction.ROUTE_PERMISSIONS_PREFIX}Administrator, page_id) VALUES (false, true, true, false, (SELECT id FROM pages where root_id='create-header'))`,
-				message : `INSERTing /administrate/header/create/post permissions`,
-			},
-
-		},
-
 		administration_edit_header_form : {
 
 			uri : {
 				name : `INSERT_uri_header_edit_form`,
-				query : `INSERT INTO uri (uri, feature, root_id, isSystem, isPublished) VALUES ('/administrate/header/edit', 'headers_Edit', 'edit-header-form', true, true)`,
+				query : `INSERT INTO uri (uri, feature, root_id, isSystem, isPublished) VALUES ('/administrate/header/edit', 'headers_Manage', 'edit-header-form', true, true)`,
 				message : `INSERTing /administrate/header/edit uri`
 			},
 			callback : {
@@ -578,56 +528,6 @@ module.exports = {
 				name : `INSERT_header_edit_permissions`,
 				query : `INSERT INTO pages_permissions (${global_transaction.ROUTE_PERMISSIONS_PREFIX}Logout, ${global_transaction.ROUTE_PERMISSIONS_PREFIX}Login, ${global_transaction.ROUTE_PERMISSIONS_PREFIX}Contributor, ${global_transaction.ROUTE_PERMISSIONS_PREFIX}Administrator, page_id) VALUES (false, true, true, false, (SELECT id FROM pages where root_id='edit-header'))`,
 				message : `INSERTing /administrate/header/edit/post permissions`,
-			},
-
-		},
-
-		administration_remove_header_form : {
-
-			uri : {
-				name : `INSERT_uri_header_remove_form`,
-				query : `INSERT INTO uri (uri, feature, root_id, isSystem, isPublished) VALUES ('/administrate/header/remove', 'headers_Remove', 'remove-header-form', true, true)`,
-				message : `INSERTing /administrate/header/remove uri`
-			},
-			callback : {
-				name : `INSERT_header_remove_form_callback`,
-				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'getForm', 'remove_header_form' )`,
-				message : `INSERTing remove-header-form callback`
-			},
-			pages : {
-				name : `INSERT_logout`,
-				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "get", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'getForm' AND form_name = 'remove_header_form' ), (SELECT id FROM uri WHERE root_id = "remove-header-form"), "remove-header-form")`,
-				message : `INSERTing /administrate/header/remove section` 
-			},
-			pages_permissions : {
-				name : `INSERT_header_remove_form_permissions`,
-				query : `INSERT INTO pages_permissions (${global_transaction.ROUTE_PERMISSIONS_PREFIX}Logout, ${global_transaction.ROUTE_PERMISSIONS_PREFIX}Login, ${global_transaction.ROUTE_PERMISSIONS_PREFIX}Contributor, ${global_transaction.ROUTE_PERMISSIONS_PREFIX}Administrator, page_id) VALUES (false, true, true, false, (SELECT id FROM pages where root_id='remove-header-form'))`,
-				message : `INSERTing /administrate/header/remove permissions`,
-			},
-
-		},
-
-		administration_remove_header : {
-
-			uri : {
-				name : `INSERT_uri_header_remove`,
-				query : `INSERT INTO uri (uri, root_id, isSystem, isPublished) VALUES ('/administrate/header/remove/post', 'remove-header', true, true)`,
-				message : `INSERTing /administrate/header/remove/post uri`
-			},
-			callback : {
-				name : `INSERT_header_remove_callback`,
-				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'validateForm', 'remove_header_form' )`,
-				message : `INSERTing remove-header callback`
-			},
-			pages : {
-				name : `INSERT_logout`,
-				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'validateForm' AND form_name = 'remove_header_form' ), (SELECT id FROM uri WHERE root_id = "remove-header"), "remove-header")`,
-				message : `INSERTing /administrate/header/remove/post section` 
-			},
-			pages_permissions : {
-				name : `INSERT_header_remove_permissions`,
-				query : `INSERT INTO pages_permissions (${global_transaction.ROUTE_PERMISSIONS_PREFIX}Logout, ${global_transaction.ROUTE_PERMISSIONS_PREFIX}Login, ${global_transaction.ROUTE_PERMISSIONS_PREFIX}Contributor, ${global_transaction.ROUTE_PERMISSIONS_PREFIX}Administrator, page_id) VALUES (false, true, true, false, (SELECT id FROM pages where root_id='remove-header'))`,
-				message : `INSERTing /administrate/header/remove/post permissions`,
 			},
 
 		},
