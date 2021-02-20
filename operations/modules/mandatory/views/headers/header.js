@@ -1,4 +1,9 @@
 //Author - Eric Salle
+
+const path = require('path');
+const root_path = path.dirname(require.main.filename);
+const global = require(path.resolve(root_path + "/global"))();
+
 export class Header extends Object{
 	
 	constructor(args){
@@ -23,6 +28,31 @@ export class Header extends Object{
 
 	getHeader(){
 
+		if(this.header == null){
+
+			return {
+				react_element: 'header',
+				args: { key: 'main-header' },
+				react_nested: {
+				  react_element: 'div',
+				  args: { key: 'fixed-header', className: 'container fixed-header' },
+				  react_nested: [
+					  { react_element : "div" , args: { key: "filler-header", className : 'filler filler-header' }, react_nested : []},
+					  { react_element : "nav", args : { key: "navbar", className : "navbar navbar-expand-lg justify-route-between navbar-light bg-light"},
+					    react_nested : [
+						{ react_element : "a", args : { key: "navbar-brand", className : "navbar-brand", href : global.HOME_PATH}},
+						{ react_element : "ul", args : { key : "left-list", value : "Left List", className : "navbar-nav ml-auto no-margin-left" }},
+						{ react_element : "ul", 
+						  args : { key : "right-list", className : "navbar-nav mr-auto", value : "Right List"}, 
+						  react_nested : []
+						}
+					  ]}
+				  ]
+				}
+			  }
+
+		}
+
 		return this.header;
 
 	}
@@ -36,6 +66,11 @@ export class Header extends Object{
 	}
 
 	resolveSubElements(route, els, user = null, parentTag = null){
+
+		if(els == null){
+
+			return null;
+		}
 
 		let header_item = {
 			react_element : "void",
@@ -64,6 +99,8 @@ export class Header extends Object{
 			}
 
 		}
+
+		els.sort((a, b) => parseFloat(a.weight) - parseFloat(b.weight));
 
 		els.map(function(helem){
 

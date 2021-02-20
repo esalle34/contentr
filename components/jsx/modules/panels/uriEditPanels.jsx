@@ -9,9 +9,10 @@ import SelectComponentPanel from "./selectComponentPanel";
 
 const UriEditPanels = (args) => {
 
+    const formURI = "/administrate/form/request/post?fragment";
+    const formName = "edit_route_form_form";
+
     let [view, setView] = useState([]);
-    let view_thead = [];
-    let finalcontainer = [];
     let [selectedUri, changeSelectedUri] = useState(false);
     let [formValidators, setFormValidators] = useState([]);
 
@@ -19,8 +20,8 @@ const UriEditPanels = (args) => {
 
     let select = (args, id) => {
 
-        Request.post("/administrate/form/request/post?fragment")
-            .send({ form_name: "edit_route_form_form" })
+        Request.post(formURI)
+            .send({ form_name: formName })
             .then(res => {
 
                 changeSelectedUri(true);

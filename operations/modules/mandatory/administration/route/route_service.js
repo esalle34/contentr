@@ -405,7 +405,7 @@ module.exports = {
 								react_element: "a",
 								args: {
 									key: `link-${routeObj.getFeature()}`,
-									className: `nav-link ${(route.uri == routeObj.getUri() ? 'active' : "")}`,
+									className: `nav-link ${Routes.length == 1 ? "one-item-only" : ""} ${(route.uri == routeObj.getUri() ? 'active' : "")}`,
 									href: routeObj.getUri(),
 									els: route.i18n.translate(routeObj.getValue(), route.lang)
 								}

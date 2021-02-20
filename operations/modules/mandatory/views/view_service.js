@@ -1,7 +1,6 @@
 //Author - Eric Salle
 import React from "react";
 import ReactDOMServer from "react-dom/server";
-import { IgnorePlugin } from "webpack";
 import Html from "~/components/jsx/templates/html";
 import { getContentFromRegistry, getContentsFromRegistry } from '~/components/jsx/templates/html/content/content.registry';
 
@@ -178,8 +177,11 @@ module.exports = {
 
 			headerFactory.fetchHeader(headerFactory.getQueryPrefix("header")).then((header) => {
 				els = header.resolveSubElements(route, header.getHelemsData(), req.session.user);
-				header.setHeaderElements(header.getHeader(), els);
+				if(els != null){
+					header.setHeaderElements(header.getHeader(), els);
+				}
 				if (body == null) {
+					
 
 					return resolve(addReactRoot(header.getHeader(), route.theme));
 

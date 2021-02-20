@@ -38,6 +38,14 @@
 	&>li:last-of-type
 		&>a.active
 			border-left: none
+	&>li:first-of-type
+		&>a.active.one-item-only
+			border: 2px solid
+			border-color: $fourth-color $fourth-color $default
+	&>li:last-of-type
+		&>a.active.one-item-only
+			border: 2px solid
+			border-color: $fourth-color $fourth-color $default
 	@include desktop
 		margin-right: -15px
 		margin-left: -15px

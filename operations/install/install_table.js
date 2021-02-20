@@ -22,7 +22,7 @@ module.exports = {
 		},
 		headers_elements : {
 			name : "create_table_headers_elements",
-			query : "CREATE TABLE IF NOT EXISTS headers_elements (name VARCHAR(128) NOT NULL UNIQUE,  element VARCHAR(16), args LONGTEXT, value VARCHAR(16) NOT NULL, weight INT NOT NULL, header_id INT, FOREIGN KEY (header_id) REFERENCES headers (id), header_element_id INT, FOREIGN KEY(header_element_id) REFERENCES headers_elements(id), uri_id INT, FOREIGN KEY (uri_id) references uri (id), id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY (id), createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, lastModifiedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP)",
+			query : "CREATE TABLE IF NOT EXISTS headers_elements (name VARCHAR(128) NOT NULL UNIQUE,  element VARCHAR(16), args LONGTEXT, value VARCHAR(16) NOT NULL, weight INT NOT NULL, header_id INT, FOREIGN KEY (header_id) REFERENCES headers (id), header_element_id INT, FOREIGN KEY(header_element_id) REFERENCES headers_elements(id), header_element_name VARCHAR(128), FOREIGN KEY(header_element_name) REFERENCES headers_elements(name), uri_id INT, FOREIGN KEY (uri_id) references uri (id), id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY (id), createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, lastModifiedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP)",
 			message : "CREATING table headers_elements",
 		},
 		pages : {
