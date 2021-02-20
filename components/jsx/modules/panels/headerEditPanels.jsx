@@ -138,7 +138,7 @@ const HeaderEditPanels = (args) => {
 
             let newList = headerElsList.body;
             if(newList.length>0){
-                newList.push({ id: Math.max.apply(Math, newList.map(function(subel) { return subel.id; })) + 1, header_element_id: null, header_element_name: null, name: null, value: null, args: null, elem: e.target.parentNode.previousSibling.firstChild.value, isOpened: true, isEditable: true })
+                newList.unshift({ id: Math.max.apply(Math, newList.map(function(subel) { return subel.id; }))+1, header_element_id: null, header_element_name: null, name: null, value: null, args: null, elem: e.target.parentNode.previousSibling.firstChild.value, isOpened: true, isEditable: true })
             }else{
                 newList.push({ id: 0, header_element_id: null, header_element_name: null, name: null, value: null, args: null, elem: e.target.parentNode.previousSibling.firstChild.value, isOpened: true, isEditable: true })
             }
@@ -317,7 +317,7 @@ const HeaderEditPanels = (args) => {
         });
         newEl = Object.assign({}, newEl, { isEditable: false });
         let newList = headerElsList.body;
-        newList[parseInt(newEl.id) - parseInt(lowestId)] = newEl;
+        newList[headerElsList.body.findIndex(el => (el.id == newEl.id))] = newEl;
         headerElsList = Object.assign({}, headerElsList, { body: newList })
         await setItemsList();
     }
