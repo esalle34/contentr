@@ -570,12 +570,11 @@ module.exports = {
 
 								if(process.env.AWS_ENV){
 
-									let s3FS = awsS3Uploads.initS3FS();
-									let head = s3FS.headObject(file);
+									fileSystem = awsS3Uploads.initS3FS();
+									let head = fileSystem.headObject(file);
 									
 									head.then(resolve => {
 					
-										let s3 = awsS3Uploads.init();
 										if(resolve.contentType.includes("audio/mpeg")){
 
 											var range = req.headers.range;
@@ -598,11 +597,12 @@ module.exports = {
 											res.writeHead(200, { "Content-Type": resolve.ContentType });
 										}
 					
-										s3.getObject({Bucket: `${global.S3_BUCKET}`, Key: `${global.CMS_TITLE}/${global.UPLOAD_FOLDER}${file}`},(err, data)=>{
+										fileSystem.readFile(file, (err, data) => {
 
+											console.log(data);
 											return res.send(data);
-
-										});
+		
+										})
 					
 					
 									}).catch(error=>{
