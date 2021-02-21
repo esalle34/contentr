@@ -575,7 +575,6 @@ module.exports = {
 									
 									head.then(resolve => {
 					
-										console.log(resolve);
 										if(typeof resolve != "undefined" && resolve.ContentType.includes("audio/mpeg")){
 
 											var range = req.headers.range;
@@ -596,16 +595,16 @@ module.exports = {
 							
 										}else{
 											res.writeHead(200, { "Content-Type": resolve.ContentType });
-											let s3 = awsS3Uploads.init();
-											s3.getObject({Bucket: `${global.S3_BUCKET}`, Key: `${global.CMS_TITLE}/${global.UPLOAD_FOLDER}${file}`}).createReadStream().pipe(res);
-											return res;
 										}
+
+										let s3 = awsS3Uploads.init();
+										s3.getObject({Bucket: `${global.S3_BUCKET}`, Key: `${global.CMS_TITLE}/${global.UPLOAD_FOLDER}${file}`}).createReadStream().pipe(res);
+										return res;
 
 					
 									}).catch(error=>{
 					
 										if (error) {
-										console.log(error);
 											return res.status(404).end();
 										}
 					
