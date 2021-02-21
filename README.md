@@ -20,9 +20,9 @@ III. Configuration :<br/>
 "DB_PWD" : xxx,<br/>
 "DB_MAIL" : xxx,<br/>
 "DB_NAME" : xxx,<br/>
-"DB_ROLE" : xxx,<br/>
+"DB_ROLE" : xxx<br/>
 <br/>
-- Don't forget the curly braces !<br/>
+- Replace every "xxx" markup and don't forget the curly braces !<br/>
 - Now you can run command "npm run build-data", this will install all tables in your database named with the value you entered above.<br/>
 <br/>
 IV. Running the project :<br/>
