@@ -573,7 +573,7 @@ module.exports = {
 									fileSystem = awsS3Uploads.initS3FS();
 									fileSystem.readFile(file, (err, data) => {
 
-										return res.sendFile(data);
+										return res.send(data);
 	
 									})
 
