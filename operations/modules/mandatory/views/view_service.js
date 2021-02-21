@@ -579,6 +579,7 @@ module.exports = {
 									
 									res.writeHead(200, { "Content-Type": resolve.ContentType });
 									file.pipe(res);
+									return res.send();
 
 								}else{
 
