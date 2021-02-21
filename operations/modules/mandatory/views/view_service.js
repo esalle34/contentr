@@ -570,14 +570,36 @@ module.exports = {
 
 								if(process.env.AWS_ENV){
 
-									console.log(file);
-
 									let s3FS = awsS3Uploads.initS3FS();
 									let head = s3FS.headObject(file);
 									
 									head.then(resolve => {
 					
-										return routeBuilder.resolveFile(s3FS, resolve, file, req, res, true);
+										let s3 = awsS3Uploads.init();
+										if(resolve.contentType.includes("audio/mpeg")){
+
+											var range = req.headers.range;
+											var bytes = range.replace(/bytes=/, '').split('-');
+											var start = parseInt(bytes[0], 10);
+									
+											var total = resolve.ContentLength;
+											var end = bytes[1] ? parseInt(bytes[1], 10) : total - 1;
+											var chunksize = (end - start) + 1;
+									
+											res.writeHead(206, {
+											   'Content-Range'  : 'bytes ' + start + '-' + end + '/' + total,
+											   'Accept-Ranges'  : 'bytes',
+											   'Content-Length' : chunksize,
+											   'Last-Modified'  : resolve.LastModified,
+											   'Content-Type'   : resolve.ContentType
+											});
+							
+										}else{
+											res.writeHead(200, { "Content-Type": resolve.ContentType });
+										}
+					
+										return res.sendFile(s3.getObject({Bucket: `${global.S3_BUCKET}`, Key: `${global.CMS_TITLE}/${global.UPLOAD_FOLDER}${file}`}));
+					
 					
 									}).catch(error=>{
 					
