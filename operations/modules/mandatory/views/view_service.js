@@ -565,7 +565,7 @@ module.exports = {
 
 							if (!route.filename.includes(".htm")) {
 
-								let file = path.resolve(process.env.AWS_ENV == "true" ? "." + route.filepath + route.filename : route.filepath + route.filename);
+								let file = process.env.AWS_ENV == "true" ? route.filepath + route.filename : path.resolve("." + route.filepath + route.filename);
 
 								fileSystem.readFile(file, (err, data) => {
 
