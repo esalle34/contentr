@@ -98,7 +98,7 @@ module.exports = {
 
 	},
 
-	resolveFile : (s3FS, resolve, uri, req, res, staticURI = false)=>{
+	resolveFile : function(s3FS, resolve, uri, req, res, staticURI = false){
 
 		if (!uri.includes("html")) {
 			let file;
