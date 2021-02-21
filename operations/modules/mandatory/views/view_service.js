@@ -378,7 +378,7 @@ module.exports = {
 
 			};
 
-			let fileSystem = process.env.AWS_ENV == "true" ? awsS3Uploads.initS3FS() : fs;
+			let fileSystem = process.env.AWS_ENV ? awsS3Uploads.initS3FS() : fs;
 			let header;
 			if (!route.isMs) {
 
@@ -467,7 +467,7 @@ module.exports = {
 							header = ReactDOMServer.renderToString(<Html data={route} body={header} fragment />);
 							head = ReactDOMServer.renderToString(<Html data={route} />);
 
-							if (process.env.AWS_ENV == "true") {
+							if (process.env.AWS_ENV) {
 
 								fileSystem.headObject(route.filepath + route.filename, function (err, data) {
 
@@ -565,8 +565,10 @@ module.exports = {
 
 							if (!route.filename.includes(".htm")) {
 
-								let file = process.env.AWS_ENV == "true" ? route.filepath + route.filename : path.resolve("." + route.filepath + route.filename);
-
+								let file = process.env.AWS_ENV ? route.filepath + route.filename : path.resolve("." + route.filepath + route.filename);
+								fileSystem = process.env.AWS_ENV ? awsS3Uploads.init() : fs;
+								console.log(fileSystem);
+								
 								fileSystem.readFile(file, (err, data) => {
 
 									return res.sendFile(file);
