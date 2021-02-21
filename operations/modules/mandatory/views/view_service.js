@@ -605,7 +605,7 @@ module.exports = {
 										
 										file.pipe(res);
 						
-										return res;
+										return res.status(200).send(file);
 										
 									}).catch(error=>{
 					
