@@ -599,7 +599,7 @@ module.exports = {
 					
 
 										fileSystem.readFile(file, (err, data)=>{
-											return res.send(data);
+											return res.status(200).send(data);
 										})
 
 					
