@@ -6,7 +6,7 @@ To install this project :<br/>
 <br/>
 - You must have installed node.js in your environnment at least version 14 or above and affiliated NPM.<br/>
 - You need a running mySQL server with at least version 8 or above.<br/>
-- Clone the project in your preferred folder, then execute "npm run install", and finally "npm run build-data".<br/>
+- Clone the project in your preferred folder, then execute "npm install".<br/>
 <br/>
 III. Configuration :<br/>
 <br/>
@@ -21,6 +21,9 @@ III. Configuration :<br/>
 "DB_MAIL" : xxx,<br/>
 "DB_NAME" : xxx,<br/>
 "DB_ROLE" : xxx,<br/>
+<br/>
+- Don't forget the curly braces !<br/>
+- Now you can run command "npm run build-data", this will install all tables in your database named with the value you entered above.<br/>
 <br/>
 IV. Running the project :<br/>
 <br/>
