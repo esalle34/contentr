@@ -597,7 +597,9 @@ module.exports = {
 											res.writeHead(200, { "Content-Type": resolve.ContentType });
 										}
 					
-										s3.getObject({Bucket: `${global.S3_BUCKET}`, Key: `${global.CMS_TITLE}/${global.UPLOAD_FOLDER}${req.path}`}, function(err, data){
+										s3.getObject({Bucket: `${global.S3_BUCKET}`, Key: `${global.CMS_TITLE}/${global.UPLOAD_FOLDER}${file}`}, function(err, data){
+
+											console.log(data);
 
 											return res.send(data);
 
