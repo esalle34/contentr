@@ -597,14 +597,16 @@ module.exports = {
 											res.writeHead(200, { "Content-Type": resolve.ContentType });
 										}
 					
-										fileSystem.readFile(file, (err, data) => {
+										file = s3FS.createReadStream(file);
 
-											console.log(data);
-											return res.send(data);
-		
-										})
-					
-					
+										file.on('error', function (err) {
+											return res.status(404).end();
+										});
+										
+										file.pipe(res);
+						
+										return res;
+										
 									}).catch(error=>{
 					
 										if (error) {
