@@ -597,7 +597,7 @@ module.exports = {
 											res.writeHead(200, { "Content-Type": resolve.ContentType });
 										}
 					
-										file = s3FS.createReadStream(file);
+										file = fileSystem.createReadStream(file);
 
 										file.on('error', function (err) {
 											return res.status(404).end();
