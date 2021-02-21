@@ -598,14 +598,9 @@ module.exports = {
 										}
 					
 
-										let s3 = awsS3Uploads.init();
-										s3.getObject({Bucket: `${global.S3_BUCKET}`, Key: `${global.CMS_TITLE}/${global.UPLOAD_FOLDER}${file}`}, function(err, data){
-
-											console.log(data);
-
+										fileSystem.readFile(file, (err, data)=>{
 											return res.send(data);
-
-										});
+										})
 
 					
 									}).catch(error=>{
