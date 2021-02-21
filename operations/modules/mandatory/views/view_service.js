@@ -570,6 +570,8 @@ module.exports = {
 
 								if(process.env.AWS_ENV){
 
+									console.log(file);
+
 									let s3FS = awsS3Uploads.initS3FS();
 									let head = s3FS.headObject(file);
 									
