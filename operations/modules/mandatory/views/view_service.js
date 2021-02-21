@@ -576,7 +576,7 @@ module.exports = {
 									head.then(resolve => {
 					
 										console.log(resolve);
-										if(typeof resolve != "undefined" && resolve.contentType.includes("audio/mpeg")){
+										if(typeof resolve != "undefined" && resolve.ContentType.includes("audio/mpeg")){
 
 											var range = req.headers.range;
 											var bytes = range.replace(/bytes=/, '').split('-');
