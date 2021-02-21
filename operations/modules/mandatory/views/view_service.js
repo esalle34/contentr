@@ -7,7 +7,7 @@ import { getContentFromRegistry, getContentsFromRegistry } from '~/components/js
 const path = require('path');
 const root_path = path.dirname(require.main.filename);
 const global = require(path.resolve(root_path + "/global"))();
-const routeBuilder = require(path.resolve(`./${process.env.NODE_SRC}` + "/operations/init/routeBuilder"));
+const routeBuilder = require(path.resolve(`./${process.env.NODE_SRC}operations/init/routeBuilder`));
 const HeaderFactory = require(path.resolve(`${global.MODULE_VIEW}/headers/header_factory`)).HeaderFactory;
 const awsS3Uploads = require(path.resolve(`./${process.env.NODE_SRC}` + "/operations/init/awsS3UploadsInit"));
 const fs = require('fs');
