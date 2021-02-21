@@ -100,6 +100,8 @@ module.exports = {
 
 	resolveFile : (s3FS, resolve, uri, req, res, staticURI = false)=>{
 
+		console.log(staticURI);
+
 		if (!uri.includes("html")) {
 			let file;
 
@@ -136,7 +138,6 @@ module.exports = {
 
 			}else{
 
-				console.log(staticURI);
 				if(staticURI){
 
 					let s3 = awsS3Uploads.init();
@@ -161,6 +162,8 @@ module.exports = {
 			}
 
 		} else {
+
+			console.log("test");
 
 			s3FS.readFile(req.path, "utf-8", (err, data) => {
 
