@@ -574,10 +574,8 @@ module.exports = {
 									let head = s3FS.headObject(file);
 									
 									head.then(resolve => {
-										
-										req.path = file;
 					
-										res.status(200).send(routeBuilder.resolveFile(s3FS, resolve, file, rewritedReq, res));
+										routeBuilder.resolveFile(s3FS, resolve, file, rewritedReq, res, true);
 					
 									}).catch(error=>{
 					

@@ -98,7 +98,7 @@ module.exports = {
 
 	},
 
-	resolveFile : (s3FS, resolve, uri, req, res)=>{
+	resolveFile : (s3FS, resolve, uri, req, res, staticURI = false)=>{
 
 		if (!uri.includes("html")) {
 			let file;
@@ -122,20 +122,46 @@ module.exports = {
 				   'Last-Modified'  : resolve.LastModified,
 				   'Content-Type'   : resolve.ContentType
 				});
+
+				if(!staticURI){
+
+					s3.getObject({Bucket: `${global.S3_BUCKET}`, Key: `${global.CMS_TITLE}/${global.UPLOAD_FOLDER}${req.path}`, Range: range}).createReadStream().pipe(res);
+
+				}else{
+
+					res.sendFile(s3.getObject({Bucket: `${global.S3_BUCKET}`, Key: `${global.CMS_TITLE}/${global.UPLOAD_FOLDER}${file}`, Range: range}));
+
+				}
 		
-				s3.getObject({Bucket: `${global.S3_BUCKET}`, Key: `${global.CMS_TITLE}/${global.UPLOAD_FOLDER}${req.path}`, Range: range}).createReadStream().pipe(res);
 
 			}else{
 
-				file = s3FS.createReadStream(req.path);
+				if(staticURI){
 
-				file.on('error', function (err) {
-					return res.status(404).end();
-				});
+					s3FS.readFile(file, "utf-8", (err, data) => {
+
+						if (err) {
+							return res.status(404).end();
+						}
+		
+						return res.status(200).sendFile(data);
+		
+					});
+
+				}else{
+
+					file = s3FS.createReadStream(req.path);
+
+					file.on('error', function (err) {
+						return res.status(404).end();
+					});
+	
+					res.writeHead(200, { "Content-Type": resolve.ContentType });
+
+					file.pipe(res);
+
+				}
 				
-				res.writeHead(200, { "Content-Type": resolve.ContentType });
-				file.pipe(res);
-
 			}
 
 		} else {
