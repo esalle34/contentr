@@ -136,11 +136,10 @@ module.exports = {
 
 			}else{
 
+				console.log(staticURI);
 				if(staticURI){
 
 					let s3 = awsS3Uploads.init();
-
-					console.log("got here");
 
 					return res.sendFile(s3.getObject({Bucket: `${global.S3_BUCKET}`, Key: `${global.CMS_TITLE}/${global.UPLOAD_FOLDER}${file}`}));
 
