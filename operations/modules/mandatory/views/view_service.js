@@ -576,6 +576,7 @@ module.exports = {
 									head.then(resolve => {
 					
 										routeBuilder.resolveFile(s3FS, resolve, file, req, res);
+										return res;
 					
 									}).catch(error=>{
 					
