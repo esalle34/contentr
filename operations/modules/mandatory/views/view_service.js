@@ -7,6 +7,7 @@ import { getContentFromRegistry, getContentsFromRegistry } from '~/components/js
 const path = require('path');
 const root_path = path.dirname(require.main.filename);
 const global = require(path.resolve(root_path + "/global"))();
+const routeBuilder = require(path.resolve(root_path + "/operations/init/routeBuilder"));
 const HeaderFactory = require(path.resolve(`${global.MODULE_VIEW}/headers/header_factory`)).HeaderFactory;
 const awsS3Uploads = require(path.resolve(`./${process.env.NODE_SRC}` + "/operations/init/awsS3UploadsInit"));
 const fs = require('fs');
@@ -566,14 +567,33 @@ module.exports = {
 							if (!route.filename.includes(".htm")) {
 
 								let file = process.env.AWS_ENV ? route.filepath + route.filename : path.resolve("." + route.filepath + route.filename);
-								fileSystem = process.env.AWS_ENV ? awsS3Uploads.init() : fs;
-								console.log(fileSystem);
-								
-								fileSystem.readFile(file, (err, data) => {
 
-									return res.sendFile(file);
+								if(process.env.AWS_ENV){
 
-								})
+									let s3FS = awsS3Uploads.initS3FS();
+									let head = s3FS.headObject(file);
+									
+									head.then(resolve => {
+					
+										routeBuilder.resolveFile(s3FS, resolve, folder, req, res);
+					
+									}).catch(error=>{
+					
+										if (error) {
+											return res.status(404).end();
+										}
+					
+									})
+
+								}else{
+
+									fileSystem.readFile(file, (err, data) => {
+
+										return res.sendFile(file);
+	
+									})
+
+								}
 
 							}
 
