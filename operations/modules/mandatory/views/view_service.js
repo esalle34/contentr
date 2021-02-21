@@ -571,46 +571,14 @@ module.exports = {
 								if(process.env.AWS_ENV){
 
 									fileSystem = awsS3Uploads.initS3FS();
-									let head = fileSystem.headObject(file);
-									
-									head.then(resolve => {
-					
-										if(resolve.contentType.includes("audio/mpeg")){
+									file = fileSystem.createReadStream(file);
 
-											var range = req.headers.range;
-											var bytes = range.replace(/bytes=/, '').split('-');
-											var start = parseInt(bytes[0], 10);
+									file.on('error', function (err) {
+										return res.status(404).end();
+									});
 									
-											var total = resolve.ContentLength;
-											var end = bytes[1] ? parseInt(bytes[1], 10) : total - 1;
-											var chunksize = (end - start) + 1;
-									
-											res.writeHead(206, {
-											   'Content-Range'  : 'bytes ' + start + '-' + end + '/' + total,
-											   'Accept-Ranges'  : 'bytes',
-											   'Content-Length' : chunksize,
-											   'Last-Modified'  : resolve.LastModified,
-											   'Content-Type'   : resolve.ContentType
-											});
-							
-										}else{
-											res.writeHead(200, { "Content-Type": resolve.ContentType });
-										}
-					
-										fileSystem.readFile(file, (err, data) => {
-
-											return res.send(data);
-		
-										})
-					
-					
-									}).catch(error=>{
-					
-										if (error) {
-											return res.status(404).end();
-										}
-					
-									})
+									res.writeHead(200, { "Content-Type": resolve.ContentType });
+									file.pipe(res);
 
 								}else{
 
