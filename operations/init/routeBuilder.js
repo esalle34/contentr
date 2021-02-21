@@ -140,6 +140,7 @@ module.exports = {
 				if(staticURI){
 
 					let s3 = awsS3Uploads.init();
+					res.writeHead(200, { "Content-Type": resolve.ContentType });
 
 					return res.sendFile(s3.getObject({Bucket: `${global.S3_BUCKET}`, Key: `${global.CMS_TITLE}/${global.UPLOAD_FOLDER}${file}`}));
 
