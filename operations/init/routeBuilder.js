@@ -129,7 +129,7 @@ module.exports = {
 
 				}else{
 
-					res.sendFile(s3.getObject({Bucket: `${global.S3_BUCKET}`, Key: `${global.CMS_TITLE}/${global.UPLOAD_FOLDER}${file}`, Range: range}));
+					return res.sendFile(s3.getObject({Bucket: `${global.S3_BUCKET}`, Key: `${global.CMS_TITLE}/${global.UPLOAD_FOLDER}${file}`, Range: range}));
 
 				}
 		
@@ -138,15 +138,11 @@ module.exports = {
 
 				if(staticURI){
 
-					s3FS.readFile(file, "utf-8", (err, data) => {
+					let s3 = awsS3Uploads.init();
 
-						if (err) {
-							return res.status(404).end();
-						}
-		
-						return res.status(200).sendFile(data);
-		
-					});
+					console.log("got here");
+
+					return res.sendFile(s3.getObject({Bucket: `${global.S3_BUCKET}`, Key: `${global.CMS_TITLE}/${global.UPLOAD_FOLDER}${file}`}));
 
 				}else{
 

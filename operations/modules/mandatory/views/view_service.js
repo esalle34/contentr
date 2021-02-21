@@ -568,10 +568,13 @@ module.exports = {
 
 								let file = process.env.AWS_ENV ? route.filepath + route.filename : path.resolve("." + route.filepath + route.filename);
 
+								console.log("hes")
 								if(process.env.AWS_ENV){
+									console.log("test")
 
 									let s3FS = awsS3Uploads.initS3FS();
 									let head = s3FS.headObject(file);
+									console.log(head)
 									
 									head.then(resolve => {
 					
