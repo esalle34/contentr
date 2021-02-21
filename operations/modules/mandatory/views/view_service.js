@@ -575,6 +575,7 @@ module.exports = {
 									
 									head.then(resolve => {
 					
+										console.log(resolve);
 										if(resolve.contentType.includes("audio/mpeg")){
 
 											var range = req.headers.range;
