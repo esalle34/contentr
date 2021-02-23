@@ -4,14 +4,16 @@ const root_path = path.dirname(require.main.filename);
 const global = require(path.resolve(root_path + "/global"))();
 const view_service = require(path.resolve(global.MODULE_VIEW + "/view_service"));
 const header_service = require(path.resolve(global.MODULE_VIEW + "/headers/header_service"));
-const route_service = require(path.resolve(global.MODULE_ADMIN + "/route/route_service"));
+const route_service = require(path.resolve(global.MODULE_ROUTES + "/route_service"));
+const content_types_service = require(path.resolve(global.MODULE_CONTENT_TYPES + "/content_types_service"));
 const form_validators = require(path.resolve(global.MODULE_FORM + "/form_validators"))();
 const FormFactory = require(path.resolve(global.MODULE_FORM + "/form_factory")).FormFactory;
 
 const services = {
 	"view_service" : view_service,
 	"route_service" : route_service,
-	"header_service" : header_service
+	"header_service" : header_service,
+	"content_types_service" : content_types_service
 }
 
 module.exports = {

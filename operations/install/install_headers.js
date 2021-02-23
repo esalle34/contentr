@@ -138,28 +138,33 @@ module.exports = {
         },
         administration_element_headers_manage : {
             name : `INSERT_headers_edit_administration_element`,
-            query : `INSERT INTO headers_elements (name, header_id, header_element_id, header_element_name, element, args, value, weight, uri_id) VALUES ("administration_dropdown_admin_headers_manage",(SELECT id FROM headers WHERE name = 'header_administrator'), (SELECT id from (SELECT * FROM headers_elements) AS helems where helems.name='administration_dropdown_admin_headers'), (SELECT name from (SELECT * FROM headers_elements) AS helems where helems.name='administration_dropdown_admin_headers'), 'a', '{ "classes" : "dropdown-item" }', 'Manage', 2,(SELECT id FROM uri WHERE root_id = 'edit-header-form'))`,
+            query : `INSERT INTO headers_elements (name, header_id, header_element_id, header_element_name, element, args, value, weight, uri_id) VALUES ("administration_dropdown_admin_headers_manage",(SELECT id FROM headers WHERE name = 'header_administrator'), (SELECT id from (SELECT * FROM headers_elements) AS helems where helems.name='administration_dropdown_admin_headers'), (SELECT name from (SELECT * FROM headers_elements) AS helems where helems.name='administration_dropdown_admin_headers'), 'a', '{ "classes" : "dropdown-item" }', 'Manage', 2,(SELECT id FROM uri WHERE root_id = 'manage-header-form-form'))`,
             message:  `INSERTing administration dropdown headers manage element into administrator header (administration_dropdown_admin)`
+        },  
+        administration_element_content : {
+            name : `INSERT_content_administration_element`,
+            query : `INSERT INTO headers_elements (name, header_id, header_element_id, header_element_name, element, args, value, weight) VALUES ("administration_dropdown_admin_content",(SELECT id FROM headers WHERE name = 'header_administrator'), (SELECT id from (SELECT * FROM headers_elements) AS helems where helems.name='administration_dropdown_admin'), (SELECT name from (SELECT * FROM headers_elements) AS helems where helems.name='administration_dropdown_admin'), 'dropdown', '{ "innerTagElement" : "a", "id" : "administrationMenuContent", "dropDownClassName" : "submenu dropright", "classes" : "dropdown-item" }', 'Content', 4)`,
+            message:  `INSERTing administration dropdown content element into administrator header (administration_dropdown_admin)`
         },
-        administration_element_forms : {
-            name : `INSERT_forms_administration_element`,
-            query : `INSERT INTO headers_elements (name, header_id, header_element_id, header_element_name, element, args, value, weight, uri_id) VALUES ("administration_dropdown_admin_forms",(SELECT id FROM headers WHERE name = 'header_administrator'), (SELECT id from (SELECT * FROM headers_elements) AS helems where helems.name='administration_dropdown_admin'), (SELECT name from (SELECT * FROM headers_elements) AS helems where helems.name='administration_dropdown_admin'), 'dropdown', '{ "innerTagElement" : "a", "id" : "administrationMenuforms", "dropDownClassName" : "submenu dropright", "classes" : "dropdown-item" }', 'Forms', 3, (SELECT id FROM uri WHERE root_id = 'administration-forms'))`,
-            message:  `INSERTing administration dropdown forms element into administrator header (administration_dropdown_admin)`
+        administration_element_content_type : {
+            name : `INSERT_content_type_administration_element`,
+            query : `INSERT INTO headers_elements (name, header_id, header_element_id, header_element_name, element, args, value, weight) VALUES ("administration_dropdown_admin_content_type",(SELECT id FROM headers WHERE name = 'header_administrator'), (SELECT id from (SELECT * FROM headers_elements) AS helems where helems.name='administration_dropdown_admin_content'), (SELECT name from (SELECT * FROM headers_elements) AS helems where helems.name='administration_dropdown_admin_content'), 'dropdown', '{ "innerTagElement" : "a", "id" : "administrationMenuContentTypes", "dropDownClassName" : "submenu dropright", "classes" : "dropdown-item" }', 'Content types', 0)`,
+            message:  `INSERTing administration dropdown content element into administrator header (administration_dropdown_admin)`
         },
-        administration_element_forms_create : {
-            name : `INSERT_forms_create_administration_element`,
-            query : `INSERT INTO headers_elements (name, header_id, header_element_id, header_element_name, element, args, value, weight, uri_id) VALUES ("administration_dropdown_admin_forms_create",(SELECT id FROM headers WHERE name = 'header_administrator'), (SELECT id from (SELECT * FROM headers_elements) AS helems where helems.name='administration_dropdown_admin_forms'), (SELECT name from (SELECT * FROM headers_elements) AS helems where helems.name='administration_dropdown_admin_forms'), 'a', '{ "classes" : "dropdown-item" }', 'Create', 1, (SELECT id FROM uri WHERE root_id = 'create-form-form'))`,
-            message:  `INSERTing administration dropdown forms create element into administrator header (administration_dropdown_admin)`
+        administration_element_content_type_create : {
+            name : `INSERT_content_type_create_administration_element`,
+            query : `INSERT INTO headers_elements (name, header_id, header_element_id, header_element_name, element, args, value, weight, uri_id) VALUES ("administration_dropdown_admin_content_type_create",(SELECT id FROM headers WHERE name = 'header_administrator'), (SELECT id from (SELECT * FROM headers_elements) AS helems where helems.name='administration_dropdown_admin_content_type'), (SELECT name from (SELECT * FROM headers_elements) AS helems where helems.name='administration_dropdown_admin_content_type'), 'a', '{ "classes" : "dropdown-item" }', 'Create', 0, (SELECT id FROM uri WHERE root_id = 'create-content-types-form'))`,
+            message:  `INSERTing administration dropdown content create element into administrator header (administration_dropdown_admin)`
         },
-        administration_element_forms_edit : {
-            name : `INSERT_forms_edit_administration_element`,
-            query : `INSERT INTO headers_elements (name, header_id, header_element_id, header_element_name, element, args, value, weight, uri_id) VALUES ("administration_dropdown_admin_forms_edit",(SELECT id FROM headers WHERE name = 'header_administrator'), (SELECT id from (SELECT * FROM headers_elements) AS helems where helems.name='administration_dropdown_admin_forms'), (SELECT name from (SELECT * FROM headers_elements) AS helems where helems.name='administration_dropdown_admin_forms'), 'a', '{ "classes" : "dropdown-item" }', 'Edit', 2,(SELECT id FROM uri WHERE root_id = 'edit-form-form'))`,
-            message:  `INSERTing administration dropdown forms edit element into administrator header (administration_dropdown_admin)`
+        administration_element_content_type_edit : {
+            name : `INSERT_content_type_edit_administration_element`,
+            query : `INSERT INTO headers_elements (name, header_id, header_element_id, header_element_name, element, args, value, weight, uri_id) VALUES ("administration_dropdown_admin_content_type_edit",(SELECT id FROM headers WHERE name = 'header_administrator'), (SELECT id from (SELECT * FROM headers_elements) AS helems where helems.name='administration_dropdown_admin_content_type'), (SELECT name from (SELECT * FROM headers_elements) AS helems where helems.name='administration_dropdown_admin_content_type'), 'a', '{ "classes" : "dropdown-item" }', 'Edit', 1,(SELECT id FROM uri WHERE root_id = 'edit-content-types-form'))`,
+            message:  `INSERTing administration dropdown content edit element into administrator header (administration_dropdown_admin)`
         },
-        administration_element_forms_remove : {
-            name : `INSERT_forms_remove_administration_element`,
-            query : `INSERT INTO headers_elements (name, header_id, header_element_id, header_element_name, element, args, value, weight, uri_id) VALUES ("administration_dropdown_admin_forms_remove",(SELECT id FROM headers WHERE name = 'header_administrator'), (SELECT id from (SELECT * FROM headers_elements) AS helems where helems.name='administration_dropdown_admin_forms'), (SELECT name from (SELECT * FROM headers_elements) AS helems where helems.name='administration_dropdown_admin_forms'), 'a', '{ "classes" : "dropdown-item" }', 'Remove', 3, (SELECT id FROM uri WHERE root_id = 'remove-form-form'))`,
-            message:  `INSERTing administration dropdown forms remove element into administrator header (administration_dropdown_admin)`
+        administration_element_content_type_remove : {
+            name : `INSERT_content_type_remove_administration_element`,
+            query : `INSERT INTO headers_elements (name, header_id, header_element_id, header_element_name, element, args, value, weight, uri_id) VALUES ("administration_dropdown_admin_content_type_remove",(SELECT id FROM headers WHERE name = 'header_administrator'), (SELECT id from (SELECT * FROM headers_elements) AS helems where helems.name='administration_dropdown_admin_content_type'), (SELECT name from (SELECT * FROM headers_elements) AS helems where helems.name='administration_dropdown_admin_content_type'), 'a', '{ "classes" : "dropdown-item" }', 'Remove', 2, (SELECT id FROM uri WHERE root_id = 'remove-content-types-form'))`,
+            message:  `INSERTing administration dropdown content remove element into administrator header (administration_dropdown_admin)`
         },
         right_list : {
             name : `INSERT_right_list_element_administration`,

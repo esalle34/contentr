@@ -38,6 +38,8 @@ let MODULE_FORM = PROJECT_DIR + BACKEND_MODULE_DIR + "/form";
 let MODULE_USERS = PROJECT_DIR + BACKEND_MODULE_DIR + "/users";
 let MODULE_ADMIN = PROJECT_DIR + BACKEND_MODULE_DIR + "/administration";
 let MODULE_ROUTES = MODULE_ADMIN + "/route";
+let MODULE_CONTENT = MODULE_ADMIN + "/content";
+let MODULE_CONTENT_TYPES = MODULE_CONTENT + "/types";
 let MODULE_I18N = PROJECT_DIR + BACKEND_MODULE_DIR + "/i18n";
 let MODULE_UPLOAD = PROJECT_DIR + BACKEND_MODULE_DIR + "/content";
 
@@ -63,9 +65,9 @@ let BUILD_SERVER_CSS_DIR = process.env.NODE_SRC == "build/" ? __dirname + "/../d
 let BUILD_SERVER_JS_DIR = process.env.NODE_SRC == "build/" ? __dirname + "/../dist/js/" : __dirname + "/dist/js/";
 let BUILD_SERVER_FONTS_DIR = process.env.NODE_SRC == "build/" ? __dirname + "/../assets/fonts/" : __dirname + "/assets/fonts/";
 let BUILD_SERVER_IMG_DIR = process.env.AWS_ENV ? __dirname + "/../assets/images/" : __dirname + "/assets/images/";
-let BUILD_SERVER_FAVICON = process.env.AWS_ENV == "true" ? __dirname + "/../favicon.ico" : __dirname + "/favicon.ico";
-let BUILD_SERVER_VIDEOS_DIR = process.env.AWS_ENV == "true" ? __dirname + "/../assets/videos/" : __dirname + "/assets/videos/";
-let BUILD_SERVER_PDF_DIR = process.env.AWS_ENV == "true" ? __dirname + "/../assets/pdf/" : __dirname + "/assets/pdf/";
+let BUILD_SERVER_FAVICON = process.env.AWS_ENV ? __dirname + "/../favicon.ico" : __dirname + "/favicon.ico";
+let BUILD_SERVER_VIDEOS_DIR = process.env.AWS_ENV ? __dirname + "/../assets/videos/" : __dirname + "/assets/videos/";
+let BUILD_SERVER_PDF_DIR = process.env.AWS_ENV ? __dirname + "/../assets/pdf/" : __dirname + "/assets/pdf/";
 let BUILD_SERVER_HTML_PUBLIC_DIR = process.env.AWS_ENV ? __dirname + "/../views/html/public/" : __dirname + "/views/html/public/";
 let WEBPACK_FONTS_OUTPUT = "../../assets/fonts";
 
@@ -102,6 +104,8 @@ module.exports = function(){
 				MODULE_ADMIN : MODULE_ADMIN,
 				MODULE_I18N : MODULE_I18N,
 				MODULE_ROUTES : MODULE_ROUTES,
+				MODULE_CONTENT : MODULE_CONTENT,
+				MODULE_CONTENT_TYPES : MODULE_CONTENT_TYPES,
 				MODULE_UPLOAD : MODULE_UPLOAD,
 				JSON_DATA_STORAGE : JSON_DATA_STORAGE,
 				DEV_CSS_DIR : DEV_CSS_DIR,
