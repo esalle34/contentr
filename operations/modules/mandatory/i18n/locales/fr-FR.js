@@ -53,6 +53,8 @@ module.exports = {
 	"Folder" : "Dossier",
 	"Theme" : "Theme",
 	"Content type" : "Type de contenu",
+	"Content types" : "Types de contenu",
+	"Create content type" : "Créer un nouveau type de contenu",
 	"Callback" : "Traitement",
 	"Title" : "Titre",
 	"Creation Date" : "Date de création",
@@ -118,7 +120,7 @@ module.exports = {
 	"Add new" : "Ajouter une nouvelle route",
 	"Content id must be numerical" : "Le content id doit être numérique",
 	"Form name must be a string" : "Le nom de formulaire doit être une chaîne de caractères",
-	"Edit headers" : "Editer les en-têtes",
+	"Manage headers" : "Gérer les en-têtes",
 	"Wrong username/email or password" : "Nom d'utilisateur/email ou mot de passe incorrect",
 	"This field needs at least %s character" : {
 		"one" : "Ce champ nécessite au moins %s caractère",

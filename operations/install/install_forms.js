@@ -18,9 +18,12 @@ const add_file_form = JSON.stringify({ method : "post", async : true, id: "add-f
 const add_folder_form = JSON.stringify({ method : "post", async : true, id: "add-folder-form", key: "add-folder-form", className : "add-folder-form has-popin col-12 row justify-content-center", enctype : "multipart/form-data", els : [] });
 
 //Header
-const edit_header_form = JSON.stringify({ method : "post", async : true, id: "edit-header-form", key: "edit-header-form", className : "edit-header-form backoffice-panel has-popin col-12 row justify-content-center", enctype : "multipart/form-data", els : [] });
-const edit_header_form_form = JSON.stringify({ method : "post", async : true, id: "edit-header-form-form", key: "edit-header-form-form", className : "edit-header-form-form has-popin col-12 row justify-content-center", enctype : "multipart/form-data", els : [] });
+const manage_header_form = JSON.stringify({ method : "post", async : true, id: "manage-header-form", key: "manage-header-form", className : "manage-header-form backoffice-panel has-popin col-12 row justify-content-center", enctype : "multipart/form-data", els : [] });
+const manage_header_form_form = JSON.stringify({ method : "post", async : true, id: "manage-header-form-form", key: "manage-header-form-form", className : "manage-header-form-form has-popin col-12 row justify-content-center", enctype : "multipart/form-data", els : [] });
 
+//Content
+//Content types
+const create_content_types_form = JSON.stringify({ method : "post", async : true, id: "create-content-types-form", key: "create-content-types-form", className : "create-content-types-form backoffice-panel has-popin col-12 row justify-content-center", enctype : "multipart/form-data", els : [] });
 
 module.exports = {
 
@@ -596,59 +599,96 @@ module.exports = {
             message : "INSERTing add_folder submit input in edit_route form"
         },
     },
-    edit_header : {
+    manage_header : {
         form : {
-            name : "INSERT_edit_header_form",
-            query : `INSERT into forms (name, element, uri_id, number, isSystem) VALUES ('edit_header_form', '${edit_header_form}', (SELECT id FROM uri WHERE root_id='edit-header'), 0, true)`,
-            message: "INSERTing edit_header form"
+            name : "INSERT_manage_header_form",
+            query : `INSERT into forms (name, element, uri_id, number, isSystem) VALUES ('manage_header_form', '${manage_header_form}', (SELECT id FROM uri WHERE root_id='manage-header-form'), 0, true)`,
+            message: "INSERTing manage_header form"
         },
-        edit_container : {
-            name : "INSERT_edit_header_form_edit_container",
-            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id) VALUES ('edit_header_form_container', 'div', '{"className" : "col-10 row justify-content-center"}', 0, 0, (SELECT id FROM forms WHERE name="edit_header_form"))`,
-            message : "INSERTing edit_header form edit container"
+        manage_container : {
+            name : "INSERT_manage_header_form_manage_container",
+            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id) VALUES ('manage_header_form_container', 'div', '{"className" : "col-10 row justify-content-center"}', 0, 0, (SELECT id FROM forms WHERE name="manage_header_form"))`,
+            message : "INSERTing manage_header form manage container"
         },
-        edit_container_ms : {
-            name : "INSERT_edit_header_form_edit_container_ms",
-            query :  `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('edit_header_ms', 'input', '{ "className" : "form-control", "key" : "ms", "id" : "ms", "name" : "ms", "type": "hidden", "value": "header_service/edit_header::edit::.edit-header-form.end", "groupClassName" : "ms" }', 0, 0, (SELECT id FROM forms WHERE name="edit_header_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='edit_header_form_container'))`,
-            message : "Inserting edit_header edit_container_ms input in create header form"
+        manage_container_ms : {
+            name : "INSERT_manage_header_form_manage_container_ms",
+            query :  `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('manage_header_ms', 'input', '{ "className" : "form-control", "key" : "ms", "id" : "ms", "name" : "ms", "type": "hidden", "value": "header_service/manage_header::manage::.manage-header-form.end", "groupClassName" : "ms" }', 0, 0, (SELECT id FROM forms WHERE name="manage_header_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='manage_header_form_container'))`,
+            message : "Inserting manage_header manage_container_ms input in create header form"
         },
-        edit_infos_h3 : {
-            name : "INSERT_edit_header_form_edit_infos_h3",
-            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('edit_header_form_infos_h3', 'h3',  '{"key" : "header-infos-h3", "className" : "title fill b-border", "els" : "Edit headers"}', 0, 1, (SELECT id FROM forms WHERE name="edit_header_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='edit_header_form_container'))`,
-            message : "INSERTing edit_header form edit infos h3"
+        manage_infos_h3 : {
+            name : "INSERT_manage_header_form_manage_infos_h3",
+            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('manage_header_form_infos_h3', 'h3',  '{"key" : "header-infos-h3", "className" : "title fill b-border", "els" : "Manage headers"}', 0, 1, (SELECT id FROM forms WHERE name="manage_header_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='manage_header_form_container'))`,
+            message : "INSERTing manage_header form manage infos h3"
         },
         search_input : {
-            name : "INSERT_edit_header_search_input",
-            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('edit_header_search', 'input', '{ "className" : "form-control form-input-text has-dataset search-engine", "key" : "search-engine", "id" : "search-engine", "name" : "search-engine", "type" : "text", "placeholder": "Name", "groupClassName" : "form-group col-12", "dataSet" : { "search-engine" : { "url" : "/administrate/header/search", "method" : "post", "on" : ["keyup"], "renderingTpl" : "headerEditPanels", "renderToId" : "search-results", "renderOnLoad" : true } } }', 0, 2, (SELECT id FROM forms WHERE name="edit_header_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='edit_header_form_container'))`,
-            message : "INSERTing edit_header search input in edit header form"
+            name : "INSERT_manage_header_search_input",
+            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('manage_header_search', 'input', '{ "className" : "form-control form-input-text has-dataset search-engine", "key" : "search-engine", "id" : "search-engine", "name" : "search-engine", "type" : "text", "placeholder": "Name", "groupClassName" : "form-group col-12", "dataSet" : { "search-engine" : { "url" : "/administrate/header/search", "method" : "post", "on" : ["keyup"], "renderingTpl" : "headerEditPanels", "renderToId" : "search-results", "renderOnLoad" : true } } }', 0, 2, (SELECT id FROM forms WHERE name="manage_header_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='manage_header_form_container'))`,
+            message : "INSERTing manage_header search input in manage header form"
         },
-        edit_container_search_results : {
-            name : "INSERT_edit_header_form_edit_container_search_results",
-            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('edit_header_form_container_search_results', 'div', '{"id" : "search-results", "key" : "search-results", "className" : "col-12 row justify-content-center"}', 0, 3, (SELECT id FROM forms WHERE name="edit_header_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='edit_header_form_container'))`,
-            message : "INSERTing edit_header form edit container search results"
+        manage_container_search_results : {
+            name : "INSERT_manage_header_form_manage_container_search_results",
+            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('manage_header_form_container_search_results', 'div', '{"id" : "search-results", "key" : "search-results", "className" : "col-12 row justify-content-center"}', 0, 3, (SELECT id FROM forms WHERE name="manage_header_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='manage_header_form_container'))`,
+            message : "INSERTing manage_header form manage container search results"
         },
     },
-    edit_header_form : {
+    manage_header_form : {
         form : {
-            name : "INSERT_edit_header_form_form",
-            query : `INSERT into forms (name, element, uri_id, number, isSystem) VALUES ('edit_header_form_form', '${edit_header_form_form}', (SELECT id FROM uri WHERE root_id='edit-header-form'), 0, true)`,
-            message: "INSERTing edit_header_form form"
+            name : "INSERT_manage_header_form_form",
+            query : `INSERT into forms (name, element, uri_id, number, isSystem) VALUES ('manage_header_form_form', '${manage_header_form_form}', (SELECT id FROM uri WHERE root_id='manage-header-form-form'), 0, true)`,
+            message: "INSERTing manage_header_form form"
         },
-        edit_container : {
-            name : "INSERT_edit_header_form_form_edit_container",
-            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id) VALUES ('edit_header_form_form_container', 'div', '{"className" : "col-10 row justify-content-center"}', 0, 0, (SELECT id FROM forms WHERE name="edit_header_form_form"))`,
-            message : "INSERTing edit_header_form form edit container"
+        manage_container : {
+            name : "INSERT_manage_header_form_form_manage_container",
+            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id) VALUES ('manage_header_form_form_container', 'div', '{"className" : "col-10 row justify-content-center"}', 0, 0, (SELECT id FROM forms WHERE name="manage_header_form_form"))`,
+            message : "INSERTing manage_header_form form manage container"
         },
-        edit_container_ms : {
-            name : "INSERT_edit_header_form_form_edit_container_ms",
-            query :  `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('edit_header_form_ms', 'input', '{ "className" : "form-control", "key" : "ms", "id" : "ms", "name" : "ms", "type": "hidden", "value": "header_service/edit_header::headerdata::.edit-header-form.end", "groupClassName" : "ms" }', 0, 0, (SELECT id FROM forms WHERE name="edit_header_form_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='edit_header_form_form_container'))`,
-            message : "Inserting edit_header_form edit_container_ms input in edit header_form form"
+        manage_container_ms : {
+            name : "INSERT_manage_header_form_form_manage_container_ms",
+            query :  `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('manage_header_form_ms', 'input', '{ "className" : "form-control", "key" : "ms", "id" : "ms", "name" : "ms", "type": "hidden", "value": "header_service/manage_header::headerdata::.manage-header-form.end", "groupClassName" : "ms" }', 0, 0, (SELECT id FROM forms WHERE name="manage_header_form_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='manage_header_form_form_container'))`,
+            message : "Inserting manage_header_form manage_container_ms input in manage header_form form"
         },
-        edit_container_dragndrop_results : {
-            name : "INSERT_edit_header_form_edit_container_dragndrop_results",
-            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('edit_header_form_container_dragndrop_results', 'div', '{"id" : "dragndrop-results", "key" : "dragndrop-results", "className" : "col-12 row justify-content-center"}', 0, 3, (SELECT id FROM forms WHERE name="edit_header_form_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='edit_header_form_form_container'))`,
-            message : "INSERTing edit_header form edit container dragndrop results"
+        manage_container_dragndrop_results : {
+            name : "INSERT_manage_header_form_manage_container_dragndrop_results",
+            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('manage_header_form_container_dragndrop_results', 'div', '{"id" : "dragndrop-results", "key" : "dragndrop-results", "className" : "col-12 row justify-content-center"}', 0, 3, (SELECT id FROM forms WHERE name="manage_header_form_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='manage_header_form_form_container'))`,
+            message : "INSERTing manage_header form manage container dragndrop results"
         },
     },
+    create_content_type_form : {
+        form : {
+            name : "INSERT_create_content_types_form",
+            query : `INSERT into forms (name, element, uri_id, number, isSystem) VALUES ('create_content_types_form', '${create_content_types_form}', (SELECT id FROM uri WHERE root_id='create-content-type-form'), 1, true)`,
+            message: "INSERTing create_content_types form"
+        },
+        create_container : {
+            name : "INSERT_create_content_types_create_container",
+            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id) VALUES ('create_content_types_create_container', 'div', '{"className" : "col-10 row justify-content-center"}', 0, 0, (SELECT id FROM forms WHERE name="create_content_types_form"))`,
+            message : "INSERTing create_content_types form edit container"
+        },
+        create_container_ms : {
+            name : "INSERT_create_content_types_create_container_ms",
+            query :  `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('create_content_types_create_ms', 'input', '{ "className" : "form-control", "key" : "ms", "id" : "ms", "name" : "ms", "type": "hidden", "value": "content_types_service/create_content_types::create::.create-content-types-form.end", "groupClassName" : "ms" }', 0, 0, (SELECT id FROM forms WHERE name="create_content_types_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_content_types_create_container'))`,
+            message : "Inserting create_content_types_create_container_ms input in edit header_form form"
+        },
+        manage_infos_h3 : {
+            name : "INSERT_create_content_types_create_container_infos_h3",
+            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('create_content_types_create_container_infos_h3', 'h3',  '{"key" : "create-content-types-infos-h3", "className" : "title fill b-border", "els" : "Create content type"}', 0, 1, (SELECT id FROM forms WHERE name="create_content_types_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_content_types_create_container'))`,
+            message : "INSERTing create_content_types_create_container infos h3"
+        },
+        machine_name : {
+            name : "INSERT_create_content_types_input_name",
+            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('create_content_types_machine_name', 'input', '{ "className" : "form-control form-input-text machine-name::_ validate_name length-3", "prelabel" : "Machine name", "key" : "machine-name", "id" : "machine-name", "name" : "feature_length-3", "type" : "text", "placeholder": "Machine name", "groupClassName" : "form-group col-12" }', 0, 2, (SELECT id FROM forms WHERE name="create_content_types_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_content_types_create_container'))`,
+            message : "INSERTing create_content_types input in create route form"
+        },
+        machine_name_container_next : {
+            name : "INSERT_machine_name_create_content_types_container_next",
+            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('create_content_types_container_next', 'div',  '{"className" : "col-12 row", "id" : "create-content-types-next", "key" : "create_content_types_next"}', 0, 3, (SELECT id FROM forms WHERE name="create_content_types_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_content_types_create_container'))`,
+            message : "INSERTing machine_name_create_content_types container_next"
+        },
+        machine_name_submit : {
+            name : "INSERT_machine_name_create_content_types_submit_input",
+            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('create_content_types_container_submit', 'input', '{ "id" : "submit", "name" : "submit", "className" : "submit form-input-submit next btn btn-primary", "key" : "submit", "type" : "submit", "value": "Next", "groupClassName" : "container-next col-12" }', 0, 0, (SELECT id FROM forms WHERE name="create_content_types_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_content_types_container_next'))`,
+            message : "INSERTing machine_name_create_content_types submit input in create_route form"
+        },
+    }
 }
 

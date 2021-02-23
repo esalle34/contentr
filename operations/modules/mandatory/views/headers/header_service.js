@@ -7,7 +7,7 @@ const Header = require("./header").Header;
 
 module.exports = {
 
-    edit_header: (route, req, res, prefix, next) => {
+    manage_header: (route, req, res, prefix, next) => {
 
         let body = view_service.checkAccessRights(route, req, res, null, false);
 

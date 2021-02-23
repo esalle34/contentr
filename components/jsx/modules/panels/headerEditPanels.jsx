@@ -5,14 +5,13 @@ import Request from "superagent";
 import { i18n } from "~/operations/modules/mandatory/i18n/services/index.js";
 import HeaderAccordionElement from "./elements/headerAccordionElement";
 import HeaderAccordionEditableElement from "./elements/headerAccordionEditableElement";
-import { array } from "js-sha512";
 
 const HeaderEditPanels = (args) => {
 
     const formURI = "/administrate/form/request/post?fragment";
-    const formName = "edit_header_form_form";
-    const headerURI = "/administrate/header/edit/post";
-    const submitHeaderMS = "header_service/edit_header::submit::none";
+    const formName = "manage_header_form_form";
+    const headerURI = "/administrate/header/manage/post";
+    const submitHeaderMS = "header_service/manage_header::submit::none";
 
     let [view, setView] = useState([]);
     let [selectedHeader, isSelectedHeader] = useState(false);
