@@ -3,8 +3,8 @@
 
 const path = require('path');
 const root_path = path.dirname(require.main.filename);
-const global = require(path.resolve(root_path + "\\global"))();
-const view_service = require(path.resolve(global.MODULE_VIEW + "\\view_service"));
+const global = require(path.resolve(root_path + "/global"))();
+const view_service = require(path.resolve(global.MODULE_VIEW + "/view_service"));
 
 module.exports = {
 
