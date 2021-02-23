@@ -741,7 +741,7 @@ module.exports = {
 			},
 			callback : {
 				name : `INSERT_uploads_callback`,
-				query : `INSERT INTO callback (filepath, filename, callback) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/content/types/', 'upload_service', 'getUploadView')`,
+				query : `INSERT INTO callback (filepath, filename, callback) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/content/', 'upload_service', 'getUploadView')`,
 				message : `INSERTing uploads callback`
 			},
 			pages : {
@@ -766,7 +766,7 @@ module.exports = {
 			},
 			callback : {
 				name : `INSERT_uploads_search_callback`,
-				query : `INSERT INTO callback (filepath, filename, callback) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/content/types/', 'upload_service', 'getFiles')`,
+				query : `INSERT INTO callback (filepath, filename, callback) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/content/', 'upload_service', 'getFiles')`,
 				message : `INSERTing uploads callback`
 			},
 			pages : {
@@ -791,7 +791,7 @@ module.exports = {
 			},
 			callback : {
 				name : `INSERT_uploads_callback_add_file`,
-				query : `INSERT INTO callback (filepath, filename, callback) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/content/types/', 'upload_service', 'addFile')`,
+				query : `INSERT INTO callback (filepath, filename, callback) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/content/', 'upload_service', 'addFile')`,
 				message : `INSERTing uploads callback`
 			},
 			pages : {
@@ -817,7 +817,7 @@ module.exports = {
 			},
 			callback : {
 				name : `INSERT_uploads_callback_add_folder`,
-				query : `INSERT INTO callback (filepath, filename, callback) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/content/types/', 'upload_service', 'addFolder')`,
+				query : `INSERT INTO callback (filepath, filename, callback) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/content/', 'upload_service', 'addFolder')`,
 				message : `INSERTing uploads callback`
 			},
 			pages : {
@@ -842,7 +842,7 @@ module.exports = {
 			},
 			callback : {
 				name : `INSERT_uploads_callback_remove_file`,
-				query : `INSERT INTO callback (filepath, filename, callback) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/content/types/', 'upload_service', 'removeFile')`,
+				query : `INSERT INTO callback (filepath, filename, callback) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/content/', 'upload_service', 'removeFile')`,
 				message : `INSERTing uploads callback`
 			},
 			pages : {

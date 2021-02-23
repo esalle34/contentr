@@ -138,7 +138,7 @@ module.exports = {
         },
         administration_element_headers_manage : {
             name : `INSERT_headers_edit_administration_element`,
-            query : `INSERT INTO headers_elements (name, header_id, header_element_id, header_element_name, element, args, value, weight, uri_id) VALUES ("administration_dropdown_admin_headers_manage",(SELECT id FROM headers WHERE name = 'header_administrator'), (SELECT id from (SELECT * FROM headers_elements) AS helems where helems.name='administration_dropdown_admin_headers'), (SELECT name from (SELECT * FROM headers_elements) AS helems where helems.name='administration_dropdown_admin_headers'), 'a', '{ "classes" : "dropdown-item" }', 'Manage', 2,(SELECT id FROM uri WHERE root_id = 'manage-header-form-form'))`,
+            query : `INSERT INTO headers_elements (name, header_id, header_element_id, header_element_name, element, args, value, weight, uri_id) VALUES ("administration_dropdown_admin_headers_manage",(SELECT id FROM headers WHERE name = 'header_administrator'), (SELECT id from (SELECT * FROM headers_elements) AS helems where helems.name='administration_dropdown_admin_headers'), (SELECT name from (SELECT * FROM headers_elements) AS helems where helems.name='administration_dropdown_admin_headers'), 'a', '{ "classes" : "dropdown-item" }', 'Manage', 2,(SELECT id FROM uri WHERE root_id = 'manage-header-form'))`,
             message:  `INSERTing administration dropdown headers manage element into administrator header (administration_dropdown_admin)`
         },  
         administration_element_content : {
