@@ -13,7 +13,8 @@ var Option = args => {
   return /*#__PURE__*/_react.default.createElement("option", {
     id: typeof args.id != "undefined" && args.id != null ? args.id : undefined,
     className: typeof args.className != "undefined" && args.className != null ? args.className : undefined,
-    value: typeof args.value != "undefined" && args.value != null ? args.value : undefined
+    value: typeof args.value != "undefined" && args.value != null ? args.value : undefined,
+    selected: args.selected
   }, args.els);
 };
 

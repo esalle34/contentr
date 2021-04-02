@@ -55,6 +55,8 @@ module.exports = {
 	"Content type" : "Type de contenu",
 	"Content types" : "Types de contenu",
 	"Create content type" : "Créer un nouveau type de contenu",
+	"Create content" : "Créer un nouveau contenu",
+	"Create inputs" : "Créer les champs",
 	"Callback" : "Traitement",
 	"Title" : "Titre",
 	"Creation Date" : "Date de création",
@@ -73,7 +75,7 @@ module.exports = {
 	"Link name" : "Nom du lien",
 	"Headers" : "En-têtes",
 	"Create" : "Créer",
-	"Select" : "Choisir",
+	"Choose" : "Choisir",
 	"Edit" : "Editer",
 	"Remove" : "Supprimer",
 	"Manage" : "Gérer",
@@ -89,6 +91,16 @@ module.exports = {
 	"Add New" : "Ajouter Nouveau",
 	"Span" : "Span",
 	"List" : "Liste",
+	"Min length" : "Longueur minimale",
+	"Max length" : "Longueur maximale",
+	"Label if true" : "Label si vrai",
+	"Label if false" : "Label si faux",
+	"Is label before input ?" : "Label avant le champ ?",
+	"Values, separate label and values with '|', next value with ','" : "Valeurs, séparer label et valeurs avec '|', puis la prochaine valeur avec ','",
+	"Group Classes" : "Classes de conteneur",
+	"Uri search engine" : "Rechercher un lien",
+	"Select Uri" : "Selection de lien",
+	"JSON Arguments" : "Arguments JSON",
 	"Dropdown" : "Dropdown",
 	"Options" : "Options",
 	"Enter" : "Entrer",
@@ -104,6 +116,7 @@ module.exports = {
 	"Error : email not valid" : "Erreur : l'email n'est pas valide",
 	"Error : password not valid" : "Erreur : le mot de passe n'est pas valide",
 	"Error : username length is not valid" : "Erreur : le nom d'utilisateur n'est pas assez long",
+	"This field must contain only numerical values" : "Ce champ doit uniquement contenir des valeurs numériques",
 	"Name field is empty" : "Le champ nom est vide",
 	"Link field is empty" : "Le champ lien est vide",
 	"Id field is empty" : "Id field is empty",
@@ -117,7 +130,8 @@ module.exports = {
 	"Edit routes" : "Edition de routes",
 	"Delete routes" : "Suppression de routes",
 	"Name, url, or feature..." : "Nom, url ou fonctionnalité...",
-	"Add new" : "Ajouter une nouvelle route",
+	"Add new" : "Ajouter à nouveau",
+	"Content type created successfully" : "Type de contenu rajouté avec succès",
 	"Content id must be numerical" : "Le content id doit être numérique",
 	"Form name must be a string" : "Le nom de formulaire doit être une chaîne de caractères",
 	"Manage headers" : "Gérer les en-têtes",
@@ -125,6 +139,18 @@ module.exports = {
 	"This field needs at least %s character" : {
 		"one" : "Ce champ nécessite au moins %s caractère",
 		"other" : "Ce champ nécessite au moins %s caractères"
+	},
+	"This field needs at least a value of %s" : {
+		"one" : "Ce champ nécessite une valeur au moins égale à %s",
+		"other" : "Ce champ nécessite une valeur au moins égale à %s"
+	},
+	"This field needs a maximum value of %s" : {
+		"one" : "Ce champ ne peut valoir plus de %s",
+		"other" : "Ce champ ne peut valoir plus de %s"
+	},
+	"This field needs a maximum of %s character" : {
+		"one" : "Ce champ ne peut avoir plus de %s caractère",
+		"other" : "Ce champ ne peut avoir plus de %s caractères",
 	},
 	"Number of characters doesn't match in name field" : "Le nombre de caractères ne correspond pas dans le champ Nom",
 	"Number of characters doesn't match in feature field" : "Le nombre de caractères ne correspond pas dans le champ Feature",
@@ -145,6 +171,8 @@ module.exports = {
 	"<External link />" : "<Lien externe />",
 	"<No title />" : "<Sans titre />",
 	"Machine name" : "Nom machine",
+	"Template name" : "Nom du template",
+	"Content type already exists" : "Ce type de contenu existe déjà",
 	"You do not have permission to access this page" : "Vous n'avez pas la permission pour accéder à cette page",
 	"Accentuated and special characters are forbidden" : "Les caractères accentués et spéciaux sont interdits",
 	"Did you add the callback of this route ? " : "Avez vous rajouter la méthode associée à cette route ? ",
@@ -156,6 +184,15 @@ module.exports = {
 	"user" : "utilisateur",
 	"contributor" : "contributeur",
 	"administrator" : "administrateur",
-	"lastModifiedAt" : "Dernière modification le"
+	"lastModifiedAt" : "Dernière modification le",
+	"machine_name" : "Nom machine",
+	"template_name" : "Nom du template",
+	"Value" : "Valeur",
+	"Input" : "Champ",
+	"Select" : "Select",
+	"Textarea" : "Zone de texte",
+	"Ckeditor" : "Ckeditor",
+	"Image" : "Image",
+	"Video" : "Video"
 
 }

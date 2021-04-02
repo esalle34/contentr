@@ -8,6 +8,7 @@ const SelectComponentPanel = (args) => {
     let view_thead = [];
     let finalcontainer = [];
 
+
     if (args.datas != null && args.datas.length > 0) {
 
         let parent = document.querySelector("#search-results:first-child:not(.responsive-table)");
@@ -56,7 +57,7 @@ const SelectComponentPanel = (args) => {
                     }
                 })
                 }
-                <td className="table-flex-btn row-reverse"><a key={`submit-${data.id}`} id={`submit-${data.id}`} name={`submit-${data.id}`} className="btn btn-secondary r-bold" href="#" onClick={() => args.select(args, data.id)}>{i18n.translate("Select")}</a></td>
+                <td className="table-flex-btn row-reverse"><a key={`submit-${data.id}`} id={`submit-${data.id}`} name={`submit-${data.id}`} className="btn btn-secondary r-bold" href="#" onClick={() => args.select(args, data.id)}>{i18n.translate("Choose")}</a></td>
             </tr>)
         }
 

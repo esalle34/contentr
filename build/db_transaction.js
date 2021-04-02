@@ -95,11 +95,8 @@ module.exports = function () {
       var args = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
       var name;
       return new Promise((resolve, reject) => {
-        if (typeof sql == "object") {
-          sql.message = typeof sql.message != "undefined" ? sql.message : "";
-          name = typeof sql.name != "undefined" ? "" + sql.name + " : " : "";
-          console.log(sql.name + " : " + sql.message);
-          sql = sql.query;
+        if (sql != null) {
+          name = typeof sql.name != "undefined" ? "" + sql.name + " : " : ""; //console.log(sql.name + " : " + sql.message, " query : " + sql);
         }
 
         connection.execute(sql, args, (err, rows) => {
@@ -257,16 +254,14 @@ module.exports = function () {
 
       return new Promise((resolve, reject) => {
         _transactions.db_execute(connection, q, args).then(res => {
+          _transactions.end(connection);
+
           try {
             if (res.length == 0) {
-              _transactions.end(connection);
-
               return resolve(res);
             }
 
             if (oneResultOnly) {
-              _transactions.end(connection);
-
               return resolve(Object.assign({}, object, res[0]));
             }
 

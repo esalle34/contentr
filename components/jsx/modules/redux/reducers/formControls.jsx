@@ -1,4 +1,5 @@
 import {TOGGLE_INPUT_VISIBILITY , toggleInputVisibility} from "../actions/formControls";
+import {INPUT_STATE_CHANGED , inputStateChanged} from "../actions/formControls";
 import {GET_DEFAULT_COUNTRY, getDefaultCountry} from "../actions/formControls";
 import {IS_MUTATOR_CHECKBOX, isMutatorCheckbox} from "../actions/formControls";
 import {CHECKBOX_CREATOR, checkboxCreator} from "../actions/formControls";
@@ -14,6 +15,8 @@ export function formControls(state = initialState, action){
 
 		case TOGGLE_INPUT_VISIBILITY:
 			return Object.assign({}, state, toggleInputVisibility(action.input));
+		case INPUT_STATE_CHANGED:
+			return Object.assign({}, state, inputStateChanged(action.input));
 		case GET_DEFAULT_COUNTRY:
 			return Object.assign({}, state, getDefaultCountry(action.input));
 		case IS_MUTATOR_CHECKBOX:

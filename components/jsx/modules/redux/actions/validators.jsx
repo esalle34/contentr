@@ -6,13 +6,14 @@ const VALIDATE_EMAIL = "VALIDATE_EMAIL";
 const VALIDATE_USERNAME_EMAIL = "VALIDATE_USERNAME_EMAIL";
 const VALIDATE_PASSWORD = "VALIDATE_PASSWORD";
 const VALIDATE_PASSWORD_SIGNUP = "VALIDATE_PASSWORD_SIGNUP";
-const VALIDATE_NAME = "VALIDATE_NAME";
+const VALIDATE_STRING = "VALIDATE_STRING";
 const VALIDATE_URI = "VALIDATE_URI";
 const VALIDATE_FILE = "VALIDATE_FILE";
+const VALIDATE_NUMBER = "VALIDATE_NUMBER";
 
 import { i18n } from "~/operations/modules/mandatory/i18n/services/index.js";
 
-export { LOAD_INPUTS, VALIDATE_FORM, VALIDATE_USERNAME, VALIDATE_EMAIL, VALIDATE_USERNAME_EMAIL, VALIDATE_PASSWORD, VALIDATE_PASSWORD_SIGNUP, VALIDATE_NAME, VALIDATE_URI, VALIDATE_FILE };
+export { LOAD_INPUTS, VALIDATE_FORM, VALIDATE_USERNAME, VALIDATE_EMAIL, VALIDATE_USERNAME_EMAIL, VALIDATE_PASSWORD, VALIDATE_PASSWORD_SIGNUP, VALIDATE_STRING, VALIDATE_URI, VALIDATE_FILE, VALIDATE_NUMBER };
 
 //Actions Creators
 
@@ -167,26 +168,36 @@ export function validatePassword(formId, input){
 
 }
 
-export function validateName(formId, input){
+export function validateString(formId, input){
 
 	let isValid = false;
 	let errorLabel;
-	let reqlength = undefined;
-	if(input.classList.value.includes("length")){
-		reqlength = input.classList.value.substring(input.classList.value.indexOf("length"));
-		reqlength = reqlength.match(/[0-9]+/g)[0];
+	let reqminlength;
+	let reqmaxlength;
+	if(input.classList.value.includes("minlength")){
+		reqminlength = input.classList.value.substring(input.classList.value.indexOf("minlength"));
+		reqminlength = reqminlength.match(/[0-9]+/g)[0];
 	}
+	if(input.classList.value.includes("maxlength")){
+		reqmaxlength = input.classList.value.substring(input.classList.value.indexOf("maxlength"));
+		reqmaxlength = reqmaxlength.match(/[0-9]+/g)[0];
+	}
+
 	if(input.value.length === 0){
 
 		errorLabel = i18n.translate("This field is required");
 
-	}else if(typeof reqlength != "undefined" && input.value.length < reqlength){
+	}else if(typeof reqminlength != "undefined" && parseInt(input.value.length) < parseInt(reqminlength)){
 
-		errorLabel = i18n.translateN("This field needs at least %s character", reqlength);
+		errorLabel = i18n.translateN("This field needs at least %s character", reqminlength);
 
-	}else if(typeof reqlength == "undefined"&& input.value.length < 2){
+	}else if(typeof reqminlength == "undefined" && parseInt(input.value.length) < 2){
 
 		errorLabel = i18n.translateN("This field needs at least %s character", 2);
+
+	}else if(typeof reqmaxlength != "undefined" && parseInt(input.value.length) > parseInt(reqmaxlength)){
+
+		errorLabel = i18n.translateN("This field needs a maximum of %s character", reqmaxlength);
 
 	}else{
 
@@ -195,7 +206,48 @@ export function validateName(formId, input){
 
 	}
 
-	return {type: VALIDATE_NAME, form : { id : formId, input : errorToggle(input, isValid, errorLabel) } }
+	return {type: VALIDATE_STRING, form : { id : formId, input : errorToggle(input, isValid, errorLabel) } }
+
+}
+
+export function validateNumber(formId, input){
+
+	let isValid = false;
+	let errorLabel;
+	let reqmin;
+	let reqmax;
+	if(input.classList.value.includes("min")){
+		reqmin = input.classList.value.substring(input.classList.value.indexOf("min"));
+		reqmin = reqmin.match(/[0-9]+/g)[0];
+	}
+	if(input.classList.value.includes("max")){
+		reqmax = input.classList.value.substring(input.classList.value.indexOf("max"));
+		reqmax = reqmax.match(/[0-9]+/g)[0];
+	}
+	if(input.value.length === 0){
+
+		errorLabel = i18n.translate("This field is required");
+
+	}else if(isNaN(input.value)){
+
+		errorLabel = i18n.translate("This field must contain only numerical values");
+
+	}else if(typeof reqmin != "undefined" && parseInt(input.value) < parseInt(reqmin)){
+
+		errorLabel = i18n.translateN("This field needs at least a value of %s", reqmin);
+
+	}else if(typeof reqmax != "undefined" && parseInt(input.value) > parseInt(reqmax)){
+
+		errorLabel = i18n.translateN("This field needs a maximum value of %s", reqmax);
+
+	}else{
+
+		isValid = true;
+		errorLabel = null;
+
+	}
+
+	return {type: VALIDATE_NUMBER, form : { id : formId, input : errorToggle(input, isValid, errorLabel) } }
 
 }
 

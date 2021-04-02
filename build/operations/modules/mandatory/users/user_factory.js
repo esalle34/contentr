@@ -17,19 +17,23 @@ var User = require("./user").User;
 var sha512 = require('js-sha512').sha512;
 
 class UserFactory {
-  constructor(args) {
-    if (typeof args.password != "undefined") {
-      args.email = typeof args.email != "undefined" ? args.email : null;
-      this.userFactory = Object.assign({}, {
-        username: args.username,
-        password: this.encryptPassword(args.password),
-        email: args.email
-      });
-    } else {
-      this.userFactory = Object.assign({}, {
-        id: args.id,
-        username: args.username
-      });
+  constructor() {
+    var args = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+
+    if (args != null) {
+      if (typeof args.password != "undefined") {
+        args.email = typeof args.email != "undefined" ? args.email : null;
+        this.userFactory = Object.assign({}, {
+          username: args.username,
+          password: this.encryptPassword(args.password),
+          email: args.email
+        });
+      } else {
+        this.userFactory = Object.assign({}, {
+          id: args.id,
+          username: args.username
+        });
+      }
     }
 
     this.getQueryPrefix = this.getQueryPrefix.bind(this);
@@ -50,15 +54,26 @@ class UserFactory {
   }
 
   fetchRolesColumns() {
+    var ext = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
     return new Promise(resolve => {
       db_transaction.db_quick_query(this.getQueryPrefix("roles"), null, null, false).then(res => {
-        var role_q_part = "JSON_OBJECT(";
-        res.map(role => {
-          role_q_part += "'" + role.COLUMN_NAME[0].toUpperCase() + role.COLUMN_NAME.substring(1) + "', privileges." + role.COLUMN_NAME + ",";
-        });
-        role_q_part = role_q_part.slice(0, -1);
-        role_q_part += ") as privileges";
-        return resolve(role_q_part);
+        if (ext == null) {
+          var role_q_part = "JSON_OBJECT(";
+          res.map(role => {
+            role_q_part += "'" + role.COLUMN_NAME[0].toUpperCase() + role.COLUMN_NAME.substring(1) + "', privileges." + role.COLUMN_NAME + ",";
+          });
+          role_q_part = role_q_part.slice(0, -1);
+          role_q_part += ") as privileges";
+          return resolve(role_q_part);
+        } else if (ext == "all") {
+          var roles = [];
+          res.map(role => {
+            role = Object.values(role);
+            roles.push(role);
+          });
+          roles = roles.flat();
+          return resolve(roles);
+        }
       });
     }).catch(err => {
       console.error("Error while fetching ROLE COLUMNS (UserFactory@fetchRolesColumns : " + err);

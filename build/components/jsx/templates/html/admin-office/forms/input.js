@@ -44,14 +44,14 @@ var Input = args => {
 
   return /*#__PURE__*/_react.default.createElement("div", {
     key: "".concat(args.groupClassName) + "-" + "".concat(args.key),
-    className: typeof args.groupClassName != "undefined" || args.groupClassName != null ? "form-group ".concat(args.groupClassName) : "form-group"
-  }, /*#__PURE__*/_react.default.createElement("div", {
-    className: typeof args.type != "undefined" ? args.type == "checkbox" ? undefined : "input-group" : undefined
+    className: typeof args.groupClassName != "undefined" || args.groupClassName != null ? "".concat(args.groupClassName) : "form-group"
   }, typeof args.prelabel != "undefined" && args.prelabel != null && /*#__PURE__*/_react.default.createElement("label", {
     key: "prelabel-".concat(args.id),
     htmlFor: args.id,
-    className: typeof args.type != "undefined" ? args.type == "checkbox" ? "form-check-label" : undefined : undefined
-  }, args.prelabel), typeof args.prepend != "undefined" && args.prepend != null && /*#__PURE__*/_react.default.createElement("div", {
+    className: typeof args.type != "undefined" ? args.type == "checkbox" ? "form-check-label" : args.type == "text" || args.type == "password" || args.type == "email" ? "sr-only" : args.type == "file" ? "file-label col" : undefined : undefined
+  }, args.prelabel), /*#__PURE__*/_react.default.createElement("div", {
+    className: typeof args.type != "undefined" ? args.type == "checkbox" ? undefined : "input-group" : undefined
+  }, typeof args.prepend != "undefined" && args.prepend != null && /*#__PURE__*/_react.default.createElement("div", {
     className: "input-group-prepend"
   }, args.prepend), /*#__PURE__*/_react.default.createElement("input", {
     id: args.id,
@@ -60,14 +60,15 @@ var Input = args => {
     type: args.type,
     className: args.className,
     placeholder: args.placeholder,
-    value: args.value
+    value: args.value,
+    dataset: typeof args.dataSet != "undefined" && args.dataSet != null ? JSON.stringify(args.dataSet) : undefined
   }), typeof args.append != "undefined" && args.append != null && /*#__PURE__*/_react.default.createElement("div", {
     className: "input-group-append"
-  }, args.append), typeof args.aplabel != "undefined" && args.aplabel != null && /*#__PURE__*/_react.default.createElement("label", {
+  }, args.append)), typeof args.aplabel != "undefined" && args.aplabel != null && /*#__PURE__*/_react.default.createElement("label", {
     key: "prelabel-".concat(args.id),
     htmlFor: args.id,
-    className: typeof args.type != "undefined" ? args.type == "checkbox" ? "form-check-label" : undefined : undefined
-  }, args.aplabel)));
+    className: typeof args.type != "undefined" ? args.type == "checkbox" ? "form-check-label" : args.type == "text" ? "sr-only" : undefined : undefined
+  }, args.aplabel));
 };
 
 var _default = Input;

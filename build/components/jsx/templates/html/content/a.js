@@ -10,6 +10,10 @@ var _react = _interopRequireDefault(require("react"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var A = args => {
+  if (typeof args.value != "undefined" && args.els.length == 0) {
+    args.els = args.value;
+  }
+
   return /*#__PURE__*/_react.default.createElement("a", {
     key: args.key,
     id: args.id != null ? args.id : undefined,

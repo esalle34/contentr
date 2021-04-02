@@ -90,12 +90,12 @@ class Html extends _react.default.Component {
   }
 
   render() {
-    return /*#__PURE__*/_react.default.createElement("html", {
+    return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, typeof this.props.fragment == "undefined" || this.props.fragment == false ? /*#__PURE__*/_react.default.createElement("html", {
       rootid: this.state.data.root_id,
       lang: this.state.data.lang
     }, /*#__PURE__*/_react.default.createElement(_head.default, {
       data: this.state.data
-    }), /*#__PURE__*/_react.default.createElement("body", null, this.props.body && this.state.els));
+    }), /*#__PURE__*/_react.default.createElement("body", null, this.props.body && this.state.els)) : /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, this.props.body && this.state.els));
   }
 
 }

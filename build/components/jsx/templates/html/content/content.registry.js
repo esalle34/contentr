@@ -23,6 +23,10 @@ var _image = _interopRequireDefault(require("./image"));
 
 var _h = _interopRequireDefault(require("./h1"));
 
+var _h2 = _interopRequireDefault(require("./h2"));
+
+var _h3 = _interopRequireDefault(require("./h3"));
+
 var _ul = _interopRequireDefault(require("./ul"));
 
 var _li = _interopRequireDefault(require("./li"));
@@ -51,6 +55,8 @@ var content = {
   div: _div.default,
   image: _image.default,
   h1: _h.default,
+  h2: _h2.default,
+  h3: _h3.default,
   ul: _ul.default,
   li: _li.default,
   a: _a.default,

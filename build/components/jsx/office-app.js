@@ -53,6 +53,7 @@ class OfficeApp extends _react.default.Component {
 
 document.addEventListener("DOMContentLoaded", function () {
   var officeapp = document.getElementById("office");
+  var uploader = document.getElementById("uploader");
 
   if (officeapp != null) {
     _reactDom.default.render( /*#__PURE__*/_react.default.createElement(_reactRedux.Provider, {
@@ -61,4 +62,10 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   ;
+
+  if (uploader != null) {
+    var Uploader = _officeApp.officeRegistry["invokeUploader"];
+
+    _reactDom.default.render( /*#__PURE__*/_react.default.createElement(Uploader, null), uploader);
+  }
 });

@@ -42,6 +42,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
 let officeapp = document.getElementById("office");
 let uploader = document.getElementById("uploader");
+let formBuilder = document.getElementById("inputs-container");
 
 if(officeapp != null){
 
@@ -64,6 +65,14 @@ if(uploader != null){
 	
 	)
 
+}
+if(formBuilder != null){
+	let FormBuilder = officeRegistry["invokeFormBuilder"];
+
+	ReactDOM.render(
+		<FormBuilder />,
+		formBuilder
+	)
 }
 
 

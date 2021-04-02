@@ -12,7 +12,8 @@ exports.validateUsernameEmail = validateUsernameEmail;
 exports.validatePassword = validatePassword;
 exports.validateName = validateName;
 exports.validateUri = validateUri;
-exports.VALIDATE_URI = exports.VALIDATE_NAME = exports.VALIDATE_PASSWORD_SIGNUP = exports.VALIDATE_PASSWORD = exports.VALIDATE_USERNAME_EMAIL = exports.VALIDATE_EMAIL = exports.VALIDATE_USERNAME = exports.VALIDATE_FORM = exports.LOAD_INPUTS = void 0;
+exports.validateFile = validateFile;
+exports.VALIDATE_FILE = exports.VALIDATE_URI = exports.VALIDATE_NAME = exports.VALIDATE_PASSWORD_SIGNUP = exports.VALIDATE_PASSWORD = exports.VALIDATE_USERNAME_EMAIL = exports.VALIDATE_EMAIL = exports.VALIDATE_USERNAME = exports.VALIDATE_FORM = exports.LOAD_INPUTS = void 0;
 
 var _index = require("../../../../../operations/modules/mandatory/i18n/services/index.js");
 
@@ -35,6 +36,8 @@ var VALIDATE_NAME = "VALIDATE_NAME";
 exports.VALIDATE_NAME = VALIDATE_NAME;
 var VALIDATE_URI = "VALIDATE_URI";
 exports.VALIDATE_URI = VALIDATE_URI;
+var VALIDATE_FILE = "VALIDATE_FILE";
+exports.VALIDATE_FILE = VALIDATE_FILE;
 
 //Actions Creators
 function loadInputs(form) {
@@ -190,8 +193,32 @@ function validatePassword(formId, input) {
 }
 
 function validateName(formId, input) {
+  var isValid = false;
+  var errorLabel;
+  var reqlength = undefined;
+
+  if (input.classList.value.includes("length")) {
+    reqlength = input.classList.value.substring(input.classList.value.indexOf("length"));
+    reqlength = reqlength.match(/[0-9]+/g)[0];
+  }
+
+  if (input.value.length === 0) {
+    errorLabel = _index.i18n.translate("This field is required");
+  } else if (typeof reqlength != "undefined" && input.value.length < reqlength) {
+    errorLabel = _index.i18n.translateN("This field needs at least %s character", reqlength);
+  } else if (typeof reqlength == "undefined" && input.value.length < 2) {
+    errorLabel = _index.i18n.translateN("This field needs at least %s character", 2);
+  } else {
+    isValid = true;
+    errorLabel = null;
+  }
+
   return {
-    type: VALIDATE_NAME
+    type: VALIDATE_NAME,
+    form: {
+      id: formId,
+      input: errorToggle(input, isValid, errorLabel)
+    }
   };
 }
 
@@ -200,7 +227,7 @@ function validateUri(formId, input) {
   var errorLabel;
 
   if (input.classList.value.includes("uri_internal")) {
-    if (input.value.match(/^\/(?=[\/\.]?\w+(?:)+)/)) {
+    if (input.value.match(/^\/(?=[a-zA-Z0-9~@#$^*()/_+=[\]{}|\\,.?:-]*$)(?!.*[<>'";`%])?/i)) {
       isValid = true;
     } else {
       errorLabel = _index.i18n.translate("Value must be compatible with internal link standards");
@@ -215,6 +242,25 @@ function validateUri(formId, input) {
 
   return {
     type: VALIDATE_URI,
+    form: {
+      id: formId,
+      input: errorToggle(input, isValid, errorLabel)
+    }
+  };
+}
+
+function validateFile(formId, input) {
+  var isValid = false;
+  var errorLabel;
+
+  if (input.value.length == 0) {
+    errorLabel = _index.i18n.translate("Nothing was selected");
+  } else {
+    isValid = true;
+  }
+
+  return {
+    type: VALIDATE_FILE,
     form: {
       id: formId,
       input: errorToggle(input, isValid, errorLabel)

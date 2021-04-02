@@ -21,9 +21,11 @@ const add_folder_form = JSON.stringify({ method : "post", async : true, id: "add
 const manage_header_form = JSON.stringify({ method : "post", async : true, id: "manage-header-form", key: "manage-header-form", className : "manage-header-form backoffice-panel has-popin col-12 row justify-content-center", enctype : "multipart/form-data", els : [] });
 const manage_header_form_form = JSON.stringify({ method : "post", async : true, id: "manage-header-form-form", key: "manage-header-form-form", className : "manage-header-form-form has-popin col-12 row justify-content-center", enctype : "multipart/form-data", els : [] });
 
-//Content
 //Content types
 const create_content_types_form = JSON.stringify({ method : "post", async : true, id: "create-content-types-form", key: "create-content-types-form", className : "create-content-types-form backoffice-panel has-popin col-12 row justify-content-center", enctype : "multipart/form-data", els : [] });
+//Content
+const create_content_form = JSON.stringify({ method : "post", async : true, id: "create-content-form", key: "create-content-form", className : "create-content-form backoffice-panel has-popin col-12 row justify-content-center", enctype : "multipart/form-data", els : [] });
+const create_content_form_form = JSON.stringify({ method : "post", async : true, id: "create-content-form-form", key: "create-content-form-form", className : "create-content-form-form backoffice-panel has-popin col-12 row justify-content-center", enctype : "multipart/form-data", els : [] });
 
 module.exports = {
 
@@ -108,12 +110,12 @@ module.exports = {
         },
         lastname : {
             name : "INSERT_register_lastname_input",
-            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('register_lastname', 'input', '{ "className" : "form-control form-input-text validate_name", "key" : "lastname", "id" : "lastname", "name" : "lastname", "type" : "text", "prelabel" : "Last Name", "placeholder" : "Last Name", "groupClassName" : "form-group col-12 col-sm-6" }', 1, 2, (SELECT id FROM forms WHERE name="register_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='register_personal_data_container'))`,
+            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('register_lastname', 'input', '{ "className" : "form-control form-input-text validate_string", "key" : "lastname", "id" : "lastname", "name" : "lastname", "type" : "text", "prelabel" : "Last Name", "placeholder" : "Last Name", "groupClassName" : "form-group col-12 col-sm-6" }', 1, 2, (SELECT id FROM forms WHERE name="register_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='register_personal_data_container'))`,
             message : "INSERTing lastname input in register form"
         },
         firstname : {
             name : "INSERT_register_firstname_input",
-            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('register_firstname', 'input', '{ "className" : "form-control form-input-text validate_name", "key" : "firstname", "id" : "firstname", "name" : "firstname", "type" : "text", "prelabel" : "First Name", "placeholder" : "First Name", "groupClassName" : "form-group col-12 col-sm-6" }', 1, 3, (SELECT id FROM forms WHERE name="register_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='register_personal_data_container'))`,
+            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('register_firstname', 'input', '{ "className" : "form-control form-input-text validate_string", "key" : "firstname", "id" : "firstname", "name" : "firstname", "type" : "text", "prelabel" : "First Name", "placeholder" : "First Name", "groupClassName" : "form-group col-12 col-sm-6" }', 1, 3, (SELECT id FROM forms WHERE name="register_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='register_personal_data_container'))`,
             message : "INSERTing firstname input in register form"
         },
         phonenumber : {
@@ -190,12 +192,12 @@ module.exports = {
         },
         rootId : {
             name : "INSERT_create_route_rootid_input",
-            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('create_route_rootid', 'input', '{ "className" : "form-control form-input-text machine-name::- validate_name length-3", "prelabel" : "Name", "key" : "root_id", "id" : "root_id", "name" : "root_id_length-3", "type" : "text", "placeholder": "Name", "groupClassName" : "form-group col-12 col-lg-6" }', 0, 2, (SELECT id FROM forms WHERE name="create_route_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_route_form_uri_container'))`,
+            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('create_route_rootid', 'input', '{ "className" : "form-control form-input-text machine-name::- validate_string minlength-3", "prelabel" : "Name", "key" : "root_id", "id" : "root_id", "name" : "root_id_length-3", "type" : "text", "placeholder": "Name", "groupClassName" : "form-group col-12 col-lg-6" }', 0, 2, (SELECT id FROM forms WHERE name="create_route_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_route_form_uri_container'))`,
             message : "INSERTing create_route rootid input in create route form"
         },
         feature : {
             name : "INSERT_create_route_feature_input",
-            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('create_route_feature', 'input', '{ "className" : "form-control form-input-text machine-name::_ validate_name length-3", "prelabel" : "Feature", "key" : "feature", "id" : "feature", "name" : "feature_length-3", "type" : "text", "placeholder": "Feature", "groupClassName" : "form-group col-12 col-lg-6" }', 0, 3, (SELECT id FROM forms WHERE name="create_route_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_route_form_uri_container'))`,
+            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('create_route_feature', 'input', '{ "className" : "form-control form-input-text machine-name::_ validate_string minlength-3", "prelabel" : "Feature", "key" : "feature", "id" : "feature", "name" : "feature_length-3", "type" : "text", "placeholder": "Feature", "groupClassName" : "form-group col-12 col-lg-6" }', 0, 3, (SELECT id FROM forms WHERE name="create_route_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_route_form_uri_container'))`,
             message : "INSERTing create_route feature input in create route form"
         },
         external : {
@@ -235,7 +237,7 @@ module.exports = {
         },
         title : {
             name : "INSERT_create_route_form_title_input",
-            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('create_route_title', 'input', '{ "className" : "form-control form-input-text validate_name length-3", "prelabel" : "Title", "key" : "title", "id" : "title", "name" : "title_length-3", "type" : "text", "placeholder": "Title", "groupClassName" : "form-group col-12" }', 1, 2, (SELECT id FROM forms WHERE name="create_route_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_route_form_route_container'))`,
+            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('create_route_title', 'input', '{ "className" : "form-control form-input-text validate_string minlength-3", "prelabel" : "Title", "key" : "title", "id" : "title", "name" : "title_length-3", "type" : "text", "placeholder": "Title", "groupClassName" : "form-group col-12" }', 1, 2, (SELECT id FROM forms WHERE name="create_route_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_route_form_route_container'))`,
             message : "INSERTing create_route title input in create route form"
         },
         invoke_theme : {
@@ -245,7 +247,7 @@ module.exports = {
         },
         method : {
             name : "INSERT_register_route_form_route_container_method",
-            query :  `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('create_route_method', 'select', '{ "className" : "form-control col-12", "key" : "method", "id" : "method", "prelabel" : "Content type", "name" : "method", "groupClassName" : "form-group col-12 col-sm-6", "options" : { "values" : [ "|Content type", "get-page|Page", "get-form|Form", "get-file|File", "post-callback|Callback"], "dataSet" : { "input-creator" : { "on-values" : "file", "mode": "ap", "groupClassName" : "form-group input-created col-12", "className" : "form-control form-input-text validate_uri uri_internal", "placeholder" : "Path to file and filename", "name" : "path-to-file-and-filename", "key" : "path-to-file-and-filename" }, "checkbox-creator" : {"name" : "is-existing-data", "on-values" : "page|form|callback", "groupClassName" : "form-group form-check col-6 checkbox-created checkbox-container", "className": "has-dataset input-creator mode::ap name::contentid groupClassName::form-group|input-created|col-6 className::form-control|form-input-text|validate_name|length-1 placeholder::Content-id-or-form-name","aplabel" : "Link to existing content ?", "key" : "is-existing-data", "id" : "is-existing-data" } }, "translate" : true, "default" : "Content type"} }', 1, 4, (SELECT id FROM forms WHERE name="create_route_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_route_form_route_container'))`,
+            query :  `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('create_route_method', 'select', '{ "className" : "form-control col-12", "key" : "method", "id" : "method", "prelabel" : "Content type", "name" : "method", "groupClassName" : "form-group col-12 col-sm-6", "options" : { "values" : [ "|Content type", "get-page|Page", "get-form|Form", "get-file|File", "post-callback|Callback"], "dataSet" : { "input-creator" : { "on-values" : "file", "mode": "ap", "groupClassName" : "form-group input-created col-12", "className" : "form-control form-input-text validate_uri uri_internal", "placeholder" : "Path to file and filename", "name" : "path-to-file-and-filename", "key" : "path-to-file-and-filename" }, "checkbox-creator" : {"name" : "is-existing-data", "on-values" : "page|form|callback", "groupClassName" : "form-group form-check col-6 checkbox-created checkbox-container", "className": "has-dataset input-creator mode::ap name::contentid groupClassName::form-group|input-created|col-6 className::form-control|form-input-text|validate_string|length-1 placeholder::Content-id-or-form-name","aplabel" : "Link to existing content ?", "key" : "is-existing-data", "id" : "is-existing-data" } }, "translate" : true, "default" : "Content type"} }', 1, 4, (SELECT id FROM forms WHERE name="create_route_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_route_form_route_container'))`,
             message : "Inserting create_route method input in create route form"
         },
         route_container_back_next : {
@@ -416,12 +418,12 @@ module.exports = {
         },
         rootId : {
             name : "INSERT_edit_route_rootid_input",
-            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('edit_route_rootid', 'input', '{ "className" : "form-control form-input-text machine-name::- validate_name length-3", "prelabel" : "Name", "key" : "root_id", "id" : "root_id", "name" : "root_id_length-3", "type" : "text", "placeholder": "Name", "groupClassName" : "form-group col-12 col-lg-6" }', 0, 2, (SELECT id FROM forms WHERE name="edit_route_form_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='edit_route_form_form_uri_container'))`,
+            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('edit_route_rootid', 'input', '{ "className" : "form-control form-input-text machine-name::- validate_string minlength-3", "prelabel" : "Name", "key" : "root_id", "id" : "root_id", "name" : "root_id_length-3", "type" : "text", "placeholder": "Name", "groupClassName" : "form-group col-12 col-lg-6" }', 0, 2, (SELECT id FROM forms WHERE name="edit_route_form_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='edit_route_form_form_uri_container'))`,
             message : "INSERTing edit_route rootid input in create route form"
         },
         feature : {
             name : "INSERT_edit_route_feature_input",
-            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('edit_route_feature', 'input', '{ "className" : "form-control form-input-text machine-name::_ validate_name length-3", "prelabel" : "Feature", "key" : "feature", "id" : "feature", "name" : "feature_length-3", "type" : "text", "placeholder": "Feature", "groupClassName" : "form-group col-12 col-lg-6" }', 0, 3, (SELECT id FROM forms WHERE name="edit_route_form_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='edit_route_form_form_uri_container'))`,
+            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('edit_route_feature', 'input', '{ "className" : "form-control form-input-text machine-name::_ validate_string minlength-3", "prelabel" : "Feature", "key" : "feature", "id" : "feature", "name" : "feature_length-3", "type" : "text", "placeholder": "Feature", "groupClassName" : "form-group col-12 col-lg-6" }', 0, 3, (SELECT id FROM forms WHERE name="edit_route_form_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='edit_route_form_form_uri_container'))`,
             message : "INSERTing edit_route feature input in create route form"
         },
         external : {
@@ -461,7 +463,7 @@ module.exports = {
         },
         title : {
             name : "INSERT_edit_route_form_form_title_input",
-            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('edit_route_title', 'input', '{ "className" : "form-control form-input-text validate_name length-3", "prelabel" : "Title", "key" : "title", "id" : "title", "name" : "title_length-3", "type" : "text", "placeholder": "Title", "groupClassName" : "form-group col-12" }', 1, 2, (SELECT id FROM forms WHERE name="edit_route_form_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='edit_route_form_form_route_container'))`,
+            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('edit_route_title', 'input', '{ "className" : "form-control form-input-text validate_string minlength-3", "prelabel" : "Title", "key" : "title", "id" : "title", "name" : "title_length-3", "type" : "text", "placeholder": "Title", "groupClassName" : "form-group col-12" }', 1, 2, (SELECT id FROM forms WHERE name="edit_route_form_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='edit_route_form_form_route_container'))`,
             message : "INSERTing edit_route title input in create route form"
         },
         invoke_theme : {
@@ -471,7 +473,7 @@ module.exports = {
         },
         method : {
             name : "INSERT_register_route_form_route_container_method",
-            query :  `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('edit_route_method', 'select', '{ "className" : "form-control col-12", "key" : "method", "id" : "method", "prelabel" : "Content type", "name" : "method", "groupClassName" : "form-group col-12 col-sm-6", "options" : { "values" : [ "|Content type", "get-page|Page", "get-form|Form", "get-file|File", "post-callback|Callback"], "dataSet" : { "input-creator" : { "on-values" : "file", "mode": "ap", "groupClassName" : "form-group input-created col-12", "className" : "form-control form-input-text validate_uri uri_internal", "placeholder" : "Path to file and filename", "name" : "path-to-file-and-filename", "key" : "path-to-file-and-filename" }, "checkbox-creator" : {"name" : "is-existing-data", "on-values" : "page|form|callback", "groupClassName" : "form-group form-check col-6 checkbox-created checkbox-container", "className": "has-dataset input-creator mode::ap name::contentid groupClassName::form-group|input-created|col-6 className::form-control|form-input-text|validate_name|length-1 placeholder::Content-id-or-form-name","aplabel" : "Link to existing content ?", "key" : "is-existing-data", "id" : "is-existing-data" } }, "translate" : true, "default" : "Content type"} }', 1, 4, (SELECT id FROM forms WHERE name="edit_route_form_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='edit_route_form_form_route_container'))`,
+            query :  `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('edit_route_method', 'select', '{ "className" : "form-control col-12", "key" : "method", "id" : "method", "prelabel" : "Content type", "name" : "method", "groupClassName" : "form-group col-12 col-sm-6", "options" : { "values" : [ "|Content type", "get-page|Page", "get-form|Form", "get-file|File", "post-callback|Callback"], "dataSet" : { "input-creator" : { "on-values" : "file", "mode": "ap", "groupClassName" : "form-group input-created col-12", "className" : "form-control form-input-text validate_uri uri_internal", "placeholder" : "Path to file and filename", "name" : "path-to-file-and-filename", "key" : "path-to-file-and-filename" }, "checkbox-creator" : {"name" : "is-existing-data", "on-values" : "page|form|callback", "groupClassName" : "form-group form-check col-6 checkbox-created checkbox-container", "className": "has-dataset input-creator mode::ap name::contentid groupClassName::form-group|input-created|col-6 className::form-control|form-input-text|validate_string|length-1 placeholder::Content-id-or-form-name","aplabel" : "Link to existing content ?", "key" : "is-existing-data", "id" : "is-existing-data" } }, "translate" : true, "default" : "Content type"} }', 1, 4, (SELECT id FROM forms WHERE name="edit_route_form_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='edit_route_form_form_route_container'))`,
             message : "Inserting edit_route method input in create route form"
         },
         route_container_back_next : {
@@ -585,7 +587,7 @@ module.exports = {
         },
         add_folder_input : {
             name : "INSERT_edit_route_search_input",
-            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('add_folder_input', 'input', '{ "className" : "form-control form-input-folder validate_name length-3", "key" : "add-folder", "id" : "add-folder", "name" : "folder_length-3", "type" : "text", "placeholder": "Name", "groupClassName" : "form-group col-12"}', 0, 0, (SELECT id FROM forms WHERE name="add_folder_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='add_folder_form_container'))`,
+            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('add_folder_input', 'input', '{ "className" : "form-control form-input-folder validate_string minlength-3", "key" : "add-folder", "id" : "add-folder", "name" : "folder_length-3", "type" : "text", "placeholder": "Name", "groupClassName" : "form-group col-12"}', 0, 0, (SELECT id FROM forms WHERE name="add_folder_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='add_folder_form_container'))`,
             message : "INSERTing edit_route search input in edit route form"
         },
         add_folder_container_back_next : {
@@ -656,28 +658,33 @@ module.exports = {
     create_content_type_form : {
         form : {
             name : "INSERT_create_content_types_form",
-            query : `INSERT into forms (name, element, uri_id, number, isSystem) VALUES ('create_content_types_form', '${create_content_types_form}', (SELECT id FROM uri WHERE root_id='create-content-type-form'), 1, true)`,
+            query : `INSERT into forms (name, element, uri_id, number, isSystem) VALUES ('create_content_types_form', '${create_content_types_form}', (SELECT id FROM uri WHERE root_id='create-content-types'), 2, true)`,
             message: "INSERTing create_content_types form"
         },
-        create_container : {
+        machine_name_create_container : {
             name : "INSERT_create_content_types_create_container",
             query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id) VALUES ('create_content_types_create_container', 'div', '{"className" : "col-10 row justify-content-center"}', 0, 0, (SELECT id FROM forms WHERE name="create_content_types_form"))`,
             message : "INSERTing create_content_types form edit container"
         },
-        create_container_ms : {
+        machine_name_create_container_ms : {
             name : "INSERT_create_content_types_create_container_ms",
-            query :  `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('create_content_types_create_ms', 'input', '{ "className" : "form-control", "key" : "ms", "id" : "ms", "name" : "ms", "type": "hidden", "value": "content_types_service/create_content_types::create::.create-content-types-form.end", "groupClassName" : "ms" }', 0, 0, (SELECT id FROM forms WHERE name="create_content_types_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_content_types_create_container'))`,
+            query :  `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('create_content_types_create_ms', 'input', '{ "className" : "form-control", "key" : "ms", "id" : "ms", "name" : "ms", "type": "hidden", "value": "content_types_service/create_content_types::machine_name::.create-content-types-form.step-2", "groupClassName" : "ms" }', 0, 0, (SELECT id FROM forms WHERE name="create_content_types_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_content_types_create_container'))`,
             message : "Inserting create_content_types_create_container_ms input in edit header_form form"
         },
-        manage_infos_h3 : {
+        machine_name_infos_h3 : {
             name : "INSERT_create_content_types_create_container_infos_h3",
             query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('create_content_types_create_container_infos_h3', 'h3',  '{"key" : "create-content-types-infos-h3", "className" : "title fill b-border", "els" : "Create content type"}', 0, 1, (SELECT id FROM forms WHERE name="create_content_types_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_content_types_create_container'))`,
             message : "INSERTing create_content_types_create_container infos h3"
         },
         machine_name : {
             name : "INSERT_create_content_types_input_name",
-            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('create_content_types_machine_name', 'input', '{ "className" : "form-control form-input-text machine-name::_ validate_name length-3", "prelabel" : "Machine name", "key" : "machine-name", "id" : "machine-name", "name" : "feature_length-3", "type" : "text", "placeholder": "Machine name", "groupClassName" : "form-group col-12" }', 0, 2, (SELECT id FROM forms WHERE name="create_content_types_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_content_types_create_container'))`,
+            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('create_content_types_machine_name', 'input', '{ "className" : "form-control form-input-text machine-name::_ validate_string minlength-3", "prelabel" : "Machine name", "key" : "machine-name", "id" : "machine-name", "name" : "name_length-3", "type" : "text", "placeholder": "Machine name", "groupClassName" : "form-group col-12 col-lg-6" }', 0, 2, (SELECT id FROM forms WHERE name="create_content_types_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_content_types_create_container'))`,
             message : "INSERTing create_content_types input in create route form"
+        },
+        template_name : {
+            name : "INSERT_create_content_types_input_template_name",
+            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('create_content_types_template_name', 'input', '{ "className" : "form-control form-input-text machine-name::- validate_string minlength-3", "prelabel" : "Template name", "key" : "template-name", "id" : "template-name", "name" : "template_length-3", "type" : "text", "placeholder": "Template name", "groupClassName" : "form-group col-12 col-lg-6" }', 0, 3, (SELECT id FROM forms WHERE name="create_content_types_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_content_types_create_container'))`,
+            message : "INSERTing create_content_types input template_name in create route form"
         },
         machine_name_container_next : {
             name : "INSERT_machine_name_create_content_types_container_next",
@@ -689,6 +696,110 @@ module.exports = {
             query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('create_content_types_container_submit', 'input', '{ "id" : "submit", "name" : "submit", "className" : "submit form-input-submit next btn btn-primary", "key" : "submit", "type" : "submit", "value": "Next", "groupClassName" : "container-next col-12" }', 0, 0, (SELECT id FROM forms WHERE name="create_content_types_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_content_types_container_next'))`,
             message : "INSERTing machine_name_create_content_types submit input in create_route form"
         },
-    }
+        inputs_create_container : {
+            name : "INSERT_create_content_types_create_container",
+            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id) VALUES ('create_content_types_create_container_inputs', 'div', '{"className" : "col-10 row justify-content-center"}', 1, 0, (SELECT id FROM forms WHERE name="create_content_types_form"))`,
+            message : "INSERTing create_content_types form edit container"
+        },
+        inputs_create_container_ms : {
+            name : "INSERT_create_content_types_create_container_ms",
+            query :  `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('create_content_types_create_ms', 'input', '{ "className" : "form-control", "key" : "ms", "id" : "ms", "name" : "ms", "type": "hidden", "value": "content_types_service/create_content_types::inputs::.create-content-types-form.step-3", "groupClassName" : "ms" }', 1, 0, (SELECT id FROM forms WHERE name="create_content_types_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_content_types_create_container_inputs'))`,
+            message : "Inserting create_content_types_create_container_ms input in edit header_form form"
+        },
+        inputs_infos_h3 : {
+            name : "INSERT_create_content_types_create_container_infos_h3_inputs",
+            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('create_content_types_create_container_infos_h3_inputs', 'h3',  '{"key" : "create-content-types-infos-h3-inputs", "className" : "title fill b-border", "els" : "Create inputs"}', 1, 1, (SELECT id FROM forms WHERE name="create_content_types_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_content_types_create_container_inputs'))`,
+            message : "INSERTing create_content_types_create_container_infos_h3_inputs"
+        },
+        inputs_container : {
+            name : "INSERT_create_content_types_create_container_inputs_container",
+            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('create_content_types_create_container_inputs_container', 'div',  '{"id" : "inputs-container", "key" : "inputs-container", "className" : "col-10 row flex-row-reverse"}', 1, 2, (SELECT id FROM forms WHERE name="create_content_types_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_content_types_create_container_inputs'))`,
+            message : "INSERTing create_content_types_create_container_inputs_container"
+        },
+        inputs_container_next : {
+            name : "INSERT_inputs_create_content_types_container_next",
+            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('create_content_types_container_next_inputs', 'div',  '{"className" : "col-12 row", "id" : "create-content-types-next", "key" : "create_content_types_next"}', 1, 3, (SELECT id FROM forms WHERE name="create_content_types_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_content_types_create_container_inputs'))`,
+            message : "INSERTing inputs_create_content_types container_next"
+        },
+        inputs_submit : {
+            name : "INSERT_inputs_create_content_types_submit_input",
+            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('create_content_types_container_submit_inputs', 'input', '{ "id" : "submit", "name" : "next", "className" : "submit form-input-submit next btn btn-primary", "key" : "submit", "type" : "submit", "value": "Submit", "groupClassName" : "container-next col-12" }', 1, 0, (SELECT id FROM forms WHERE name="create_content_types_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_content_types_container_next_inputs'))`,
+            message : "INSERTing inputs_create_content_types submit input in create_route form"
+        },
+        end_container : {
+            name : "INSERT_create_content_type_end_container",
+            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id) VALUES ('create_content_type_end_container', 'div', '{"className" : "col-10 row"}', 2, 0, (SELECT id FROM forms WHERE name="create_content_types_form"))`,
+            message : "INSERTing create_content_type form end container"
+        },
+        end_h3 : {
+            name : "INSERT_create_content_type_end_h3",
+            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('create_type_container_end_h3', 'h3',  '{"key" : "create-content-type-end-h3", "className" : "center fill info", "els" : "Content type created successfully"}', 2, 0, (SELECT id FROM forms WHERE name="create_content_types_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_content_type_end_container'))`,
+            message : "INSERTing create_content_type form end h3"
+        },
+        end_container_next : {
+            name : "INSERT_create_content_type_end_next",
+            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('create_content_type_form_end_container_next', 'div',  '{"className" : "col-12 row", "id" : "create-content-type-container-next", "key" : "create_content_type_container_next"}', 2, 1, (SELECT id FROM forms WHERE name="create_content_types_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_content_type_end_container'))`,
+            message : "INSERTing create_content_type form end container_back_next"
+        },
+        end_add_new : {
+            name : "INSERT_create_content_type_end_add_new_input",
+            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('create_content_type_end_submit', 'a', '{ "id" : "add_new", "href" : "/administrate/content/types/create", "className" : "next btn btn-primary", "key" : "add_new", "els": "Add new", "groupClassName" : "container-next col-12" }', 2, 0, (SELECT id FROM forms WHERE name="create_content_types_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_content_type_form_end_container_next'))`,
+            message : "INSERTing end add new input in create_content_type form"
+        },
+    },
+    create_content_form : {
+        form : {
+            name : "INSERT_create_content_form",
+            query : `INSERT into forms (name, element, uri_id, number, isSystem) VALUES ('create_content_form', '${create_content_form}', (SELECT id FROM uri WHERE root_id='create-content-form'), 0, true)`,
+            message: "INSERTing create_content form"
+        },
+        create_content_container : {
+            name : "INSERT_create_content_form_create_content_container",
+            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id) VALUES ('create_content_form_container', 'div', '{"className" : "col-10 row justify-content-center"}', 0, 0, (SELECT id FROM forms WHERE name="create_content_form"))`,
+            message : "INSERTing create_content form create_content container"
+        },
+        create_content_container_ms : {
+            name : "INSERT_create_content_form_create_content_container_ms",
+            query :  `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('create_content_ms', 'input', '{ "className" : "form-control", "key" : "ms", "id" : "ms", "name" : "ms", "type": "hidden", "value": "content_types_service/search_content_types::search::.create_content-form.end", "groupClassName" : "ms" }', 0, 0, (SELECT id FROM forms WHERE name="create_content_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_content_form_container'))`,
+            message : "Inserting create_content create_content_container_ms input in create header form"
+        },
+        create_content_infos_h3 : {
+            name : "INSERT_create_content_form_create_content_infos_h3",
+            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('create_content_form_infos_h3', 'h3',  '{"key" : "header-infos-h3", "className" : "title fill b-border", "els" : "Create content"}', 0, 1, (SELECT id FROM forms WHERE name="create_content_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_content_form_container'))`,
+            message : "INSERTing create_content form create_content infos h3"
+        },
+        search_input : {
+            name : "INSERT_create_content_search_input",
+            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('create_content_search', 'input', '{ "className" : "form-control form-input-text has-dataset search-engine", "key" : "search-engine", "id" : "search-engine", "name" : "search-engine", "type" : "text", "placeholder": "Name", "groupClassName" : "form-group col-12", "dataSet" : { "search-engine" : { "url" : "/administrate/content/types/search", "method" : "post", "on" : ["keyup"], "renderingTpl" : "createContent", "renderToId" : "search-results", "renderOnLoad" : true } } }', 0, 2, (SELECT id FROM forms WHERE name="create_content_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_content_form_container'))`,
+            message : "INSERTing create_content search input in create_content header form"
+        },
+        create_content_search_results : {
+            name : "INSERT_create_content_form_create_content_container_search_results",
+            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('create_content_form_container_search_results', 'div', '{"id" : "search-results", "key" : "search-results", "className" : "col-12 row justify-content-center"}', 0, 3, (SELECT id FROM forms WHERE name="create_content_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_content_form_container'))`,
+            message : "INSERTing create_content form create_content container search results"
+        },
+    },
+    create_content_form_form : {
+        form : {
+            name : "INSERT_create_content_form_form",
+            query : `INSERT into forms (name, element, uri_id, number, isSystem) VALUES ('create_content_form_form', '${create_content_form_form}', (SELECT id FROM uri WHERE root_id='create-content-form-form'), 0, true)`,
+            message: "INSERTing manage_header_form form"
+        },
+        create_content_container : {
+            name : "INSERT_create_content_form_form_manage_container",
+            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id) VALUES ('create_content_form_form_container', 'div', '{"className" : "col-10 row justify-content-center"}', 0, 0, (SELECT id FROM forms WHERE name="create_content_form_form"))`,
+            message : "INSERTing manage_header_form form manage container"
+        },
+        create_content_container_ms : {
+            name : "INSERT_create_content_form_form_manage_container_ms",
+            query :  `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('manage_header_form_ms', 'input', '{ "className" : "form-control", "key" : "ms", "id" : "ms", "name" : "ms", "type": "hidden", "value": "form_service/create_content::getForm::.manage-header-form.end", "groupClassName" : "ms" }', 0, 0, (SELECT id FROM forms WHERE name="create_content_form_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_content_form_form_container'))`,
+            message : "Inserting manage_header_form manage_container_ms input in manage header_form form"
+        },
+        create_content_container_dragndrop_results : {
+            name : "INSERT_manage_header_form_manage_container_dragndrop_results",
+            query : `INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('manage_header_form_container_dragndrop_results', 'div', '{"id" : "dragndrop-results", "key" : "dragndrop-results", "className" : "col-12 row justify-content-center"}', 0, 3, (SELECT id FROM forms WHERE name="create_content_form_form"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_content_form_form_container'))`,
+            message : "INSERTing manage_header form manage container dragndrop results"
+        },
+    },
 }
 

@@ -32,7 +32,7 @@ const Select = (args) => {
 
 	return <div key={`${args.key}-container`} className={(typeof args.groupClassName != "undefined" && args.groupClassName != null) ? args.groupClassName : "form-group"}>
 				{(typeof args.prelabel != "undefined" && args.prelabel != null) &&
-				<label key={`prelabel-${args.id}`} htmlFor={args.id} className="sr-only">{args.prelabel}</label>}
+				<label key={`prelabel-${args.id}`} htmlFor={args.id}>{args.prelabel}</label>}
 			<div>
 				<select key={args.key}
 				dataset = {(typeof args.options.dataSet != "undefined" && args.options.dataSet != null) ? JSON.stringify(args.options.dataSet) : undefined}

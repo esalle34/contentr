@@ -90,6 +90,8 @@ module.exports = {
           step = "step-1";
         }
 
+        var cform = formComponent.react_nested.find(form => form.args.className.includes("current"));
+        cform.args.className = cform.args.className.replace("current", "");
         var currentForm = formComponent.react_nested.find(form => form.args.className.includes(step));
         var newCurrentForm = Object.assign(currentForm, {
           args: _objectSpread(_objectSpread({}, currentForm.args), {}, {
@@ -199,7 +201,7 @@ module.exports = {
       var _userFactory2 = new UserFactory(_args2);
 
       var country = countries.filter(newCountry => newCountry.value == params.code);
-      country = country[0].els;
+      country = country[0].innerText;
 
       _userFactory2.createUserLocation(params.code, country, params.postalcode, params.city, params.address, _args2.id).then(resolve => {
         var user = new User(req.session.user.id, req.session.user.username, true);
@@ -223,6 +225,17 @@ module.exports = {
         });
       });
     }
+  },
+  getRoles: function getRoles(route, req, res) {
+    var params = req.body;
+    var response;
+    var userFactory = new UserFactory();
+    userFactory.fetchRolesColumns(params.roles).then(result => {
+      response = Object.assign({}, {
+        roles: result
+      });
+      return res.status(200).send(response);
+    });
   },
   logout: function logout(route, req, res) {
     if (typeof req.session.user != "undefined") {
