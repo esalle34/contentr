@@ -47,26 +47,26 @@ const HeaderElementForm = (args) => {
         <div className="col-10 row flex-row-reverse">
             <input type="hidden" name="ms" id="ms" value="route_service/search_route::search::none"></input>
             <div className="col-4 form-group">
-                <label key={`prelabel-${header_el.id}`} className={(typeof header_el.name != "undefined" && header_el.name.length > 0) ? undefined: "invisible"} htmlFor={`input-name-${header_el.id}`}>{i18n.translate("Name")}</label>
+                <label key={`prelabel-${header_el.id}`} className={(typeof header_el.name != "undefined" && header_el.name != null && header_el.name.length > 0) ? undefined: "invisible"} htmlFor={`input-name-${header_el.id}`}>{i18n.translate("Name")}</label>
                 <div className="input-group">
                     <input type="text" name="name" id={`input-name-${header_el.id}`} className="form-control form-input-text" onChange={(e)=>inputStateChanged(e)} placeholder={i18n.translate("Name")} defaultValue={(typeof header_el.name != "undefined" && header_el.name != null) ? header_el.name : undefined}></input>
                 </div>
             </div>
             <div className="col-4 form-group">
-                <label key={`prelabel-${header_el.id}`}  className={(typeof header_el.value != "undefined" && header_el.value.length > 0) ? undefined: "invisible"} htmlFor={`input-title-${header_el.id}`}>{i18n.translate("Title")}</label>
+                <label key={`prelabel-${header_el.id}`}  className={(typeof header_el.value != "undefined" && header_el.value != null && header_el.value.length > 0) ? undefined: "invisible"} htmlFor={`input-title-${header_el.id}`}>{i18n.translate("Title")}</label>
                 <div className="input-group">
                     <input type="text" name="value" id={`input-title-${header_el.id}`} onChange={(e)=>changeTitle(e)} className="form-control form-input-text" placeholder={i18n.translate("Title")} defaultValue={(typeof header_el.value != "undefined" && header_el.value != null) ? header_el.value : undefined}></input>
                 </div>
             </div>
             <div className="col-4 form-group">
-                <label key={`prelabel-${header_el.id}`} className={(typeof header_el.elem != "undefined" && header_el.elem.length > 0) ? undefined: "invisible"} htmlFor={`input-element-${header_el.id}`}>{i18n.translate("Element")}</label>
+                <label key={`prelabel-${header_el.id}`} className={(typeof header_el.elem != "undefined" && header_el.elem != null && header_el.elem.length > 0) ? undefined: "invisible"} htmlFor={`input-element-${header_el.id}`}>{i18n.translate("Element")}</label>
                 <div className="input-group">
                     <input type="text" name="elem" id={`input-element-${header_el.id}`} onChange={(e)=>inputStateChanged(e)} className="form-control form-input-text" placeholder={i18n.translate("Element")} defaultValue={(typeof header_el.elem != "undefined" && header_el.elem != null) ? header_el.elem : undefined} readOnly disabled></input>
                 </div>
             </div>
             {(typeof header_el.elem != "undefined" && header_el.elem == "a") ? 
             <React.Fragment><div className="col-12 form-group">
-                <label key={`prelabel-${header_el.id}`} className={(typeof header_el.uri != "undefined" && header_el.uri.length > 0) ? undefined: "invisible"} htmlFor={`input-uri-search-engine-${header_el.id}`}>{i18n.translate("Uri search engine")}</label>
+                <label key={`prelabel-${header_el.id}`} className={(typeof header_el.uri != "undefined" && header_el.uri != null && header_el.uri.length > 0) ? undefined: "invisible"} htmlFor={`input-uri-search-engine-${header_el.id}`}>{i18n.translate("Uri search engine")}</label>
                 <div className="input-group">
                     <input type="text" id={`input-uri-search-engine-${header_el.id}`} className="form-control form-input-text has-dataset search-engine" onChange={(e)=>inputStateChanged(e)} placeholder={i18n.translate("Name, url, or feature...")} defaultValue={(typeof header_el.uri != "undefined" && header_el.uri != null) ? header_el.uri : undefined} dataset={'{"search-engine": {"on" : ["keyup"], "method" : "post", "url" : "/administrate/route/remove/post", "renderOnLoad" : "true", "renderingTpl" : "headerRouteSelect",  "renderToId" : "selectLink"}}'}></input>
                 </div>
