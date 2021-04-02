@@ -13,7 +13,7 @@ const InvokeTheme = (args)=>{
         themes.push(<option key={`key-${th}`} id={`key-${th}`} value={th}>{th.charAt(0).toUpperCase() + th.slice(1)}</option>)
     })
 
-return <React.Fragment><label className="sr-only" htmlFor="theme">{i18n.translate('Theme')}</label><div><select id="theme" name="theme" className="form-control col-12">{themes}</select></div></React.Fragment>;
+return <React.Fragment><label htmlFor="theme">{i18n.translate('Theme')}</label><div><select id="theme" name="theme" className="form-control col-12">{themes}</select></div></React.Fragment>;
 
 }
 
