@@ -30,7 +30,8 @@ class Css extends _react.default.Component {
           view.push( /*#__PURE__*/_react.default.createElement("link", {
             href: css_file,
             type: "text/css",
-            rel: "stylesheet"
+            rel: "stylesheet",
+            media: "all"
           }));
         } else {
           view.push( /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("link", {

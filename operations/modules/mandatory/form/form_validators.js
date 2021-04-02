@@ -52,6 +52,12 @@ module.exports = ()=> {
             return Object.assign({}, { isValid : true });
         },
 
+        template : (value, options = null)=>{
+
+            return _validators.feature(value, options);
+
+        },
+
         title : (value, options = null)=>{
             let minlength;
             if(options != null){

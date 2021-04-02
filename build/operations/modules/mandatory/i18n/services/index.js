@@ -16,14 +16,28 @@ var i18n = {
   getLang: function getLang() {
     var lang = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
 
-    if (lang == null || lang == "*") {
+    if (typeof lang == "undefined") {
+      return (0, _global.default)().DEFAULT_SITE_LANGUAGE;
+    } else if (lang == null || lang == "*") {
+      var search = Object.keys(_i18n.i18nRegistry).find(l => l == lang);
+
+      if (typeof search == "undefined" || search == -1) {
+        return search = (0, _global.default)().DEFAULT_SITE_LANGUAGE;
+      }
+
       if (typeof i18n.getDocLang() != "undefined") {
         return i18n.getDocLang();
       } else {
-        return _global.default.DEFAULT_SITE_LANGUAGE;
+        return (0, _global.default)().DEFAULT_SITE_LANGUAGE;
       }
     } else {
-      return lang;
+      var _search = Object.keys(_i18n.i18nRegistry).find(l => l == lang);
+
+      if (typeof _search == "undefined" || _search == -1) {
+        _search = (0, _global.default)().DEFAULT_SITE_LANGUAGE;
+      }
+
+      return _search;
     }
   },
   getDocLang: () => {
@@ -33,31 +47,37 @@ var i18n = {
   translate: function translate(string) {
     var lang = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
 
-    var tr_string = _i18n.i18nRegistry[i18n.getLang(lang)][string];
+    try {
+      var tr_string = _i18n.i18nRegistry[i18n.getLang(lang)][string];
 
-    if (typeof tr_string == "undefined") {
-      console.error("This message : '" + string + "' has no translation yet, please add it.");
-      return undefined;
+      if (typeof tr_string == "undefined") {
+        return string;
+      }
+
+      return tr_string;
+    } catch (error) {
+      console.log(error);
     }
-
-    return tr_string;
   },
   translateN: function translateN(string, int) {
     var lang = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-    var tr_string = undefined;
+    var tr_string;
 
-    if (int > 0) {
-      tr_string = _i18n.i18nRegistry[i18n.getLang(lang)][string]['other'].replace("%s", int);
-    } else {
-      tr_string = _i18n.i18nRegistry[i18n.getLang(lang)][string]['one'].replace("%s", int);
+    try {
+      if (int > 0) {
+        tr_string = _i18n.i18nRegistry[i18n.getLang(lang)][string]['other'].replace("%s", int);
+      } else {
+        tr_string = _i18n.i18nRegistry[i18n.getLang(lang)][string]['one'].replace("%s", int);
+      }
+
+      if (typeof tr_string == "undefined") {
+        return string;
+      }
+
+      return tr_string;
+    } catch (error) {
+      console.log(error);
     }
-
-    if (typeof tr_string == "undefined") {
-      console.error("This message has no translation yet, please add it.");
-      return undefined;
-    }
-
-    return tr_string;
   }
 };
 exports.i18n = i18n;

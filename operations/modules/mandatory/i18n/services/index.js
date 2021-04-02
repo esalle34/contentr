@@ -89,6 +89,10 @@ export const i18n = {
 
 			try {
 
+				if(typeof i18nRegistry[i18n.getLang(lang)][string] == "undefined"){
+					return string.replace("%s", int);
+				}
+
 				if(int > 0){
 
 					tr_string = i18nRegistry[i18n.getLang(lang)][string]['other'].replace("%s", int);

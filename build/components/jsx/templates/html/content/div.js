@@ -12,6 +12,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Div = args => {
   return /*#__PURE__*/_react.default.createElement("div", {
     key: args.key,
+    dataset: typeof args.dataSet != "undefined" ? JSON.stringify(args.dataSet) : undefined,
     className: args.className != null ? args.className : undefined,
     id: args.id != null ? args.id : undefined,
     style: args.style != null ? args.style : undefined

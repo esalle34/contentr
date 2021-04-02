@@ -99,6 +99,23 @@ class Form extends React.Component {
 
 		inputs.map(function (input) {
 
+
+			if((input.el.parentNode.previousSibling != null && input.el.parentNode.previousSibling.tagName == "LABEL") 
+			|| (input.el.parentNode.nextSibling != null && input.el.parentNode.nextSibling.tagName == "LABEL")){
+
+				let events = ["keyup", "change"];
+
+				store.dispatch({ type : "INPUT_STATE_CHANGED", input : input.el});
+
+				events.map(e=>{
+
+					input.el.addEventListener(e, () => {
+						store.dispatch({ type : "INPUT_STATE_CHANGED", input : input.el});
+					});
+
+				})
+
+			}
 			let visibility_toggle = input.elgroup.querySelector(".toggle-visibility");
 			if (visibility_toggle != null) {
 

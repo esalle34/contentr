@@ -31,7 +31,8 @@ var Select = args => {
           id: "".concat(args.id, "-option-").concat(i),
           key: "".concat(args.key, "-key-").concat(i),
           value: value,
-          els: innerText
+          els: innerText,
+          selected: typeof args.options.default != "undefined" && args.options.default == option[1] ? true : undefined
         }));
         i++;
       });
@@ -57,14 +58,19 @@ var Select = args => {
   return /*#__PURE__*/_react.default.createElement("div", {
     key: "".concat(args.key, "-container"),
     className: typeof args.groupClassName != "undefined" && args.groupClassName != null ? args.groupClassName : "form-group"
-  }, /*#__PURE__*/_react.default.createElement("select", {
+  }, typeof args.prelabel != "undefined" && args.prelabel != null && /*#__PURE__*/_react.default.createElement("label", {
+    key: "prelabel-".concat(args.id),
+    htmlFor: args.id,
+    className: "sr-only"
+  }, args.prelabel), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("select", {
     key: args.key,
-    id: args.id != "undefined" && args.id != null ? args.id : undefined,
-    name: args.name != "undefined" && args.name != null ? args.name : undefined,
-    className: typeof args.className != "undefined" && args.className != null ? args.className : undefined,
+    dataset: typeof args.options.dataSet != "undefined" && args.options.dataSet != null ? JSON.stringify(args.options.dataSet) : undefined,
+    id: typeof args.id != "undefined" && args.id != null ? args.id : undefined,
+    name: typeof args.name != "undefined" && args.name != null ? args.name : undefined,
+    className: typeof args.className != "undefined" && args.className != null ? args.className + " " + (typeof args.options.dataSet != "undefined" ? "has-dataset " + Object.keys(args.options.dataSet).join(" ") : "") : undefined,
     value: args.value != "undefined" && args.value != null ? args.value : undefined,
-    placeholder: args.placeholder != "undefined" && args.placeholder != null ? args.placeholder : undefined
-  }, args.els));
+    placeholder: typeof args.placeholder != "undefined" && args.placeholder != null ? args.placeholder : undefined
+  }, args.els)));
 };
 
 var _default = Select;

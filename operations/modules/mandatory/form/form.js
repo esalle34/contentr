@@ -110,6 +110,17 @@ export class Form extends Object {
                     if (parent != null) {
                         return formComponent.react_nested = this.resolveFormElements(route, formComponent, els, parent);
                     }
+                }else if(felem.form_element_id == null){
+
+                    let felemParsedArgs = JSON.parse(felem.args);
+
+                    let felemComponent = {
+                        react_element: felem.elem,
+                        args: felemParsedArgs,
+                        react_nested: []
+                    }
+
+                    formComponent.react_nested.push(felemComponent);
                 }
 
             }.bind(this))

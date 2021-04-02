@@ -545,7 +545,7 @@ module.exports = {
 									data = data.replace("<Homepage />", route.i18n.translate("Homepage", route.lang))
 									return res.send(data.replace("<Head />", `${head}`));
 								} else if (req._parsedUrl.query != null && req._parsedUrl.query.includes("fragment")) {
-									return res.send(data.replace("<Body />", `${tpl}`));
+									return res.status(200).send(data.replace("<Body />", `${tpl}`));
 								} else {
 
 									head = ReactDOMServer.renderToString(<Html data={route} />);
@@ -556,7 +556,6 @@ module.exports = {
 										data = data.replace("<Theme />", `<div id=${route.theme} class="container"></div>`)
 										return res.send(data.replace("<Body />", `${tpl}`));
 									} 
-
 
 									return res.send(data.replace("<Html />", `${tpl}`));
 								}

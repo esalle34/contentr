@@ -52,6 +52,8 @@ module.exports = {
 	"Content type" : "Content type",
 	"Content types" : "Content types",
 	"Create content type" : "Create content type",
+	"Create content" : "Create content",
+	"Create inputs" : "Create inputs",
 	"Callback" : "Callback",
 	"Title" : "Title",
 	"Creation Date" : "Creation Date",
@@ -72,7 +74,7 @@ module.exports = {
 	"Link name" : "Link name",
 	"Headers" : "Headers",
 	"Create" : "Create",
-	"Select" : "Select",
+	"Choose" : "Choose",
 	"Edit" : "Edit",
 	"Remove" : "Remove",
 	"Manage" : "Manage",
@@ -90,6 +92,16 @@ module.exports = {
 	"Add New" : "Add New",
 	"Span" : "Span",
 	"List" : "List",
+	"Min length" : "Min length",
+	"Max length" : "Max length",
+	"Label if true" : "Label if true",
+	"Label if false" : "Label if false",
+	"Is label before input ?" : "Is label before input ?",
+	"Values, separate label and values with '|', next value with ','" : "Values, separate label and values with '|', next value with ','",
+	"Group Classes" : "Group Classes",
+	"Uri search engine" : "Uri search engine",
+	"Select Uri" : "Select Uri",
+	"JSON Arguments" : "JSON Arguments",
 	"Dropdown" : "Dropdown",
 	"Options" : "Options",
 	"Google" : "Google",
@@ -104,6 +116,7 @@ module.exports = {
 	"Error : email not valid" : "Error : email not valid",
 	"Error : password not valid" : "Error : password not valid",
 	"Error : username length is not valid" : "Error : username length is not valid",
+	"This field must contain only numerical values" : "This field must contain only numerical values",
 	"Name field is empty" : "Name field is empty",
 	"Link field is empty" : "Link field is empty",
 	"Id field is empty" : "Id field is empty",
@@ -119,12 +132,25 @@ module.exports = {
 	"Name, url, or feature..." : "Name, url, or feature...",
 	"Manage headers" : "Manage headers",
 	"Add new" : "Add new",
+	"Content type created successfully" : "Content type created successfully",
 	"Content id must be numerical" : "Content id must be numerical",
 	"Form name must be a string" : "Form name must be a string",
 	"Wrong username/email or password" : "Wrong username/email or password",
 	"This field needs at least %s character" : {
 		"one" : "This field needs at least %s character",
 		"other" : "This field needs at least %s characters"
+	},
+	"This field needs at least a value of %s" : {
+		"one" : "This field needs at least a value of %s",
+		"other" : "This field needs at least a value of %s"
+	},
+	"This field needs a maximum value of %s" : {
+		"one" : "This field needs a maximum value of %s",
+		"other" : "This field needs a maximum value of %s"
+	},
+	"This field needs a maximum of %s character" : {
+		"one" : "This field needs a maximum of %s character",
+		"other" : "This field needs a maximum of %s characters",
 	},
 	"Number of characters doesn't match in name field" : "Number of characters doesn't match in name field",
 	"Number of characters doesn't match in feature field" : "Number of characters doesn't match in feature field",
@@ -145,6 +171,8 @@ module.exports = {
 	"<External link />" : "<External link />",
 	"<No title />" : "<No title />",
 	"Machine name" : "Machine name",
+	"Template name" : "Template name",
+	"Content type already exists" : "Content type already exists",
 	"You do not have permission to access this page" : "You do not have permission to access this page",
 	"Accentuated and special characters are forbidden" : "Accentuated and special characters are forbidden", 
 	"Did you add the callback of this route ? " : "Did you add the callback of this route ? ",
@@ -156,6 +184,16 @@ module.exports = {
 	"user" : "user",
 	"contributor" : "contributor",
 	"administrator" : "administrator",
-	"lastModifiedAt" : "Last modification date"
+	"lastModifiedAt" : "Last modification date",
+	"machine_name" : "Machine name",
+	"template_name" : "Template name",
+	"Value" : "Value",
+	"Input" : "Input",
+	"Select" : "Select",
+	"Textarea" : "Textarea",
+	"Ckeditor" : "Ckeditor",
+	"Image" : "Image",
+	"Video" : "Video"
 
+ 
 }

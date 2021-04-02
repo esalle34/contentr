@@ -1,4 +1,5 @@
 const TOGGLE_INPUT_VISIBILITY = "TOGGLE_INPUT_VISIBILITY";
+const INPUT_STATE_CHANGED = "INPUT_STATE_CHANGED";
 const GET_DEFAULT_COUNTRY = "GET_DEFAULT_COUNTRY";
 const IS_MUTATOR_CHECKBOX = "IS_MUTATOR_CHECKBOX";
 const CHECKBOX_CREATOR = "CHECKBOX_CREATOR";
@@ -7,7 +8,7 @@ const CHANGE_LABEL_TEXT = "CHANGE_LABEL_TEXT";
 
 import { i18n } from "~/operations/modules/mandatory/i18n/services/index.js";
 
-export { TOGGLE_INPUT_VISIBILITY, GET_DEFAULT_COUNTRY, IS_MUTATOR_CHECKBOX, CHECKBOX_CREATOR, INPUT_CREATOR, CHANGE_LABEL_TEXT };
+export { TOGGLE_INPUT_VISIBILITY, INPUT_STATE_CHANGED, GET_DEFAULT_COUNTRY, IS_MUTATOR_CHECKBOX, CHECKBOX_CREATOR, INPUT_CREATOR, CHANGE_LABEL_TEXT };
 
 const toggleInputVisibility = (input) => {
 
@@ -17,6 +18,33 @@ const toggleInputVisibility = (input) => {
 
 
 	return { type: TOGGLE_INPUT_VISIBILITY, input_type: newInput_type };
+
+}
+
+const inputStateChanged = (input) => {
+
+	if(input.value.length > 0){
+
+		if(input.parentNode.previousSibling != null && input.parentNode.previousSibling.tagName == "LABEL"){
+
+			input.parentNode.previousSibling.classList.remove("invisible");
+
+		}else if(input.parentNode.nextSibling != null && input.parentNode.nextSibling.tagName == "LABEL"){
+			
+			input.parentNode.nextSibling.classList.remove("invisible");
+
+		}
+	}else{
+		if(input.parentNode.previousSibling.tagName == "LABEL"){
+
+			input.parentNode.previousSibling.classList.add("invisible");
+
+		}else if(input.parentNode.nextSibling.tagName == "LABEL"){
+
+			input.parentNode.nextSibling.classList.add("invisible");
+
+		}
+	}
 
 }
 
@@ -201,4 +229,4 @@ const inputCreator = (input) => {
 
 }
 
-export { toggleInputVisibility, getDefaultCountry, isMutatorCheckbox, checkboxCreator, inputCreator, changeLabelText };
+export { toggleInputVisibility, inputStateChanged, getDefaultCountry, isMutatorCheckbox, checkboxCreator, inputCreator, changeLabelText };

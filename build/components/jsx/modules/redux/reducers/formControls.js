@@ -23,6 +23,15 @@ function formControls() {
     case _formControls.IS_MUTATOR_CHECKBOX:
       return Object.assign({}, state, (0, _formControls.isMutatorCheckbox)(action.input));
 
+    case _formControls.CHECKBOX_CREATOR:
+      return Object.assign({}, state, (0, _formControls.checkboxCreator)(action.input));
+
+    case _formControls.INPUT_CREATOR:
+      return Object.assign({}, state, (0, _formControls.inputCreator)(action.input));
+
+    case _formControls.CHANGE_LABEL_TEXT:
+      return Object.assign({}, state, (0, _formControls.changeLabelText)(action.input));
+
     default:
       return state;
   }

@@ -38,6 +38,7 @@ class Form extends Object {
   resolveFormElements(route, formComponent, els) {
     var parentTag = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
 
+    //On check s'il ne s'agit pas d'un formulaire à étapes
     if (typeof formComponent != "undefined" && formComponent.args.className.includes("forwardable-form")) {
       formComponent.forms.map(formEl => {
         var newEls = els.filter(el => el.form_number == formEl.number);
@@ -47,16 +48,12 @@ class Form extends Object {
     } else {
       var parentComponent;
 
-      if (parentTag != null) {
-        if (parentTag.length == 1) {
-          parentComponent = {
-            react_element: parentTag[0].elem,
-            args: JSON.parse(parentTag[0].args),
-            react_nested: []
-          };
-        } else {
-          throw new Error("Form filter resolved more than one parent, this is not allowed (@modules/mandatory/forms/Form.js)");
-        }
+      if (typeof parentTag != "undefined" && parentTag != null) {
+        parentComponent = {
+          react_element: parentTag.elem,
+          args: JSON.parse(parentTag.args),
+          react_nested: []
+        };
       }
 
       var parent;
@@ -68,8 +65,12 @@ class Form extends Object {
             felemParsedArgs.placeholder = route.i18n.translate(felemParsedArgs.placeholder, route.lang);
           }
 
-          if (typeof felemParsedArgs.value != "undefined" && felemParsedArgs.type == "submit") {
+          if (typeof felemParsedArgs.value != "undefined" && (felemParsedArgs.type == "submit" || felemParsedArgs.type == "button")) {
             felemParsedArgs.value = route.i18n.translate(felemParsedArgs.value, route.lang);
+          }
+
+          if (typeof felemParsedArgs.els != "undefined" && (felem.elem == "h1" || felem.elem == "p" || felem.elem == "span" || felem.elem == "h2" || felem.elem == "h3" || felem.elem == "a")) {
+            felemParsedArgs.value = route.i18n.translate(felemParsedArgs.els, route.lang);
           }
 
           if (typeof felemParsedArgs.prelabel != "undefined") {
@@ -84,7 +85,6 @@ class Form extends Object {
             var options = [];
             felemParsedArgs.options.values.map(function (option) {
               option = option.split("|");
-              option[0] = route.i18n.translate(option[0], route.lang);
               option[1] = route.i18n.translate(option[1], route.lang);
               options.push(option[0] + "|" + option[1]);
             });
@@ -93,15 +93,29 @@ class Form extends Object {
 
           var felemComponent = {
             react_element: felem.elem,
-            args: felemParsedArgs
+            args: felemParsedArgs,
+            react_nested: []
           };
-          return parentComponent.react_nested.push(felemComponent);
-        } else if (felem.form_element_id != null && typeof parent == "undefined") {
-          parent = els.filter(el => el.id == felem.form_element_id);
-          var childs = els.filter(el => el.id != felem.form_element_id && el.form_number == felem.form_number);
+          parent = els.find(el => el.id == felem.form_element_id); //Si le champ est contenu dans un autre conteneur comme c'est le cas pour les boutons retour et suivant,
+          //on retrouve le conteneur et l'on pousse ses enfants, peut être étendu.
 
-          if (parent.length > 0) {
-            return formComponent.react_nested = this.resolveFormElements(route, formComponent, childs, parent);
+          if (typeof parent != "undefined" && parent.form_element_id != null) {
+            var childs = els.filter(el => el.form_element_id == parent.id && el.form_number == felem.form_number);
+
+            if (childs.length > 0) {
+              var ch = this.resolveFormElements(route, felemComponent, childs);
+              var p = this.resolveFormElements(route, felemComponent, childs, parent);
+              parentComponent.react_nested.find(el => el.args.id == p.args.id).react_nested.push(ch);
+            }
+          } else if (typeof parent != "undefined") {
+            //Si pas de nouveau conteneur parent, on pousse le champ de façon habituelle
+            return parentComponent.react_nested.push(felemComponent);
+          }
+        } else if (felem.form_element_id != null && typeof parent == "undefined") {
+          parent = els.find(el => el.id == felem.form_element_id); //Génération du conteneur principal ici et des ses champs enfants (conteneur juste après le form)
+
+          if (parent != null) {
+            return formComponent.react_nested = this.resolveFormElements(route, formComponent, els, parent);
           }
         }
       }.bind(this));
@@ -110,7 +124,8 @@ class Form extends Object {
   }
 
   setFormComponent() {
-    var formArgs = JSON.parse(this.formData.element);
+    var formArgs = JSON.parse(this.formData.element); //Génération d'un composant de formulaire ou du formulaire (dépend du fait qu'il s'agisse ou non d'un formulaire à étapes)
+
     var formComponent = {
       react_element: "form",
       args: {
@@ -124,7 +139,7 @@ class Form extends Object {
         els: formArgs.els
       },
       react_nested: []
-    };
+    }; //Si les données présente + d'un formulaire, on génère le conteneur forwardable-form associé pour la mise en place des formulaires à étape
 
     if (!Boolean(this.formData.number)) {
       return formComponent;
@@ -143,6 +158,7 @@ class Form extends Object {
 
       for (var i = 0; i <= this.formData.number; i++) {
         if (i == 0) {
+          //Rajout de la classe current
           if (!formArgs.className.includes("current")) {
             forwardableFormContainer.forms.push(Object.assign({}, formComponent, {
               args: _objectSpread(_objectSpread({}, formComponent.args), {}, {

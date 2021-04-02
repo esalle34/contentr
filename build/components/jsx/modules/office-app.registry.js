@@ -13,5 +13,9 @@ var _popin = require("./popin/popin.registry");
 
 var _progress = require("./progress/progress.registry");
 
-var officeRegistry = Object.assign({}, _dropdown.dropdown, _form.forms, _popin.popin, _progress.progress);
+var _invokables = require("./invokables/invokables.registry");
+
+var _panels = require("./panels/panels.registry");
+
+var officeRegistry = Object.assign({}, _dropdown.dropdown, _form.forms, _popin.popin, _progress.progress, _invokables.invokables, _panels.panels);
 exports.officeRegistry = officeRegistry;

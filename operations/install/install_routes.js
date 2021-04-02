@@ -882,37 +882,11 @@ module.exports = {
 			},
 
 		},
-
-		administration_content_types : {
-
-			uri : {
-				name : `INSERT_uri_administration_content_types`,
-				query : `INSERT INTO uri (uri, root_id, isSystem, isPublished) VALUES ('/administrate/content/types', 'administration-content-types', true, true)`,
-				message : `INSERTing /administrate/content/types uri`
-			},
-			callback : {
-				name : `INSERT_administration_content_types_callback`,
-				query : `INSERT INTO callback (filepath, filename, callback) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/administration/content/types/', 'content_service', 'administration_content_types' )`,
-				message : `INSERTing create-content-types-form callback`
-			},
-			pages : {
-				name : `INSERT_administration_content_types`,
-				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "get", "office", (SELECT id FROM callback WHERE filename = 'content_service' AND callback = 'administration_content_types'), (SELECT id FROM uri WHERE root_id = "administration-content-types"), "administration-content-types")`,
-				message : `INSERTing /administrate/content/types section`
-			},
-			pages_permissions : {
-				name : `INSERT_content_types_create_form_permissions`,
-				query : `INSERT INTO pages_permissions (${global_transaction.ROUTE_PERMISSIONS_PREFIX}Logout, ${global_transaction.ROUTE_PERMISSIONS_PREFIX}Login, ${global_transaction.ROUTE_PERMISSIONS_PREFIX}Contributor, ${global_transaction.ROUTE_PERMISSIONS_PREFIX}Administrator, page_id) VALUES (false, true, true, false, (SELECT id FROM pages where root_id='administration-content-types'))`,
-				message : `INSERTing /administrate/content/types permissions`,
-			},
-
-		},
-
 		administration_create_content_types_form : {
 
 			uri : {
 				name : `INSERT_uri_content_types_create_form`,
-				query : `INSERT INTO uri (uri, feature, root_id, isSystem, isPublished) VALUES ('/administrate/content/types/create', 'content_Create', 'create-content-types-form', true, true)`,
+				query : `INSERT INTO uri (uri, feature, root_id, isSystem, isPublished) VALUES ('/administrate/content/types/create', 'ctypes_Create', 'create-content-types-form', true, true)`,
 				message : `INSERTing /administrate/content/types/create uri`
 			},
 			callback : {
@@ -962,7 +936,7 @@ module.exports = {
 
 			uri : {
 				name : `INSERT_uri_content_types_edit_form`,
-				query : `INSERT INTO uri (uri, feature, root_id, isSystem, isPublished) VALUES ('/administrate/content/types/edit', 'content_Edit', 'edit-content-types-form', true, true)`,
+				query : `INSERT INTO uri (uri, feature, root_id, isSystem, isPublished) VALUES ('/administrate/content/types/edit', 'ctypes_Edit', 'edit-content-types-form', true, true)`,
 				message : `INSERTing /administrate/content/types/edit uri`
 			},
 			callback : {
@@ -1013,7 +987,7 @@ module.exports = {
 
 			uri : {
 				name : `INSERT_uri_content_types_remove_form`,
-				query : `INSERT INTO uri (uri, feature, root_id, isSystem, isPublished) VALUES ('/administrate/content/types/remove', 'content_Remove','remove-content-types-form', true, true)`,
+				query : `INSERT INTO uri (uri, feature, root_id, isSystem, isPublished) VALUES ('/administrate/content/types/remove', 'ctypes_Remove','remove-content-types-form', true, true)`,
 				message : `INSERTing /administrate/content/types/remove uri`
 			},
 			callback : {
@@ -1058,6 +1032,79 @@ module.exports = {
 			},
 
 		},
-		
+		administration_create_content_form : {
+
+			uri : {
+				name : `INSERT_uri_content_create_form`,
+				query : `INSERT INTO uri (uri, feature, root_id, isSystem, isPublished) VALUES ('/administrate/content/create', 'content_Create', 'create-content-form', true, true)`,
+				message : `INSERTing /administrate/content/create uri`
+			},
+			callback : {
+				name : `INSERT_content_create_form_callback`,
+				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'getForm', 'create_content_form' )`,
+				message : `INSERTing create-content-form callback`
+			},
+			pages : {
+				name : `INSERT_content_create_form_pages`,
+				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "get", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'getForm' AND form_name = 'create_content_form' ), (SELECT id FROM uri WHERE root_id = "create-content-form"), "create-content-form")`,
+				message : `INSERTing /administrate/content/create section` 
+			},
+			pages_permissions : {
+				name : `INSERT_content_create_form_permissions`,
+				query : `INSERT INTO pages_permissions (${global_transaction.ROUTE_PERMISSIONS_PREFIX}Logout, ${global_transaction.ROUTE_PERMISSIONS_PREFIX}Login, ${global_transaction.ROUTE_PERMISSIONS_PREFIX}Contributor, ${global_transaction.ROUTE_PERMISSIONS_PREFIX}Administrator, page_id) VALUES (false, true, true, false, (SELECT id FROM pages where root_id='create-content-form'))`,
+				message : `INSERTing /administrate/content/create permissions`,
+			},
+
+		},
+
+		administration_create_content : {
+
+			uri : {
+				name : `INSERT_uri_content_create`,
+				query : `INSERT INTO uri (uri, root_id, isSystem, isPublished) VALUES ('/administrate/content/create/post', 'create-content', true, true)`,
+				message : `INSERTing /administrate/content/create/post uri`
+			},
+			callback : {
+				name : `INSERT_content_create_callback`,
+				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'validateForm', 'create_content_form' )`,
+				message : `INSERTing create-content callback`
+			},
+			pages : {
+				name : `INSERT_content_create_pages`,
+				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'validateForm' AND form_name = 'create_content_form' ), (SELECT id FROM uri WHERE root_id = "create-content"), "create-content")`,
+				message : `INSERTing /administrate/content/create/post section` 
+			},
+			pages_permissions : {
+				name : `INSERT_content_create_permissions`,
+				query : `INSERT INTO pages_permissions (${global_transaction.ROUTE_PERMISSIONS_PREFIX}Logout, ${global_transaction.ROUTE_PERMISSIONS_PREFIX}Login, ${global_transaction.ROUTE_PERMISSIONS_PREFIX}Contributor, ${global_transaction.ROUTE_PERMISSIONS_PREFIX}Administrator, page_id) VALUES (false, true, true, false, (SELECT id FROM pages where root_id='create-content'))`,
+				message : `INSERTing /administrate/content/create/post permissions`,
+			},
+
+		},
+		content_types_search: {
+
+			uri : {
+				name : `INSERT_uri_content_types_search`,
+				query : `INSERT INTO uri (uri, root_id, isSystem, isPublished) VALUES ('/administrate/content/types/search', 'content-types-search', true, true)`,
+				message : `INSERTing /administrate/uploads uri`
+			},
+			callback : {
+				name : `INSERT_content_types_search_callback`,
+				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'validateForm', 'content_types_search')`,
+				message : `INSERTing uploads callback`
+			},
+			pages : {
+				name : `INSERT_content_types_search_page`,
+				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'validateForm' AND form_name='content_types_search'), (SELECT id FROM uri WHERE root_id = "content-types-search"), "content-types-search")`,
+				message : `INSERTing /administrate/content/types/search section` 
+			},
+			pages_permissions : {
+				name : `INSERT_content_types_search_permissions`,
+				query : `INSERT INTO pages_permissions (${global_transaction.ROUTE_PERMISSIONS_PREFIX}Logout, ${global_transaction.ROUTE_PERMISSIONS_PREFIX}Login, ${global_transaction.ROUTE_PERMISSIONS_PREFIX}Contributor, ${global_transaction.ROUTE_PERMISSIONS_PREFIX}Administrator, page_id) VALUES (false, true, true, true, (SELECT id FROM pages where root_id='content-types-search'))`,
+				message : `INSERTing /administrate/content/types/search permissions`,
+			},
+
+		},
+
 
 }

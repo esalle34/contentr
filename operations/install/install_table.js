@@ -54,7 +54,7 @@ module.exports = {
 			name : "create_table_users_data",
 		 	query :"CREATE TABLE IF NOT EXISTS users_data (firstname VARCHAR (255), lastname VARCHAR (255), civility VARCHAR (5), phonenumber VARCHAR (32), id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY (id), user_id INT UNIQUE NOT NULL, FOREIGN KEY (user_id) REFERENCES users (id))",
 		 	message: "Creating table users_data",
-		 },
+		},
 		users_location: {
 			name: "create_table_users_location",
 			query: "CREATE TABLE IF NOT EXISTS users_location (code VARCHAR (2), country VARCHAR(50), postalcode VARCHAR (10), city VARCHAR (64), address VARCHAR(255), id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY (id), user_id INT UNIQUE, FOREIGN KEY (user_id) REFERENCES users (id))",
@@ -65,5 +65,15 @@ module.exports = {
 			query : "CREATE TABLE IF NOT EXISTS users_privileges (administrator BOOL DEFAULT false, contributor BOOL DEFAULT false, user BOOL DEFAULT true, user_id INT UNIQUE NOT NULL, id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY (id), FOREIGN KEY (user_id) REFERENCES users (id))",
 			message: "Creating table users_privileges",
 		},
+		content_types : {
+			name : "create_table_content_types",
+			query : "CREATE TABLE IF NOT EXISTS content_types (machine_name VARCHAR(255) NOT NULL UNIQUE, template_name VARCHAR(255) NOT NULL, id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY (id))",
+			message: "Creating table content_types"
+		},
+		content : {
+			name : "create_table_content",
+			query : "CREATE TABLE IF NOT EXISTS content (data_id INT NOT NULL, content_type_id INT NOT NULL, FOREIGN KEY (content_type_id) REFERENCES content_types (id), id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY (id), createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, lastModifiedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP)",
+			message: "Creating table content"
+		}
 
 }

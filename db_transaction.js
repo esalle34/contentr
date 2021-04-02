@@ -260,8 +260,9 @@ module.exports = function () {
 
 				var q_components = _transactions.db_ordered_queries(connection, [t.uri, t.callback, t.pages, t.pages_permissions, t.headers, t.headers_elements, t.forms, t.forms_elements]);
 				var q_users = _transactions.db_ordered_queries(connection, [t.users, t.users_data, t.users_location, t.users_privileges]);
-
-				Promise.all([q_components, q_users]).then(() => { return resolve() });
+				var q_content = _transactions.db_ordered_queries(connection, [t.content_types, t.content]);
+				
+				Promise.all([q_components, q_content, q_users]).then(() => { return resolve() });
 
 			}).catch((error) => {
 

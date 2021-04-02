@@ -21,45 +21,63 @@ module.exports = {
 	getForm: (route, req, res) => {
 
 		let formFactory;
-		if(typeof req.body != "undefined" && req.body.form_name != "undefined" && req.body.form_name != null){
+
+		const fetchForm = (formFactory)=>{
+
+			let q_form = formFactory.fetchForm(formFactory.getQueryPrefix("form"));
+			let q_decorate;
+	
+			if(route.feature != null && (req._parsedUrl.query == null || !req._parsedUrl.query.includes("fragment"))){
+	
+				q_decorate = route_service.decorateContainer(route);
+	
+			}
+	
+			Promise.all([q_form, q_decorate]).then((resolve)=>{
+				let form = resolve.find(res=>(typeof res !="undefined" && typeof res.getFormData != "undefined"));
+				let decorator = resolve.find(res=>(typeof res !="undefined" && typeof res.getFormData == "undefined"));
+	
+				try {
+					let formComponent = form.setFormComponent();
+					formComponent = form.resolveFormElements(route, formComponent, form.felemsData);
+					let body = formComponent;
+					if(req._parsedUrl.query == null || (req._parsedUrl.query != null && !req._parsedUrl.query.includes("fragment"))){
+						if(route.feature == null){
+							body = view_service.addLogoAsH1(global.CMS_TITLE, body);
+						}else if(route.feature != null){
+							let feature = route.feature.split("_")[0];
+							body = route_service.containerDecorator(feature, formComponent, decorator);
+						}
+					}
+					return	view_service.buildView(route, req, res, body);
+					
+				} catch (error) {
+	
+					console.error(`Error in form_service@getForm (form_name : ${route.form_name}) : ` + error.stack);
+					return view_service.buildErrorView(route, req, res, error);
+				}
+			})
+
+		}
+
+		if(typeof req.body != "undefined" && typeof req.body.form_name != "undefined" && req.body.form_name != null){
+
 			formFactory = new FormFactory(req.body.form_name);
+			fetchForm(formFactory);
+
+		}else if(typeof req.body != "undefined" && typeof req.body.content_type_id != "undefined" && req.body.content_type_id != null){
+
+			content_types_service.getContentTypeName(req.body.content_type_id).then(form_name=>{
+				formFactory = new FormFactory(form_name);
+				fetchForm(formFactory);
+			});
+			
+			
+
 		}else{
 			formFactory = new FormFactory(route.form_name);
+			fetchForm(formFactory);
 		}
-
-		let q_form = formFactory.fetchForm(formFactory.getQueryPrefix("form"));
-		let q_decorate;
-
-		if(route.feature != null && (req._parsedUrl.query == null || !req._parsedUrl.query.includes("fragment"))){
-
-			q_decorate = route_service.decorateContainer(route);
-
-		}
-
-		Promise.all([q_form, q_decorate]).then((resolve)=>{
-			let form = resolve.find(res=>(typeof res !="undefined" && typeof res.getFormData != "undefined"));
-			let decorator = resolve.find(res=>(typeof res !="undefined" && typeof res.getFormData == "undefined"));
-
-			try {
-				let formComponent = form.setFormComponent();
-				formComponent = form.resolveFormElements(route, formComponent, form.felemsData);
-				let body = formComponent;
-				if(req._parsedUrl.query == null || (req._parsedUrl.query != null && !req._parsedUrl.query.includes("fragment"))){
-					if(route.feature == null){
-						body = view_service.addLogoAsH1(global.CMS_TITLE, body);
-					}else if(route.feature != null){
-						let feature = route.feature.split("_")[0];
-						body = route_service.containerDecorator(feature, formComponent, decorator);
-					}
-				}
-				return	view_service.buildView(route, req, res, body);
-				
-			} catch (error) {
-
-				console.error(`Error in form_service@getForm (form_name : ${route.form_name}) : ` + error.stack);
-				return view_service.buildErrorView(route, req, res, error);
-			}
-		})
 
 	},
 

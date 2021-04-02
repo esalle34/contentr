@@ -7,12 +7,12 @@ var global_transaction = require('../global_transactions')();
 module.exports = {
   uri: {
     name: "create_table_uri",
-    query: "CREATE TABLE IF NOT EXISTS uri (uri VARCHAR(512) NOT NULL UNIQUE, feature VARCHAR(128), root_id VARCHAR(255) UNIQUE, external BOOL DEFAULT FALSE, id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY(id), createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP)",
+    query: "CREATE TABLE IF NOT EXISTS uri (uri VARCHAR(512) NOT NULL UNIQUE, feature VARCHAR(128), root_id VARCHAR(255) UNIQUE, isSystem BOOL DEFAULT FALSE, isPublished BOOL DEFAULT FALSE, isExternal BOOL DEFAULT FALSE, id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY(id), createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, lastModifiedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP)",
     message: "Creating table uri"
   },
   callback: {
     name: "create_table_callback",
-    query: "CREATE TABLE IF NOT EXISTS callback (filepath VARCHAR(256), filename VARCHAR(32), callback VARCHAR(32), form_name VARCHAR(128), id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY (id))",
+    query: "CREATE TABLE IF NOT EXISTS callback (filepath VARCHAR(256), filename VARCHAR(32), callback VARCHAR(32), form_name VARCHAR(128), content_id INT, isFile BOOL DEFAULT false, id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY (id))",
     message: "Creating table pages_permissions"
   },
   headers: {
@@ -22,7 +22,7 @@ module.exports = {
   },
   headers_elements: {
     name: "create_table_headers_elements",
-    query: "CREATE TABLE IF NOT EXISTS headers_elements (name VARCHAR(128) NOT NULL UNIQUE,  element VARCHAR(16), args LONGTEXT, value VARCHAR(16) NOT NULL, weight INT NOT NULL, header_id INT, FOREIGN KEY (header_id) REFERENCES headers (id), header_element_id INT, FOREIGN KEY(header_element_id) REFERENCES headers_elements(id), uri_id INT, FOREIGN KEY (uri_id) references uri (id), id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY (id), createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, lastModifiedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP)",
+    query: "CREATE TABLE IF NOT EXISTS headers_elements (name VARCHAR(128) NOT NULL UNIQUE,  element VARCHAR(16), args LONGTEXT, value VARCHAR(16) NOT NULL, weight INT NOT NULL, header_id INT, FOREIGN KEY (header_id) REFERENCES headers (id), header_element_id INT, FOREIGN KEY(header_element_id) REFERENCES headers_elements(id), header_element_name VARCHAR(128), FOREIGN KEY(header_element_name) REFERENCES headers_elements(name), uri_id INT, FOREIGN KEY (uri_id) references uri (id) ON DELETE CASCADE, id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY (id), createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, lastModifiedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP)",
     message: "CREATING table headers_elements"
   },
   pages: {
@@ -32,12 +32,12 @@ module.exports = {
   },
   pages_permissions: {
     name: "create_table_pages_permissions",
-    query: "CREATE TABLE IF NOT EXISTS pages_permissions (".concat(global_transaction.ROUTE_PERMISSIONS_PREFIX, "Logout BOOL, ").concat(global_transaction.ROUTE_PERMISSIONS_PREFIX, "Login BOOL, ").concat(global_transaction.ROUTE_PERMISSIONS_PREFIX, "Contributor BOOL, ").concat(global_transaction.ROUTE_PERMISSIONS_PREFIX, "Administrator BOOL, id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY (id), page_id INT UNIQUE NOT NULL, FOREIGN KEY (page_id) REFERENCES pages (id))"),
+    query: "CREATE TABLE IF NOT EXISTS pages_permissions (".concat(global_transaction.ROUTE_PERMISSIONS_PREFIX, "Logout BOOL DEFAULT FALSE, ").concat(global_transaction.ROUTE_PERMISSIONS_PREFIX, "Login BOOL DEFAULT FALSE, ").concat(global_transaction.ROUTE_PERMISSIONS_PREFIX, "Contributor BOOL DEFAULT FALSE, ").concat(global_transaction.ROUTE_PERMISSIONS_PREFIX, "Administrator BOOL DEFAULT FALSE, id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY (id), page_id INT UNIQUE NOT NULL, FOREIGN KEY (page_id) REFERENCES pages (id))"),
     message: "Creating table pages_permissions"
   },
   forms: {
     name: "create_table_forms",
-    query: "CREATE TABLE IF NOT EXISTS forms (name VARCHAR(255) NOT NULL, element LONGTEXT, number INT NOT NULL, uri_id INT NOT NULL, FOREIGN KEY(uri_id) REFERENCES uri(id), id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY(id), createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, lastModifiedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP)",
+    query: "CREATE TABLE IF NOT EXISTS forms (name VARCHAR(255) NOT NULL, element LONGTEXT, number INT NOT NULL, uri_id INT, isSystem BOOL DEFAULT FALSE, FOREIGN KEY(uri_id) REFERENCES uri(id), id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY(id), createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, lastModifiedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP)",
     message: "creating table forms"
   },
   forms_elements: {
@@ -64,5 +64,10 @@ module.exports = {
     name: "create_table_users_privileges",
     query: "CREATE TABLE IF NOT EXISTS users_privileges (administrator BOOL DEFAULT false, contributor BOOL DEFAULT false, user BOOL DEFAULT true, user_id INT UNIQUE NOT NULL, id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY (id), FOREIGN KEY (user_id) REFERENCES users (id))",
     message: "Creating table users_privileges"
+  },
+  content_types: {
+    name: "create_table_content_types",
+    query: "CREATE TABLE IF NOT EXISTS content_types (machine_name VARCHAR(255) NOT NULL UNIQUE, template_name VARCHAR(255) NOT NULL, id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY (id))",
+    message: "Creating table content_types"
   }
 };

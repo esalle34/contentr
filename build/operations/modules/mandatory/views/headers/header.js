@@ -6,6 +6,12 @@ Object.defineProperty(exports, "__esModule", {
 exports.Header = void 0;
 
 //Author - Eric Salle
+var path = require('path');
+
+var root_path = path.dirname(require.main.filename);
+
+var global = require(path.resolve(root_path + "/global"))();
+
 class Header extends Object {
   constructor(args) {
     super();
@@ -24,6 +30,59 @@ class Header extends Object {
   }
 
   getHeader() {
+    if (this.header == null) {
+      return {
+        react_element: 'header',
+        args: {
+          key: 'main-header'
+        },
+        react_nested: {
+          react_element: 'div',
+          args: {
+            key: 'fixed-header',
+            className: 'container fixed-header'
+          },
+          react_nested: [{
+            react_element: "div",
+            args: {
+              key: "filler-header",
+              className: 'filler filler-header'
+            },
+            react_nested: []
+          }, {
+            react_element: "nav",
+            args: {
+              key: "navbar",
+              className: "navbar navbar-expand-lg justify-route-between navbar-light bg-light"
+            },
+            react_nested: [{
+              react_element: "a",
+              args: {
+                key: "navbar-brand",
+                className: "navbar-brand",
+                href: global.HOME_PATH
+              }
+            }, {
+              react_element: "ul",
+              args: {
+                key: "left-list",
+                value: "Left List",
+                className: "navbar-nav ml-auto no-margin-left"
+              }
+            }, {
+              react_element: "ul",
+              args: {
+                key: "right-list",
+                className: "navbar-nav mr-auto",
+                value: "Right List"
+              },
+              react_nested: []
+            }]
+          }]
+        }
+      };
+    }
+
     return this.header;
   }
 
@@ -38,6 +97,11 @@ class Header extends Object {
   resolveSubElements(route, els) {
     var user = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
     var parentTag = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
+
+    if (els == null) {
+      return null;
+    }
+
     var header_item = {
       react_element: "void",
       args: {
@@ -62,6 +126,7 @@ class Header extends Object {
       };
     }
 
+    els.sort((a, b) => parseFloat(a.weight) - parseFloat(b.weight));
     els.map(function (helem) {
       var lowCaseValue = helem.value.toLowerCase().replace(/\s/g, "-");
       var args = JSON.parse(helem.args);
