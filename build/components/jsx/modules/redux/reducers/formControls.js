@@ -14,8 +14,17 @@ function formControls() {
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
+    case _formControls.INVOKE_UPLOADER_W_SELECT:
+      return Object.assign({}, state, (0, _formControls.invokeUploaderWithSelectValue)(action.input));
+
+    case _formControls.INVOKE_CKEDITOR:
+      return Object.assign({}, state, (0, _formControls.invokeCkEditor)(action.input));
+
     case _formControls.TOGGLE_INPUT_VISIBILITY:
       return Object.assign({}, state, (0, _formControls.toggleInputVisibility)(action.input));
+
+    case _formControls.INPUT_STATE_CHANGED:
+      return Object.assign({}, state, (0, _formControls.inputStateChanged)(action.input));
 
     case _formControls.GET_DEFAULT_COUNTRY:
       return Object.assign({}, state, (0, _formControls.getDefaultCountry)(action.input));

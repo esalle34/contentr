@@ -3,12 +3,26 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.changeLabelText = exports.inputCreator = exports.checkboxCreator = exports.isMutatorCheckbox = exports.getDefaultCountry = exports.toggleInputVisibility = exports.CHANGE_LABEL_TEXT = exports.INPUT_CREATOR = exports.CHECKBOX_CREATOR = exports.IS_MUTATOR_CHECKBOX = exports.GET_DEFAULT_COUNTRY = exports.TOGGLE_INPUT_VISIBILITY = void 0;
+exports.changeLabelText = exports.inputCreator = exports.checkboxCreator = exports.isMutatorCheckbox = exports.getDefaultCountry = exports.inputStateChanged = exports.toggleInputVisibility = exports.invokeCkEditor = exports.invokeUploaderWithSelectValue = exports.CHANGE_LABEL_TEXT = exports.INPUT_CREATOR = exports.CHECKBOX_CREATOR = exports.IS_MUTATOR_CHECKBOX = exports.GET_DEFAULT_COUNTRY = exports.INPUT_STATE_CHANGED = exports.TOGGLE_INPUT_VISIBILITY = exports.INVOKE_CKEDITOR = exports.INVOKE_UPLOADER_W_SELECT = void 0;
+
+var _reactDom = _interopRequireDefault(require("react-dom"));
+
+var _react = _interopRequireDefault(require("react"));
 
 var _index = require("../../../../../operations/modules/mandatory/i18n/services/index.js");
 
+var _invokablesRegistry = require("../../invokables/invokables.registry.jsx");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var INVOKE_UPLOADER_W_SELECT = "INVOKE_UPLOADER_W_SELECT";
+exports.INVOKE_UPLOADER_W_SELECT = INVOKE_UPLOADER_W_SELECT;
+var INVOKE_CKEDITOR = "INVOKE_CKEDITOR";
+exports.INVOKE_CKEDITOR = INVOKE_CKEDITOR;
 var TOGGLE_INPUT_VISIBILITY = "TOGGLE_INPUT_VISIBILITY";
 exports.TOGGLE_INPUT_VISIBILITY = TOGGLE_INPUT_VISIBILITY;
+var INPUT_STATE_CHANGED = "INPUT_STATE_CHANGED";
+exports.INPUT_STATE_CHANGED = INPUT_STATE_CHANGED;
 var GET_DEFAULT_COUNTRY = "GET_DEFAULT_COUNTRY";
 exports.GET_DEFAULT_COUNTRY = GET_DEFAULT_COUNTRY;
 var IS_MUTATOR_CHECKBOX = "IS_MUTATOR_CHECKBOX";
@@ -19,6 +33,26 @@ var INPUT_CREATOR = "INPUT_CREATOR";
 exports.INPUT_CREATOR = INPUT_CREATOR;
 var CHANGE_LABEL_TEXT = "CHANGE_LABEL_TEXT";
 exports.CHANGE_LABEL_TEXT = CHANGE_LABEL_TEXT;
+
+var invokeUploaderWithSelectValue = input => {
+  return {
+    type: INVOKE_UPLOADER_W_SELECT
+  };
+};
+
+exports.invokeUploaderWithSelectValue = invokeUploaderWithSelectValue;
+
+var invokeCkEditor = input => {
+  var CkEditor = _invokablesRegistry.invokables["InvokeCkEditor"];
+
+  _reactDom.default.render( /*#__PURE__*/_react.default.createElement(CkEditor, null), input.previousSibling);
+
+  return {
+    type: INVOKE_CKEDITOR
+  };
+};
+
+exports.invokeCkEditor = invokeCkEditor;
 
 var toggleInputVisibility = input => {
   var newInput_type;
@@ -31,6 +65,24 @@ var toggleInputVisibility = input => {
 };
 
 exports.toggleInputVisibility = toggleInputVisibility;
+
+var inputStateChanged = input => {
+  if (input.value.length > 0) {
+    if (input.parentNode.previousSibling != null && input.parentNode.previousSibling.tagName == "LABEL") {
+      input.parentNode.previousSibling.classList.remove("invisible");
+    } else if (input.parentNode.nextSibling != null && input.parentNode.nextSibling.tagName == "LABEL") {
+      input.parentNode.nextSibling.classList.remove("invisible");
+    }
+  } else {
+    if (input.parentNode.previousSibling.tagName == "LABEL") {
+      input.parentNode.previousSibling.classList.add("invisible");
+    } else if (input.parentNode.nextSibling.tagName == "LABEL") {
+      input.parentNode.nextSibling.classList.add("invisible");
+    }
+  }
+};
+
+exports.inputStateChanged = inputStateChanged;
 
 var getDefaultCountry = select => {
   var selectedDefaultCountry = Array.from(select.children).find(child => child.value == _index.i18n.getDocLang().substring(3));

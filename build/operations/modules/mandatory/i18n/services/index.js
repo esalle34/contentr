@@ -64,6 +64,10 @@ var i18n = {
     var tr_string;
 
     try {
+      if (typeof _i18n.i18nRegistry[i18n.getLang(lang)][string] == "undefined") {
+        return string.replace("%s", int);
+      }
+
       if (int > 0) {
         tr_string = _i18n.i18nRegistry[i18n.getLang(lang)][string]['other'].replace("%s", int);
       } else {

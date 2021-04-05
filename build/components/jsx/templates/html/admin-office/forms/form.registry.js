@@ -17,13 +17,19 @@ var _option = _interopRequireDefault(require("./option"));
 
 var _inputGroupAddOns = _interopRequireDefault(require("./inputGroupAddOns"));
 
+var _ckEditor = _interopRequireDefault(require("./ckEditor"));
+
+var _textarea = _interopRequireDefault(require("./textarea"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var forms = {
   form: _form.default,
   input: _input.default,
   select: _select.default,
-  option: _option.default
+  option: _option.default,
+  ckEditor: _ckEditor.default,
+  textarea: _textarea.default
 };
 exports.forms = forms;
 

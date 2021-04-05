@@ -69,5 +69,10 @@ module.exports = {
     name: "create_table_content_types",
     query: "CREATE TABLE IF NOT EXISTS content_types (machine_name VARCHAR(255) NOT NULL UNIQUE, template_name VARCHAR(255) NOT NULL, id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY (id))",
     message: "Creating table content_types"
+  },
+  content: {
+    name: "create_table_content",
+    query: "CREATE TABLE IF NOT EXISTS content (data_id INT NOT NULL, content_type_id INT NOT NULL, FOREIGN KEY (content_type_id) REFERENCES content_types (id), id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY (id), createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, lastModifiedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP)",
+    message: "Creating table content"
   }
 };

@@ -191,10 +191,6 @@ export function validateString(formId, input){
 
 		errorLabel = i18n.translateN("This field needs at least %s character", reqminlength);
 
-	}else if(typeof reqminlength == "undefined" && parseInt(input.value.length) < 2){
-
-		errorLabel = i18n.translateN("This field needs at least %s character", 2);
-
 	}else if(typeof reqmaxlength != "undefined" && parseInt(input.value.length) > parseInt(reqmaxlength)){
 
 		errorLabel = i18n.translateN("This field needs a maximum of %s character", reqmaxlength);

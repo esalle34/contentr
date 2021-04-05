@@ -27,7 +27,7 @@ var Input = args => {
     });
   }
 
-  if (typeof args.prepend == "object" && ! /*#__PURE__*/_react.default.isValidElement(args.append)) {
+  if (typeof args.prepend == "object" && ! /*#__PURE__*/_react.default.isValidElement(args.prepend)) {
     if (typeof args.prepend.subelement == "undefined") {
       args.prepend.subelement = "icon";
     }
@@ -48,7 +48,7 @@ var Input = args => {
   }, typeof args.prelabel != "undefined" && args.prelabel != null && /*#__PURE__*/_react.default.createElement("label", {
     key: "prelabel-".concat(args.id),
     htmlFor: args.id,
-    className: typeof args.type != "undefined" ? args.type == "checkbox" ? "form-check-label" : args.type == "text" || args.type == "password" || args.type == "email" ? "sr-only" : args.type == "file" ? "file-label col" : undefined : undefined
+    className: typeof args.type != "undefined" ? args.type == "checkbox" ? "form-check-label" : args.type == "text" || args.type == "password" || args.type == "email" || args.type == "number" ? args.value != null && args.length > 0 ? undefined : "invisible" : args.type == "file" ? "file-label col" : undefined : undefined
   }, args.prelabel), /*#__PURE__*/_react.default.createElement("div", {
     className: typeof args.type != "undefined" ? args.type == "checkbox" ? undefined : "input-group" : undefined
   }, typeof args.prepend != "undefined" && args.prepend != null && /*#__PURE__*/_react.default.createElement("div", {
@@ -65,9 +65,9 @@ var Input = args => {
   }), typeof args.append != "undefined" && args.append != null && /*#__PURE__*/_react.default.createElement("div", {
     className: "input-group-append"
   }, args.append)), typeof args.aplabel != "undefined" && args.aplabel != null && /*#__PURE__*/_react.default.createElement("label", {
-    key: "prelabel-".concat(args.id),
+    key: "aplabel-".concat(args.id),
     htmlFor: args.id,
-    className: typeof args.type != "undefined" ? args.type == "checkbox" ? "form-check-label" : args.type == "text" ? "sr-only" : undefined : undefined
+    className: typeof args.type != "undefined" ? args.type == "checkbox" ? "form-check-label" : args.type == "text" ? args.value != null && args.length > 0 ? undefined : "invisible" : undefined : undefined
   }, args.aplabel));
 };
 

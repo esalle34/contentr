@@ -6,6 +6,7 @@ const view_service = require(path.resolve(global.MODULE_VIEW + "/view_service"))
 const header_service = require(path.resolve(global.MODULE_VIEW + "/headers/header_service"));
 const route_service = require(path.resolve(global.MODULE_ROUTES + "/route_service"));
 const content_types_service = require(path.resolve(global.MODULE_CONTENT_TYPES + "/content_types_service"));
+const content_service = require(path.resolve(global.MODULE_CONTENT + "/content_service"));
 const form_validators = require(path.resolve(global.MODULE_FORM + "/form_validators"))();
 const FormFactory = require(path.resolve(global.MODULE_FORM + "/form_factory")).FormFactory;
 
@@ -13,7 +14,8 @@ const services = {
 	"view_service" : view_service,
 	"route_service" : route_service,
 	"header_service" : header_service,
-	"content_types_service" : content_types_service
+	"content_types_service" : content_types_service,
+	"content_service" : content_service
 }
 
 module.exports = {
@@ -39,6 +41,16 @@ module.exports = {
 	
 				try {
 					let formComponent = form.setFormComponent();
+					
+					form.felemsData.sort((a, b) => {
+						if(a.form_element_id != null){
+							if(a.form_element_id == b.form_element_id){
+								return parseFloat(a.weight) - parseFloat(b.weight)
+							}
+						}else{
+							return parseFloat(a.weight) - parseFloat(b.weight)
+						}
+					});
 					formComponent = form.resolveFormElements(route, formComponent, form.felemsData);
 					let body = formComponent;
 					if(req._parsedUrl.query == null || (req._parsedUrl.query != null && !req._parsedUrl.query.includes("fragment"))){

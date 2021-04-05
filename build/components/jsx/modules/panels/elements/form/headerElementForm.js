@@ -41,8 +41,17 @@ var HeaderElementForm = args => {
     }
   };
 
+  var inputStateChanged = e => {
+    if (e.target.value.length > 0) {
+      e.target.parentNode.previousSibling.classList.remove("invisible");
+    } else {
+      e.target.parentNode.previousSibling.classList.add("invisible");
+    }
+  };
+
   var changeTitle = e => {
     e.target.closest(".accordion-item").previousSibling.firstChild.firstChild.innerText = e.target.value;
+    inputStateChanged(e);
   };
 
   view = /*#__PURE__*/_react.default.createElement("form", {
@@ -60,32 +69,49 @@ var HeaderElementForm = args => {
     value: "route_service/search_route::search::none"
   }), /*#__PURE__*/_react.default.createElement("div", {
     className: "col-4 form-group"
-  }, /*#__PURE__*/_react.default.createElement("div", {
+  }, /*#__PURE__*/_react.default.createElement("label", {
+    key: "prelabel-".concat(header_el.id),
+    className: typeof header_el.name != "undefined" && header_el.name != null && header_el.name.length > 0 ? undefined : "invisible",
+    htmlFor: "input-name-".concat(header_el.id)
+  }, _index.i18n.translate("Name")), /*#__PURE__*/_react.default.createElement("div", {
     className: "input-group"
   }, /*#__PURE__*/_react.default.createElement("input", {
     type: "text",
     name: "name",
+    id: "input-name-".concat(header_el.id),
     className: "form-control form-input-text",
+    onChange: e => inputStateChanged(e),
     placeholder: _index.i18n.translate("Name"),
     defaultValue: typeof header_el.name != "undefined" && header_el.name != null ? header_el.name : undefined
   }))), /*#__PURE__*/_react.default.createElement("div", {
     className: "col-4 form-group"
-  }, /*#__PURE__*/_react.default.createElement("div", {
+  }, /*#__PURE__*/_react.default.createElement("label", {
+    key: "prelabel-".concat(header_el.id),
+    className: typeof header_el.value != "undefined" && header_el.value != null && header_el.value.length > 0 ? undefined : "invisible",
+    htmlFor: "input-title-".concat(header_el.id)
+  }, _index.i18n.translate("Title")), /*#__PURE__*/_react.default.createElement("div", {
     className: "input-group"
   }, /*#__PURE__*/_react.default.createElement("input", {
     type: "text",
     name: "value",
+    id: "input-title-".concat(header_el.id),
     onChange: e => changeTitle(e),
     className: "form-control form-input-text",
     placeholder: _index.i18n.translate("Title"),
     defaultValue: typeof header_el.value != "undefined" && header_el.value != null ? header_el.value : undefined
   }))), /*#__PURE__*/_react.default.createElement("div", {
     className: "col-4 form-group"
-  }, /*#__PURE__*/_react.default.createElement("div", {
+  }, /*#__PURE__*/_react.default.createElement("label", {
+    key: "prelabel-".concat(header_el.id),
+    className: typeof header_el.elem != "undefined" && header_el.elem != null && header_el.elem.length > 0 ? undefined : "invisible",
+    htmlFor: "input-element-".concat(header_el.id)
+  }, _index.i18n.translate("Element")), /*#__PURE__*/_react.default.createElement("div", {
     className: "input-group"
   }, /*#__PURE__*/_react.default.createElement("input", {
     type: "text",
     name: "elem",
+    id: "input-element-".concat(header_el.id),
+    onChange: e => inputStateChanged(e),
     className: "form-control form-input-text",
     placeholder: _index.i18n.translate("Element"),
     defaultValue: typeof header_el.elem != "undefined" && header_el.elem != null ? header_el.elem : undefined,
@@ -93,25 +119,38 @@ var HeaderElementForm = args => {
     disabled: true
   }))), typeof header_el.elem != "undefined" && header_el.elem == "a" ? /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", {
     className: "col-12 form-group"
-  }, /*#__PURE__*/_react.default.createElement("div", {
+  }, /*#__PURE__*/_react.default.createElement("label", {
+    key: "prelabel-".concat(header_el.id),
+    className: typeof header_el.uri != "undefined" && header_el.uri != null && header_el.uri.length > 0 ? undefined : "invisible",
+    htmlFor: "input-uri-search-engine-".concat(header_el.id)
+  }, _index.i18n.translate("Uri search engine")), /*#__PURE__*/_react.default.createElement("div", {
     className: "input-group"
   }, /*#__PURE__*/_react.default.createElement("input", {
     type: "text",
+    id: "input-uri-search-engine-".concat(header_el.id),
     className: "form-control form-input-text has-dataset search-engine",
+    onChange: e => inputStateChanged(e),
     placeholder: _index.i18n.translate("Name, url, or feature..."),
     defaultValue: typeof header_el.uri != "undefined" && header_el.uri != null ? header_el.uri : undefined,
     dataset: '{"search-engine": {"on" : ["keyup"], "method" : "post", "url" : "/administrate/route/remove/post", "renderOnLoad" : "true", "renderingTpl" : "headerRouteSelect",  "renderToId" : "selectLink"}}'
   }))), /*#__PURE__*/_react.default.createElement("div", {
     className: "col-12 form-group"
-  }, /*#__PURE__*/_react.default.createElement("div", {
+  }, /*#__PURE__*/_react.default.createElement("label", {
+    key: "prelabel-".concat(header_el.id),
+    htmlFor: "selectLink"
+  }, _index.i18n.translate("Select Uri")), /*#__PURE__*/_react.default.createElement("div", {
     id: "selectLink",
     className: "col row justify-content-center"
   }))) : undefined, /*#__PURE__*/_react.default.createElement("div", {
     className: "col-12 form-group"
-  }, /*#__PURE__*/_react.default.createElement("div", {
+  }, /*#__PURE__*/_react.default.createElement("label", {
+    key: "prelabel-".concat(header_el.id),
+    htmlFor: "input-args-".concat(header_el.id)
+  }, _index.i18n.translate("JSON Arguments")), /*#__PURE__*/_react.default.createElement("div", {
     className: "input-group"
   }, /*#__PURE__*/_react.default.createElement("textarea", {
     className: "form-control",
+    id: "input-args-".concat(header_el.id),
     name: "args",
     defaultValue: typeof header_el.args != "undefined" && header_el.args != null ? header_el.args : undefined
   }))), /*#__PURE__*/_react.default.createElement("div", {

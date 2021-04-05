@@ -3,13 +3,21 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.ContentType = void 0;
 
 //ContentType Object
 //Author - Eric Salle
 class ContentType extends Object {
   constructor(args) {
     super();
+  }
+
+  setId(id) {
+    this.id = id;
+  }
+
+  getId() {
+    return this.id;
   }
 
   setMachineName(machine_name) {
@@ -30,5 +38,4 @@ class ContentType extends Object {
 
 }
 
-var _default = ContentType;
-exports.default = _default;
+exports.ContentType = ContentType;

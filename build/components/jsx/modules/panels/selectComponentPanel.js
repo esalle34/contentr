@@ -87,7 +87,7 @@ var SelectComponentPanel = args => {
         className: "btn btn-secondary r-bold",
         href: "#",
         onClick: () => args.select(args, data.id)
-      }, _index.i18n.translate("Select")))));
+      }, _index.i18n.translate("Choose")))));
     });
     var view_pages = [];
 

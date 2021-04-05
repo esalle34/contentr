@@ -47,7 +47,7 @@ module.exports = function (app, express, i18n) {
   app.use(theme.PUBLIC_CSS_DIR, express.static(global.BUILD_SERVER_CSS_DIR));
   app.use(favicon(global.BUILD_SERVER_FAVICON));
 
-  if (process.env.AWS_ENV == "true") {
+  if (process.env.AWS_ENV) {
     //s3 Repository for AWS ENV
     routeBuilder.buildS3RewritedFilesRoute(app, i18n);
   } else {

@@ -95,8 +95,7 @@ var manage_header_form_form = JSON.stringify({
   className: "manage-header-form-form has-popin col-12 row justify-content-center",
   enctype: "multipart/form-data",
   els: []
-}); //Content
-//Content types
+}); //Content types
 
 var create_content_types_form = JSON.stringify({
   method: "post",
@@ -104,6 +103,34 @@ var create_content_types_form = JSON.stringify({
   id: "create-content-types-form",
   key: "create-content-types-form",
   className: "create-content-types-form backoffice-panel has-popin col-12 row justify-content-center",
+  enctype: "multipart/form-data",
+  els: []
+}); //Content
+
+var create_content_form = JSON.stringify({
+  method: "post",
+  async: true,
+  id: "create-content-form",
+  key: "create-content-form",
+  className: "create-content-form backoffice-panel has-popin col-12 row justify-content-center",
+  enctype: "multipart/form-data",
+  els: []
+});
+var edit_content_form = JSON.stringify({
+  method: "post",
+  async: true,
+  id: "edit-content-form",
+  key: "edit-content-form",
+  className: "edit-content-form backoffice-panel has-popin col-12 row justify-content-center",
+  enctype: "multipart/form-data",
+  els: []
+});
+var remove_content_form = JSON.stringify({
+  method: "post",
+  async: true,
+  id: "remove-content-form",
+  key: "remove-content-form",
+  className: "remove-content-form backoffice-panel has-popin col-12 row justify-content-center",
   enctype: "multipart/form-data",
   els: []
 });
@@ -736,7 +763,7 @@ module.exports = {
   create_content_type_form: {
     form: {
       name: "INSERT_create_content_types_form",
-      query: "INSERT into forms (name, element, uri_id, number, isSystem) VALUES ('create_content_types_form', '".concat(create_content_types_form, "', (SELECT id FROM uri WHERE root_id='create-content-types'), 1, true)"),
+      query: "INSERT into forms (name, element, uri_id, number, isSystem) VALUES ('create_content_types_form', '".concat(create_content_types_form, "', (SELECT id FROM uri WHERE root_id='create-content-types'), 2, true)"),
       message: "INSERTing create_content_types form"
     },
     machine_name_create_container: {
@@ -761,7 +788,7 @@ module.exports = {
     },
     template_name: {
       name: "INSERT_create_content_types_input_template_name",
-      query: "INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('create_content_types_template_name', 'input', '{ \"className\" : \"form-control form-input-text machine-name::- validate_string minlength-3\", \"prelabel\" : \"Template name \", \"key\" : \"template-name\", \"id\" : \"template-name\", \"name\" : \"template_length-3\", \"type\" : \"text\", \"placeholder\": \"Template name\", \"groupClassName\" : \"form-group col-12 col-lg-6\" }', 0, 3, (SELECT id FROM forms WHERE name=\"create_content_types_form\"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_content_types_create_container'))",
+      query: "INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('create_content_types_template_name', 'input', '{ \"className\" : \"form-control form-input-text machine-name::- validate_string minlength-3\", \"prelabel\" : \"Template name\", \"key\" : \"template-name\", \"id\" : \"template-name\", \"name\" : \"template_length-3\", \"type\" : \"text\", \"placeholder\": \"Template name\", \"groupClassName\" : \"form-group col-12 col-lg-6\" }', 0, 3, (SELECT id FROM forms WHERE name=\"create_content_types_form\"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_content_types_create_container'))",
       message: "INSERTing create_content_types input template_name in create route form"
     },
     machine_name_container_next: {
@@ -781,7 +808,7 @@ module.exports = {
     },
     inputs_create_container_ms: {
       name: "INSERT_create_content_types_create_container_ms",
-      query: "INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('create_content_types_create_ms', 'input', '{ \"className\" : \"form-control\", \"key\" : \"ms\", \"id\" : \"ms\", \"name\" : \"ms\", \"type\": \"hidden\", \"value\": \"content_types_service/create_content_types::inputs::.create-content-types-form.end\", \"groupClassName\" : \"ms\" }', 1, 0, (SELECT id FROM forms WHERE name=\"create_content_types_form\"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_content_types_create_container_inputs'))",
+      query: "INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('create_content_types_create_ms', 'input', '{ \"className\" : \"form-control\", \"key\" : \"ms\", \"id\" : \"ms\", \"name\" : \"ms\", \"type\": \"hidden\", \"value\": \"content_types_service/create_content_types::inputs::.create-content-types-form.step-3\", \"groupClassName\" : \"ms\" }', 1, 0, (SELECT id FROM forms WHERE name=\"create_content_types_form\"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_content_types_create_container_inputs'))",
       message: "Inserting create_content_types_create_container_ms input in edit header_form form"
     },
     inputs_infos_h3: {
@@ -791,8 +818,134 @@ module.exports = {
     },
     inputs_container: {
       name: "INSERT_create_content_types_create_container_inputs_container",
-      query: "INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('create_content_types_create_container_inputs_container', 'div',  '{\"id\" : \"inputs-container\", \"key\" : \"inputs-container\", \"className\" : \"col-12\"}', 1, 2, (SELECT id FROM forms WHERE name=\"create_content_types_form\"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_content_types_create_container_inputs'))",
+      query: "INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('create_content_types_create_container_inputs_container', 'div',  '{\"id\" : \"inputs-container\", \"key\" : \"inputs-container\", \"className\" : \"col-10 row flex-row-reverse\"}', 1, 2, (SELECT id FROM forms WHERE name=\"create_content_types_form\"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_content_types_create_container_inputs'))",
       message: "INSERTing create_content_types_create_container_inputs_container"
+    },
+    inputs_container_next: {
+      name: "INSERT_inputs_create_content_types_container_next",
+      query: "INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('create_content_types_container_next_inputs', 'div',  '{\"className\" : \"col-12 row\", \"id\" : \"create-content-types-next\", \"key\" : \"create_content_types_next\"}', 1, 3, (SELECT id FROM forms WHERE name=\"create_content_types_form\"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_content_types_create_container_inputs'))",
+      message: "INSERTing inputs_create_content_types container_next"
+    },
+    inputs_submit: {
+      name: "INSERT_inputs_create_content_types_submit_input",
+      query: "INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('create_content_types_container_submit_inputs', 'input', '{ \"id\" : \"submit\", \"name\" : \"next\", \"className\" : \"submit form-input-submit next btn btn-primary\", \"key\" : \"submit\", \"type\" : \"submit\", \"value\": \"Submit\", \"groupClassName\" : \"container-next col-12\" }', 1, 0, (SELECT id FROM forms WHERE name=\"create_content_types_form\"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_content_types_container_next_inputs'))",
+      message: "INSERTing inputs_create_content_types submit input in create_route form"
+    },
+    end_container: {
+      name: "INSERT_create_content_type_end_container",
+      query: "INSERT into forms_elements (name, element, args, form_number, weight, form_id) VALUES ('create_content_type_end_container', 'div', '{\"className\" : \"col-10 row\"}', 2, 0, (SELECT id FROM forms WHERE name=\"create_content_types_form\"))",
+      message: "INSERTing create_content_type form end container"
+    },
+    end_h3: {
+      name: "INSERT_create_content_type_end_h3",
+      query: "INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('create_type_container_end_h3', 'h3',  '{\"key\" : \"create-content-type-end-h3\", \"className\" : \"center fill info\", \"els\" : \"Content type created successfully\"}', 2, 0, (SELECT id FROM forms WHERE name=\"create_content_types_form\"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_content_type_end_container'))",
+      message: "INSERTing create_content_type form end h3"
+    },
+    end_container_next: {
+      name: "INSERT_create_content_type_end_next",
+      query: "INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('create_content_type_form_end_container_next', 'div',  '{\"className\" : \"col-12 row\", \"id\" : \"create-content-type-container-next\", \"key\" : \"create_content_type_container_next\"}', 2, 1, (SELECT id FROM forms WHERE name=\"create_content_types_form\"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_content_type_end_container'))",
+      message: "INSERTing create_content_type form end container_back_next"
+    },
+    end_add_new: {
+      name: "INSERT_create_content_type_end_add_new_input",
+      query: "INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('create_content_type_end_submit', 'a', '{ \"id\" : \"add_new\", \"href\" : \"/administrate/content/types/create\", \"className\" : \"next btn btn-primary\", \"key\" : \"add_new\", \"els\": \"Add new\", \"groupClassName\" : \"container-next col-12\" }', 2, 0, (SELECT id FROM forms WHERE name=\"create_content_types_form\"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_content_type_form_end_container_next'))",
+      message: "INSERTing end add new input in create_content_type form"
+    }
+  },
+  create_content_form: {
+    form: {
+      name: "INSERT_create_content_form",
+      query: "INSERT into forms (name, element, uri_id, number, isSystem) VALUES ('create_content_form', '".concat(create_content_form, "', (SELECT id FROM uri WHERE root_id='create-content-form'), 0, true)"),
+      message: "INSERTing create_content form"
+    },
+    create_content_container: {
+      name: "INSERT_create_content_form_create_content_container",
+      query: "INSERT into forms_elements (name, element, args, form_number, weight, form_id) VALUES ('create_content_form_container', 'div', '{\"className\" : \"col-10 row justify-content-center\"}', 0, 0, (SELECT id FROM forms WHERE name=\"create_content_form\"))",
+      message: "INSERTing create_content form create_content container"
+    },
+    create_content_container_ms: {
+      name: "INSERT_create_content_form_create_content_container_ms",
+      query: "INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('create_content_ms', 'input', '{ \"className\" : \"form-control\", \"key\" : \"ms\", \"id\" : \"ms\", \"name\" : \"ms\", \"type\": \"hidden\", \"value\": \"content_types_service/search_content_types::search::.create_content_form.end\", \"groupClassName\" : \"ms\" }', 0, 0, (SELECT id FROM forms WHERE name=\"create_content_form\"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_content_form_container'))",
+      message: "Inserting create_content create_content_container_ms input in create header form"
+    },
+    create_content_infos_h3: {
+      name: "INSERT_create_content_form_create_content_infos_h3",
+      query: "INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('create_content_form_infos_h3', 'h3',  '{\"key\" : \"header-infos-h3\", \"className\" : \"title fill b-border\", \"els\" : \"Create content\"}', 0, 1, (SELECT id FROM forms WHERE name=\"create_content_form\"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_content_form_container'))",
+      message: "INSERTing create_content form create_content infos h3"
+    },
+    search_input: {
+      name: "INSERT_create_content_search_input",
+      query: "INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('create_content_search', 'input', '{ \"className\" : \"form-control form-input-text has-dataset search-engine\", \"key\" : \"search-engine\", \"id\" : \"search-engine\", \"name\" : \"search-engine\", \"type\" : \"text\", \"placeholder\": \"Name\", \"groupClassName\" : \"form-group col-12\", \"dataSet\" : { \"search-engine\" : { \"url\" : \"/administrate/content/types/search\", \"method\" : \"post\", \"on\" : [\"keyup\"], \"renderingTpl\" : \"createContent\", \"renderToId\" : \"search-results\", \"renderOnLoad\" : true } } }', 0, 2, (SELECT id FROM forms WHERE name=\"create_content_form\"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_content_form_container'))",
+      message: "INSERTing create_content search input in create_content header form"
+    },
+    create_content_search_results: {
+      name: "INSERT_create_content_form_create_content_container_search_results",
+      query: "INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('create_content_form_container_search_results', 'div', '{\"id\" : \"search-results\", \"key\" : \"search-results\", \"className\" : \"col-12 row justify-content-center\"}', 0, 3, (SELECT id FROM forms WHERE name=\"create_content_form\"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='create_content_form_container'))",
+      message: "INSERTing create_content form create_content container search results"
+    }
+  },
+  edit_content_form: {
+    form: {
+      name: "INSERT_edit_content_form",
+      query: "INSERT into forms (name, element, uri_id, number, isSystem) VALUES ('edit_content_form', '".concat(edit_content_form, "', (SELECT id FROM uri WHERE root_id='edit-content-form'), 0, true)"),
+      message: "INSERTing edit_content form"
+    },
+    edit_content_container: {
+      name: "INSERT_edit_content_form_edit_content_container",
+      query: "INSERT into forms_elements (name, element, args, form_number, weight, form_id) VALUES ('edit_content_form_container', 'div', '{\"className\" : \"col-10 row justify-content-center\"}', 0, 0, (SELECT id FROM forms WHERE name=\"edit_content_form\"))",
+      message: "INSERTing edit_content form edit_content container"
+    },
+    edit_content_container_ms: {
+      name: "INSERT_edit_content_form_edit_content_container_ms",
+      query: "INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('edit_content_ms', 'input', '{ \"className\" : \"form-control\", \"key\" : \"ms\", \"id\" : \"ms\", \"name\" : \"ms\", \"type\": \"hidden\", \"value\": \"content_service/search_content::search::.edit_content_form.end\", \"groupClassName\" : \"ms\" }', 0, 0, (SELECT id FROM forms WHERE name=\"edit_content_form\"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='edit_content_form_container'))",
+      message: "Inserting edit_content edit_content_container_ms input in edit header form"
+    },
+    edit_content_infos_h3: {
+      name: "INSERT_edit_content_form_edit_content_infos_h3",
+      query: "INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('edit_content_form_infos_h3', 'h3',  '{\"key\" : \"header-infos-h3\", \"className\" : \"title fill b-border\", \"els\" : \"Edit content\"}', 0, 1, (SELECT id FROM forms WHERE name=\"edit_content_form\"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='edit_content_form_container'))",
+      message: "INSERTing edit_content form edit_content infos h3"
+    },
+    search_input: {
+      name: "INSERT_edit_content_search_input",
+      query: "INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('edit_content_search', 'input', '{ \"className\" : \"form-control form-input-text has-dataset search-engine\", \"key\" : \"search-engine\", \"id\" : \"search-engine\", \"name\" : \"search-engine\", \"type\" : \"text\", \"placeholder\": \"Name\", \"groupClassName\" : \"form-group col-12\", \"dataSet\" : { \"search-engine\" : { \"url\" : \"/administrate/content/search\", \"method\" : \"post\", \"on\" : [\"keyup\"], \"renderingTpl\" : \"editContent\", \"renderToId\" : \"search-results\", \"renderOnLoad\" : true } } }', 0, 2, (SELECT id FROM forms WHERE name=\"edit_content_form\"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='edit_content_form_container'))",
+      message: "INSERTing edit_content search input in edit_content header form"
+    },
+    edit_content_search_results: {
+      name: "INSERT_edit_content_form_edit_content_container_search_results",
+      query: "INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('edit_content_form_container_search_results', 'div', '{\"id\" : \"search-results\", \"key\" : \"search-results\", \"className\" : \"col-12 row justify-content-center\"}', 0, 3, (SELECT id FROM forms WHERE name=\"edit_content_form\"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='edit_content_form_container'))",
+      message: "INSERTing edit_content form edit_content container search results"
+    }
+  },
+  remove_content_form: {
+    form: {
+      name: "INSERT_remove_content_form",
+      query: "INSERT into forms (name, element, uri_id, number, isSystem) VALUES ('remove_content_form', '".concat(remove_content_form, "', (SELECT id FROM uri WHERE root_id='remove-content-form'), 0, true)"),
+      message: "INSERTing remove_content form"
+    },
+    remove_content_container: {
+      name: "INSERT_remove_content_form_remove_content_container",
+      query: "INSERT into forms_elements (name, element, args, form_number, weight, form_id) VALUES ('remove_content_form_container', 'div', '{\"className\" : \"col-10 row justify-content-center\"}', 0, 0, (SELECT id FROM forms WHERE name=\"remove_content_form\"))",
+      message: "INSERTing remove_content form remove_content container"
+    },
+    remove_content_container_ms: {
+      name: "INSERT_remove_content_form_remove_content_container_ms",
+      query: "INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('remove_content_ms', 'input', '{ \"className\" : \"form-control\", \"key\" : \"ms\", \"id\" : \"ms\", \"name\" : \"ms\", \"type\": \"hidden\", \"value\": \"content_service/search_content::search::.remove_content_form.end\", \"groupClassName\" : \"ms\" }', 0, 0, (SELECT id FROM forms WHERE name=\"remove_content_form\"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='remove_content_form_container'))",
+      message: "Inserting remove_content remove_content_container_ms input in remove header form"
+    },
+    remove_content_infos_h3: {
+      name: "INSERT_remove_content_form_remove_content_infos_h3",
+      query: "INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('remove_content_form_infos_h3', 'h3',  '{\"key\" : \"header-infos-h3\", \"className\" : \"title fill b-border\", \"els\" : \"Remove content\"}', 0, 1, (SELECT id FROM forms WHERE name=\"remove_content_form\"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='remove_content_form_container'))",
+      message: "INSERTing remove_content form remove_content infos h3"
+    },
+    search_input: {
+      name: "INSERT_remove_content_search_input",
+      query: "INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('remove_content_search', 'input', '{ \"className\" : \"form-control form-input-text has-dataset search-engine\", \"key\" : \"search-engine\", \"id\" : \"search-engine\", \"name\" : \"search-engine\", \"type\" : \"text\", \"placeholder\": \"Name\", \"groupClassName\" : \"form-group col-12\", \"dataSet\" : { \"search-engine\" : { \"url\" : \"/administrate/content/search\", \"method\" : \"post\", \"on\" : [\"keyup\"], \"renderingTpl\" : \"removeContent\", \"renderToId\" : \"search-results\", \"renderOnLoad\" : true } } }', 0, 2, (SELECT id FROM forms WHERE name=\"remove_content_form\"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='remove_content_form_container'))",
+      message: "INSERTing remove_content search input in remove_content header form"
+    },
+    remove_content_search_results: {
+      name: "INSERT_remove_content_form_remove_content_container_search_results",
+      query: "INSERT into forms_elements (name, element, args, form_number, weight, form_id, form_element_id) VALUES ('remove_content_form_container_search_results', 'div', '{\"id\" : \"search-results\", \"key\" : \"search-results\", \"className\" : \"col-12 row justify-content-center\"}', 0, 3, (SELECT id FROM forms WHERE name=\"remove_content_form\"), (SELECT id from (SELECT * FROM forms_elements) AS felems where felems.name='remove_content_form_container'))",
+      message: "INSERTing remove_content form remove_content container search results"
     }
   }
 };

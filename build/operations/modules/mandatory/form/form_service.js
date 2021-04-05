@@ -15,6 +15,8 @@ var route_service = require(path.resolve(global.MODULE_ROUTES + "/route_service"
 
 var content_types_service = require(path.resolve(global.MODULE_CONTENT_TYPES + "/content_types_service"));
 
+var content_service = require(path.resolve(global.MODULE_CONTENT + "/content_service"));
+
 var form_validators = require(path.resolve(global.MODULE_FORM + "/form_validators"))();
 
 var FormFactory = require(path.resolve(global.MODULE_FORM + "/form_factory")).FormFactory;
@@ -23,49 +25,68 @@ var services = {
   "view_service": view_service,
   "route_service": route_service,
   "header_service": header_service,
-  "content_types_service": content_types_service
+  "content_types_service": content_types_service,
+  "content_service": content_service
 };
 module.exports = {
   getForm: (route, req, res) => {
     var formFactory;
 
-    if (typeof req.body != "undefined" && req.body.form_name != "undefined" && req.body.form_name != null) {
+    var fetchForm = formFactory => {
+      var q_form = formFactory.fetchForm(formFactory.getQueryPrefix("form"));
+      var q_decorate;
+
+      if (route.feature != null && (req._parsedUrl.query == null || !req._parsedUrl.query.includes("fragment"))) {
+        q_decorate = route_service.decorateContainer(route);
+      }
+
+      Promise.all([q_form, q_decorate]).then(resolve => {
+        var form = resolve.find(res => typeof res != "undefined" && typeof res.getFormData != "undefined");
+        var decorator = resolve.find(res => typeof res != "undefined" && typeof res.getFormData == "undefined");
+
+        try {
+          var formComponent = form.setFormComponent();
+          form.felemsData.sort((a, b) => {
+            if (a.form_element_id != null) {
+              if (a.form_element_id == b.form_element_id) {
+                return parseFloat(a.weight) - parseFloat(b.weight);
+              }
+            } else {
+              return parseFloat(a.weight) - parseFloat(b.weight);
+            }
+          });
+          formComponent = form.resolveFormElements(route, formComponent, form.felemsData);
+          var body = formComponent;
+
+          if (req._parsedUrl.query == null || req._parsedUrl.query != null && !req._parsedUrl.query.includes("fragment")) {
+            if (route.feature == null) {
+              body = view_service.addLogoAsH1(global.CMS_TITLE, body);
+            } else if (route.feature != null) {
+              var feature = route.feature.split("_")[0];
+              body = route_service.containerDecorator(feature, formComponent, decorator);
+            }
+          }
+
+          return view_service.buildView(route, req, res, body);
+        } catch (error) {
+          console.error("Error in form_service@getForm (form_name : ".concat(route.form_name, ") : ") + error.stack);
+          return view_service.buildErrorView(route, req, res, error);
+        }
+      });
+    };
+
+    if (typeof req.body != "undefined" && typeof req.body.form_name != "undefined" && req.body.form_name != null) {
       formFactory = new FormFactory(req.body.form_name);
+      fetchForm(formFactory);
+    } else if (typeof req.body != "undefined" && typeof req.body.content_type_id != "undefined" && req.body.content_type_id != null) {
+      content_types_service.getContentTypeName(req.body.content_type_id).then(form_name => {
+        formFactory = new FormFactory(form_name);
+        fetchForm(formFactory);
+      });
     } else {
       formFactory = new FormFactory(route.form_name);
+      fetchForm(formFactory);
     }
-
-    var q_form = formFactory.fetchForm(formFactory.getQueryPrefix("form"));
-    var q_decorate;
-
-    if (route.feature != null && (req._parsedUrl.query == null || !req._parsedUrl.query.includes("fragment"))) {
-      q_decorate = route_service.decorateContainer(route);
-    }
-
-    Promise.all([q_form, q_decorate]).then(resolve => {
-      var form = resolve.find(res => typeof res != "undefined" && typeof res.getFormData != "undefined");
-      var decorator = resolve.find(res => typeof res != "undefined" && typeof res.getFormData == "undefined");
-
-      try {
-        var formComponent = form.setFormComponent();
-        formComponent = form.resolveFormElements(route, formComponent, form.felemsData);
-        var body = formComponent;
-
-        if (req._parsedUrl.query == null || req._parsedUrl.query != null && !req._parsedUrl.query.includes("fragment")) {
-          if (route.feature == null) {
-            body = view_service.addLogoAsH1(global.CMS_TITLE, body);
-          } else if (route.feature != null) {
-            var feature = route.feature.split("_")[0];
-            body = route_service.containerDecorator(feature, formComponent, decorator);
-          }
-        }
-
-        return view_service.buildView(route, req, res, body);
-      } catch (error) {
-        console.error("Error in form_service@getForm (form_name : ".concat(route.form_name, ") : ") + error.stack);
-        return view_service.buildErrorView(route, req, res, error);
-      }
-    });
   },
   //Récupération à partir de l'input ms en hidden des données liés au service (file, callback, prefix)
   //exemple : content_service/create_content::uri => file/service::prefix

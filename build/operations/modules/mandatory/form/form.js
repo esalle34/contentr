@@ -117,6 +117,15 @@ class Form extends Object {
           if (parent != null) {
             return formComponent.react_nested = this.resolveFormElements(route, formComponent, els, parent);
           }
+        } else if (felem.form_element_id == null) {
+          var _felemParsedArgs = JSON.parse(felem.args);
+
+          var _felemComponent = {
+            react_element: felem.elem,
+            args: _felemParsedArgs,
+            react_nested: []
+          };
+          formComponent.react_nested.push(_felemComponent);
         }
       }.bind(this));
       return typeof parentComponent != "undefined" ? parentComponent : formComponent;

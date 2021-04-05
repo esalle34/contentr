@@ -307,7 +307,7 @@ const InvokeUploader = (args) => {
         root_folders.push(<option key={`key-${folders.title}`} id={`key-${folders.title}`} value={folders.uri}>{folders.title.charAt(0).toUpperCase() + folders.title.slice(1)}</option>)
     })
 
-    return <React.Fragment><label className="sr-only" htmlFor="files">{i18n.translate('Files')}</label><div className="choose-folder"><select id="files" name="files" className="form-control col-12" onChange={() => { onChange() }}>{root_folders}</select></div></React.Fragment>;
+    return <React.Fragment><label htmlFor="files">{i18n.translate('Files')}</label><div className="choose-folder"><select id="files" name="files" className="form-control col-12" onChange={() => { onChange() }}>{root_folders}</select></div></React.Fragment>;
 
 }
 

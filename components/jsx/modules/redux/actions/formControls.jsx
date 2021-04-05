@@ -1,3 +1,5 @@
+const INVOKE_UPLOADER_W_SELECT = "INVOKE_UPLOADER_W_SELECT";
+const INVOKE_CKEDITOR = "INVOKE_CKEDITOR";
 const TOGGLE_INPUT_VISIBILITY = "TOGGLE_INPUT_VISIBILITY";
 const INPUT_STATE_CHANGED = "INPUT_STATE_CHANGED";
 const GET_DEFAULT_COUNTRY = "GET_DEFAULT_COUNTRY";
@@ -6,9 +8,33 @@ const CHECKBOX_CREATOR = "CHECKBOX_CREATOR";
 const INPUT_CREATOR = "INPUT_CREATOR";
 const CHANGE_LABEL_TEXT = "CHANGE_LABEL_TEXT";
 
+import ReactDOM from "react-dom";
+import React from "react";
 import { i18n } from "~/operations/modules/mandatory/i18n/services/index.js";
+import { invokables } from "~/components/jsx/modules/invokables/invokables.registry.jsx";
 
-export { TOGGLE_INPUT_VISIBILITY, INPUT_STATE_CHANGED, GET_DEFAULT_COUNTRY, IS_MUTATOR_CHECKBOX, CHECKBOX_CREATOR, INPUT_CREATOR, CHANGE_LABEL_TEXT };
+export { INVOKE_UPLOADER_W_SELECT, INVOKE_CKEDITOR, TOGGLE_INPUT_VISIBILITY, INPUT_STATE_CHANGED, GET_DEFAULT_COUNTRY, IS_MUTATOR_CHECKBOX, CHECKBOX_CREATOR, INPUT_CREATOR, CHANGE_LABEL_TEXT };
+
+const invokeUploaderWithSelectValue = (input)=>{
+
+
+
+	return { type : INVOKE_UPLOADER_W_SELECT };
+
+}
+
+const invokeCkEditor = (input)=>{
+
+	let CkEditor = invokables["InvokeCkEditor"];
+	
+	ReactDOM.render(
+		<CkEditor />,
+		input.previousSibling
+	)
+
+	return { type : INVOKE_CKEDITOR };
+
+}
 
 const toggleInputVisibility = (input) => {
 
@@ -229,4 +255,4 @@ const inputCreator = (input) => {
 
 }
 
-export { toggleInputVisibility, inputStateChanged, getDefaultCountry, isMutatorCheckbox, checkboxCreator, inputCreator, changeLabelText };
+export { invokeUploaderWithSelectValue, invokeCkEditor,  toggleInputVisibility, inputStateChanged, getDefaultCountry, isMutatorCheckbox, checkboxCreator, inputCreator, changeLabelText };

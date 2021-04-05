@@ -2,7 +2,10 @@ import UriDeletePanels from "./uriDeletePanels";
 import UriEditPanels from "./uriEditPanels";
 import HeaderEditPanels from "./headerEditPanels";
 import HeaderRouteSelect from "./elements/headerRouteSelect";
-import CreateContent from "./createContent";
+import ContentCreatePanel from "./contentCreatePanel";
+import ContentEditPanel from "./contentEditPanel";
+import ContentRemovePanel from "./contentRemovePanel";
+
 
 export const panels = {
 
@@ -10,6 +13,8 @@ export const panels = {
     uriEditPanels : UriEditPanels,
     headerEditPanels : HeaderEditPanels,
     headerRouteSelect : HeaderRouteSelect,
-    createContent : CreateContent,
+    createContent : ContentCreatePanel,
+    editContent : ContentEditPanel,
+    removeContent : ContentRemovePanel
 
 }
