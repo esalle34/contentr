@@ -4,13 +4,17 @@ import Form from "./form";
 import Select from "./select";
 import Option from "./option";
 import InputGroupAddOns from "./inputGroupAddOns";
+import CkEditor from "./ckEditor";
+import Textarea from "./textarea";
 
 export const forms = {
 
 		form : Form,
 		input : Input,
 		select : Select,
-		option : Option
+		option : Option,
+		ckEditor : CkEditor,
+		textarea : Textarea
 
 }
 

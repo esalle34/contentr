@@ -10,10 +10,11 @@ exports.validateEmail = validateEmail;
 exports.validatePasswordSignUp = validatePasswordSignUp;
 exports.validateUsernameEmail = validateUsernameEmail;
 exports.validatePassword = validatePassword;
-exports.validateName = validateName;
+exports.validateString = validateString;
+exports.validateNumber = validateNumber;
 exports.validateUri = validateUri;
 exports.validateFile = validateFile;
-exports.VALIDATE_FILE = exports.VALIDATE_URI = exports.VALIDATE_NAME = exports.VALIDATE_PASSWORD_SIGNUP = exports.VALIDATE_PASSWORD = exports.VALIDATE_USERNAME_EMAIL = exports.VALIDATE_EMAIL = exports.VALIDATE_USERNAME = exports.VALIDATE_FORM = exports.LOAD_INPUTS = void 0;
+exports.VALIDATE_NUMBER = exports.VALIDATE_FILE = exports.VALIDATE_URI = exports.VALIDATE_STRING = exports.VALIDATE_PASSWORD_SIGNUP = exports.VALIDATE_PASSWORD = exports.VALIDATE_USERNAME_EMAIL = exports.VALIDATE_EMAIL = exports.VALIDATE_USERNAME = exports.VALIDATE_FORM = exports.LOAD_INPUTS = void 0;
 
 var _index = require("../../../../../operations/modules/mandatory/i18n/services/index.js");
 
@@ -32,12 +33,14 @@ var VALIDATE_PASSWORD = "VALIDATE_PASSWORD";
 exports.VALIDATE_PASSWORD = VALIDATE_PASSWORD;
 var VALIDATE_PASSWORD_SIGNUP = "VALIDATE_PASSWORD_SIGNUP";
 exports.VALIDATE_PASSWORD_SIGNUP = VALIDATE_PASSWORD_SIGNUP;
-var VALIDATE_NAME = "VALIDATE_NAME";
-exports.VALIDATE_NAME = VALIDATE_NAME;
+var VALIDATE_STRING = "VALIDATE_STRING";
+exports.VALIDATE_STRING = VALIDATE_STRING;
 var VALIDATE_URI = "VALIDATE_URI";
 exports.VALIDATE_URI = VALIDATE_URI;
 var VALIDATE_FILE = "VALIDATE_FILE";
 exports.VALIDATE_FILE = VALIDATE_FILE;
+var VALIDATE_NUMBER = "VALIDATE_NUMBER";
+exports.VALIDATE_NUMBER = VALIDATE_NUMBER;
 
 //Actions Creators
 function loadInputs(form) {
@@ -192,29 +195,73 @@ function validatePassword(formId, input) {
   };
 }
 
-function validateName(formId, input) {
+function validateString(formId, input) {
   var isValid = false;
   var errorLabel;
-  var reqlength = undefined;
+  var reqminlength;
+  var reqmaxlength;
 
-  if (input.classList.value.includes("length")) {
-    reqlength = input.classList.value.substring(input.classList.value.indexOf("length"));
-    reqlength = reqlength.match(/[0-9]+/g)[0];
+  if (input.classList.value.includes("minlength")) {
+    reqminlength = input.classList.value.substring(input.classList.value.indexOf("minlength"));
+    reqminlength = reqminlength.match(/[0-9]+/g)[0];
+  }
+
+  if (input.classList.value.includes("maxlength")) {
+    reqmaxlength = input.classList.value.substring(input.classList.value.indexOf("maxlength"));
+    reqmaxlength = reqmaxlength.match(/[0-9]+/g)[0];
   }
 
   if (input.value.length === 0) {
     errorLabel = _index.i18n.translate("This field is required");
-  } else if (typeof reqlength != "undefined" && input.value.length < reqlength) {
-    errorLabel = _index.i18n.translateN("This field needs at least %s character", reqlength);
-  } else if (typeof reqlength == "undefined" && input.value.length < 2) {
-    errorLabel = _index.i18n.translateN("This field needs at least %s character", 2);
+  } else if (typeof reqminlength != "undefined" && parseInt(input.value.length) < parseInt(reqminlength)) {
+    errorLabel = _index.i18n.translateN("This field needs at least %s character", reqminlength);
+  } else if (typeof reqmaxlength != "undefined" && parseInt(input.value.length) > parseInt(reqmaxlength)) {
+    errorLabel = _index.i18n.translateN("This field needs a maximum of %s character", reqmaxlength);
   } else {
     isValid = true;
     errorLabel = null;
   }
 
   return {
-    type: VALIDATE_NAME,
+    type: VALIDATE_STRING,
+    form: {
+      id: formId,
+      input: errorToggle(input, isValid, errorLabel)
+    }
+  };
+}
+
+function validateNumber(formId, input) {
+  var isValid = false;
+  var errorLabel;
+  var reqmin;
+  var reqmax;
+
+  if (input.classList.value.includes("min")) {
+    reqmin = input.classList.value.substring(input.classList.value.indexOf("min"));
+    reqmin = reqmin.match(/[0-9]+/g)[0];
+  }
+
+  if (input.classList.value.includes("max")) {
+    reqmax = input.classList.value.substring(input.classList.value.indexOf("max"));
+    reqmax = reqmax.match(/[0-9]+/g)[0];
+  }
+
+  if (input.value.length === 0) {
+    errorLabel = _index.i18n.translate("This field is required");
+  } else if (isNaN(input.value)) {
+    errorLabel = _index.i18n.translate("This field must contain only numerical values");
+  } else if (typeof reqmin != "undefined" && parseInt(input.value) < parseInt(reqmin)) {
+    errorLabel = _index.i18n.translateN("This field needs at least a value of %s", reqmin);
+  } else if (typeof reqmax != "undefined" && parseInt(input.value) > parseInt(reqmax)) {
+    errorLabel = _index.i18n.translateN("This field needs a maximum value of %s", reqmax);
+  } else {
+    isValid = true;
+    errorLabel = null;
+  }
+
+  return {
+    type: VALIDATE_NUMBER,
     form: {
       id: formId,
       input: errorToggle(input, isValid, errorLabel)

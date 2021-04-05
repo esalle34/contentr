@@ -36,7 +36,7 @@ const Input = (args) => {
 			</div>}
 		</div>
 		{(typeof args.aplabel != "undefined" && args.aplabel != null) &&
-			<label key={`prelabel-${args.id}`} htmlFor={args.id} className={(typeof args.type != "undefined") ? args.type == "checkbox" ? "form-check-label" : args.type == "text" ? (args.value != null && args.length > 0) ? undefined : "invisible" : undefined : undefined}>{args.aplabel}</label>}
+			<label key={`aplabel-${args.id}`} htmlFor={args.id} className={(typeof args.type != "undefined") ? args.type == "checkbox" ? "form-check-label" : args.type == "text" ? (args.value != null && args.length > 0) ? undefined : "invisible" : undefined : undefined}>{args.aplabel}</label>}
 	</div>;
 }
 

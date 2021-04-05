@@ -58,13 +58,28 @@ module.exports= {
 			case "inputs":
 				let count = pKeys.reverse().find(el=>(el.includes("name") && el != "mname")).split("-")[1];
 				let inputsArray = {};
-				for(let i=1; i<=count; i++){
+				params = Object.assign({}, params, {'element-0' : 'input', "type-0" : "hidden", "name-0" : "ms", "value-0" : "content_service/create_content::create::.create-content-form.end", "groupClassName-0" : "form-group hidden"})
+				for(let i=0; i<=count; i++){
 					inputsArray[i] = [];
 					inputsArray[i].args = {};
 					for(let key in params){
 						if(key.includes(`-${i}`)){
 
 							if(key.includes("className")){
+
+								if(!key.includes("groupClassName") && params[key].length == 0){
+									if(params[`element-${i}`] == "input"){
+										if(params[`type-${i}`] == "submit"){
+											params[key] = "btn btn-primary submit next";
+										}else if(params[`type-${i}`] == "checkbox"){
+											params[key] = "form-check-input checkbox";
+										}else{
+											params[key] = "form-control";
+										}
+									}else if(params[`element-${i}`] == "select"){
+										params[key] = "form-control";
+									}
+								}
 
 								if(typeof params[`maxlength-${i}`] != "undefined"){
 
@@ -89,8 +104,26 @@ module.exports= {
 									inputsArray[`${i}`].args = Object.assign({}, inputsArray[`${i}`].args, {className : (typeof inputsArray[`${i}`].args.className != "undefined" && typeof inputsArray[`${i}`].args.className.includes("validate_number")) ? `${inputsArray[`${i}`].args.className} min-${params[`min-${i}`]}` : `${params[key]} validate_string min-${params[`min-${i}`]}`})
 
 								}
+
+								if(typeof params[`maxlength-${i}`] == "undefined" && typeof params[`minlength-${i}`] == "undefined" && typeof params[`max-${i}`] == "undefined" &&typeof params[`min-${i}`] == "undefined"){
+
+									inputsArray[`${i}`].args = Object.assign({}, inputsArray[`${i}`].args, {className : params[key]});
+
+								}
 								
 							}else{
+
+								if(key.includes("groupClassName") && params[key].length == 0){
+									if(typeof params[`type-${i}`] != "undefined"){
+										if(params[`type-${i}`] != "checkbox"){
+											params[key] = "form-group col-12";
+										}else{
+											params[key] = "form-group form-check col-12 checkbox-container";
+										}
+									}else{
+										params[key] = "form-group col-12";
+									}
+								}
 
 								if(key.includes("id")){
 
@@ -122,9 +155,21 @@ module.exports= {
 										})
 									}
 									if(nameExists){
-										inputsArray[`${i}`].args = Object.assign({}, inputsArray[`${i}`].args, ({"name" : params[key] + `_${i}`}));
+										if(params[`element-${i}`] == "ckEditor"){
+											inputsArray[`${i}`].args = Object.assign({}, inputsArray[`${i}`].args, ({"name" : "ckEditor_" + params[key] + `_${i}`}));
+										}else if(params[`element-${i}`] == "input" && params[`type-${i}`] == "checkbox"){
+											inputsArray[`${i}`].args = Object.assign({}, inputsArray[`${i}`].args, ({"name" : "boolean_" + params[key] + `_${i}`}));
+										}else{
+											inputsArray[`${i}`].args = Object.assign({}, inputsArray[`${i}`].args, ({"name" : params[key] + `_${i}`}));
+										}
 									}else{
-										inputsArray[`${i}`].args = Object.assign({}, inputsArray[`${i}`].args, ({"name" : params[key]}));
+										if(params[`element-${i}`] == "ckEditor"){
+											inputsArray[`${i}`].args = Object.assign({}, inputsArray[`${i}`].args, ({"name" : "ckEditor_" + params[key]}));
+										}else if(params[`element-${i}`] == "input" && params[`type-${i}`] == "checkbox"){
+											inputsArray[`${i}`].args = Object.assign({}, inputsArray[`${i}`].args, ({"name" : "boolean_" + params[key]}));
+										}else{
+											inputsArray[`${i}`].args = Object.assign({}, inputsArray[`${i}`].args, ({"name" : params[key]}));
+										}
 									}
 
 								}else if(key.includes("values")){
@@ -141,10 +186,18 @@ module.exports= {
 									if(typeof params[`prelabel-${i}`] != "undefined" && Boolean(params[`prelabel-${i}`])){
 
 										inputsArray[`${i}`].args = Object.assign({}, inputsArray[`${i}`].args, ({"prelabel" : params[key]}));
+										inputsArray[`${i}`].args = Object.assign({}, inputsArray[`${i}`].args, ({"placeholder" : params[key]}));
 
 									}else{
+
 										inputsArray[`${i}`].args = Object.assign({}, inputsArray[`${i}`].args, ({"aplabel" : params[key]}));
+										inputsArray[`${i}`].args = Object.assign({}, inputsArray[`${i}`].args, ({"placeholder" : params[key]}));
+
 									}
+
+								}else if(key.includes("onvalue")){
+
+									inputsArray[`${i}`].args = Object.assign({}, inputsArray[`${i}`].args, ({"aplabel" : params[key]}));
 
 								}else if(!key.includes('element') && !key.includes('mname') && !key.includes("label")){
 
@@ -162,7 +215,23 @@ module.exports= {
 							if(key != "ms"){
 
 								if(key.includes('mname')){
-									inputsArray[`${i}`][key.split("-")[0]] = params[key] + "_" + params[`name-${i}`];
+
+									let tmpArray = Object.keys(params).filter(el=>(el.includes("name") && !el.includes('mname')));
+									let nameExists = false;
+									if(tmpArray.length > 1){
+										tmpArray.map(k=>{
+											if(k!=`name-${i}` && params[k] == params[`name-${i}`]){
+												nameExists = true;
+											}
+										})
+									}
+									if(nameExists){
+										inputsArray[`${i}`][key.split("-")[0]] = params[key] + "_" + params[`name-${i}`] + `_${i}`;
+									}else{
+										inputsArray[`${i}`][key.split("-")[0]] = params[key] + "_" + params[`name-${i}`];
+									}
+									
+									
 								}
 
 							}
@@ -182,6 +251,14 @@ module.exports= {
 
 	},
 	search_content_types : (route, req, res, prefix, next)=>{
+
+		let body = view_service.checkAccessRights(route, req, res, null, false);
+
+        if (body != null && body.hasError) {
+            if (typeof body.redirectUri != "undefined") {
+                return res.status(403).send(Object.assign({}, { redirect: body.redirectUri }));
+            }
+        }
 
 		switch(prefix){
 			case "search":

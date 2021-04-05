@@ -324,7 +324,7 @@ module.exports = {
 
 	},
 
-	build404View: (route, req, res, body = null) => {
+	build404View: (route, req, res, body = null, message = null) => {
 
 		addHeader(route, req, body).then((body) => {
 
@@ -347,7 +347,7 @@ module.exports = {
 			}
 
 			//404 URI
-			if (typeof route.uri == "undefined") {
+			if (typeof route.uri == "undefined" || message == "Nothing found") {
 
 				let htmlFile = path.resolve(global.HTML_DIR + "/notFound.html");
 

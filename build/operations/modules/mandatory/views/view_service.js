@@ -300,6 +300,7 @@ module.exports = {
   },
   build404View: function build404View(route, req, res) {
     var body = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
+    var message = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : null;
     addHeader(route, req, body).then(body => {
       if (body == null) {
         body = getElementFromRegistry("void");
@@ -319,7 +320,7 @@ module.exports = {
       } //404 URI
 
 
-      if (typeof route.uri == "undefined") {
+      if (typeof route.uri == "undefined" || message == "Nothing found") {
         var htmlFile = path.resolve(global.HTML_DIR + "/notFound.html");
         header = addRegistryType(route.theme, header);
         header = _server.default.renderToString( /*#__PURE__*/_react.default.createElement(_html.default, {
@@ -499,7 +500,7 @@ module.exports = {
                   data = data.replace("<Homepage />", route.i18n.translate("Homepage", route.lang));
                   return res.send(data.replace("<Head />", "".concat(_head)));
                 } else if (req._parsedUrl.query != null && req._parsedUrl.query.includes("fragment")) {
-                  return res.send(data.replace("<Body />", "".concat(tpl)));
+                  return res.status(200).send(data.replace("<Body />", "".concat(tpl)));
                 } else {
                   _head = _server.default.renderToString( /*#__PURE__*/_react.default.createElement(_html.default, {
                     data: route

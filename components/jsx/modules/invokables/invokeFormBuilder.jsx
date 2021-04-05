@@ -22,20 +22,8 @@ const InvokeFormBuilder = (args) => {
                 newInput = Object.assign({}, { id : inputs.length+1, el: "select", labelbefore: true, isOpened : true, isEditable : true });
                 setInputs(inputs => [...inputs, newInput]);
                 break;
-            case "textarea":
-                newInput = Object.assign({}, { id : inputs.length+1, el: "textarea", labelbefore: true, isOpened : true, isEditable : true });
-                setInputs(inputs => [...inputs, newInput]);
-                break;
             case "ckeditor":
-                newInput = Object.assign({}, { id : inputs.length+1, el: "ckeditor", labelbefore: true, isOpened : true, isEditable : true });
-                setInputs(inputs => [...inputs, newInput]);
-                break;
-            case "image":
-                newInput = Object.assign({}, { id : inputs.length+1, el: "image", labelbefore: true, isOpened : true, isEditable : true });
-                setInputs(inputs => [...inputs, newInput]);
-                break;
-            case "video":
-                newInput = Object.assign({}, { id : inputs.length+1, el: "video", labelbefore: true, isOpened : true, isEditable : true });
+                newInput = Object.assign({}, { id : inputs.length+1, el: "ckEditor", labelbefore: true, isOpened : true, isEditable : true });
                 setInputs(inputs => [...inputs, newInput]);
                 break;
             
@@ -193,7 +181,7 @@ const InvokeFormBuilder = (args) => {
                     newView.push(<React.Fragment key={`input-el-${newInput.id}`}>
                         {newInput.id == 1 ? <hr key={`hrbefore-${newInput.id}`} onDragOver={(e)=>dragOver(e)} id={`hrbefore-${newInput.id}`}/> : undefined}
                             <a key={`link-${newInput.id}`} id={`link-${newInput.id}`} onTouchStart={(e)=>dragStart(e)} onDragStart={(e)=>dragStart(e)}className="clickable draggable accordion-control" onClick={(e)=>toggleVisibility(e)} draggable="true" ><h3 key={`title-${newInput.id}`} className={`title-accordion ${newInput.isOpened ? "opened" : ""}`}>
-                                <span key={`span-${newInput.id}`}>{i18n.translate(newInput.el.charAt(0).toUpperCase() + newInput.el.substring(1))}</span>
+                                <span key={`span-${newInput.id}`}>{typeof newInput.name != "undefined" ? newInput.name.includes("ckeditor-") ? newInput.name.substring(9) : newInput.name : i18n.translate(newInput.el.charAt(0).toUpperCase() + newInput.el.substring(1))}</span>
                                     <div key={`actions-${newInput.id}`} className="next">
                                         <div key={`position-${newInput.id}`} className="actions-position">
                                             <button key={`position-btn-up-${newInput.id}`} id={`btnup-${newInput.id}`} type="button" onClick={(e) => { changePosition(e, "up") }} className="btn btn-secondary-revert upper-level">
@@ -231,10 +219,7 @@ const InvokeFormBuilder = (args) => {
         <select id="elem-select" className="form-control" defaultValue="input" onChange={(e)=>changeValue(e)}>
             <option value="input">{i18n.translate("Input")}</option>
             <option value="select">{i18n.translate("Select")}</option>
-            <option value="textarea">{i18n.translate("Textarea")}</option>
             <option value="ckeditor">{i18n.translate("Ckeditor")}</option>
-            <option value="image">{i18n.translate("Image")}</option>
-            <option value="video">{i18n.translate("Video")}</option>
         </select>
     </div>
     <div className="col-12 form-group">

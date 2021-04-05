@@ -60,8 +60,7 @@ var Select = args => {
     className: typeof args.groupClassName != "undefined" && args.groupClassName != null ? args.groupClassName : "form-group"
   }, typeof args.prelabel != "undefined" && args.prelabel != null && /*#__PURE__*/_react.default.createElement("label", {
     key: "prelabel-".concat(args.id),
-    htmlFor: args.id,
-    className: "sr-only"
+    htmlFor: args.id
   }, args.prelabel), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("select", {
     key: args.key,
     dataset: typeof args.options.dataSet != "undefined" && args.options.dataSet != null ? JSON.stringify(args.options.dataSet) : undefined,

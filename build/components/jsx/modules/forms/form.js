@@ -88,6 +88,22 @@ class Form extends _react.default.Component {
   formControls(inputs, store) {
     inputs = Array.isArray(inputs) ? inputs : [inputs];
     inputs.map(function (input) {
+      if (input.el.parentNode.previousSibling != null && input.el.parentNode.previousSibling.tagName == "LABEL" || input.el.parentNode.nextSibling != null && input.el.parentNode.nextSibling.tagName == "LABEL") {
+        var events = ["keyup", "change"];
+        store.dispatch({
+          type: "INPUT_STATE_CHANGED",
+          input: input.el
+        });
+        events.map(e => {
+          input.el.addEventListener(e, () => {
+            store.dispatch({
+              type: "INPUT_STATE_CHANGED",
+              input: input.el
+            });
+          });
+        });
+      }
+
       var visibility_toggle = input.elgroup.querySelector(".toggle-visibility");
 
       if (visibility_toggle != null) {
@@ -98,6 +114,26 @@ class Form extends _react.default.Component {
           });
           input.el.setAttribute("type", store.getState().formControls.input_type);
         };
+      }
+
+      var fileSelect = input.elgroup.querySelector(".fileSelect");
+
+      if (fileSelect != null) {
+        fileSelect.onclick = e => {
+          store.dispatch({
+            type: "INVOKE_UPLOADER_W_SELECT",
+            input: input.el
+          });
+        };
+      }
+
+      var ckEditor = input.elgroup.querySelector(".ckEditor");
+
+      if (ckEditor != null) {
+        store.dispatch({
+          type: "INVOKE_CKEDITOR",
+          input: input.el
+        });
       }
 
       var country_code = input.elgroup.querySelector(".countrycode");
@@ -418,7 +454,8 @@ class Form extends _react.default.Component {
       }
 
       if (form.classList.contains("async")) {
-        this.addLoader(form.firstChild, "form-popin");
+        var popin = form.firstChild.tagName == "DIV" && !form.firstChild.classList.contains("hidden") ? form.firstChild : form;
+        this.addLoader(popin, "form-popin");
         e.preventDefault();
 
         _superagent.default.post(form.action).send(new FormData(form)).then(res => {
@@ -457,7 +494,7 @@ class Form extends _react.default.Component {
             }
           }
 
-          this.removeLoader(form.firstChild, form.firstChild.firstChild);
+          this.removeLoader(popin, popin.firstChild);
         }, err => {
           if (typeof err.response.body != "undefined" && err.response.body != null && typeof err.response.body.redirect != "undefined") {
             return document.location.href = err.response.body.redirect;
@@ -470,7 +507,7 @@ class Form extends _react.default.Component {
             this.createLabel(form.firstChild.lastChild, JSON.parse(err.response.text), "label-hasError center", "row col justify-content-center");
           }
 
-          this.removeLoader(form.firstChild, form.firstChild.firstChild);
+          this.removeLoader(popin, popin.firstChild);
         });
       }
     };

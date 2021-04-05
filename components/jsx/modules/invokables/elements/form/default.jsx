@@ -25,7 +25,7 @@ const Default = (args) =>{
                 </div>
                 <div className="form-group form-check col-3 checkbox-container" key={`form-group-label-before-${args.properties.id}`}>
                     <div key={`input-group-label-before-${args.properties.id}`}>
-                        <input key={`input-label-before-${args.properties.id}`} id={`input-label-before-${args.properties.id}`} name={`prelabel-${args.properties.id}`} type="checkbox" placeholder={i18n.translate("Is label before input ?")} onChange={(e)=>args.inputStateChanged(e, "labelbefore", newInput, "checkbox")} className="form-check-input checkbox" defaultValue={newInput.labelbefore}></input>
+                        <input key={`input-label-before-${args.properties.id}`} defaultChecked={newInput.labelbefore} id={`input-label-before-${args.properties.id}`} name={`prelabel-${args.properties.id}`} type="checkbox" placeholder={i18n.translate("Is label before input ?")} onChange={(e)=>args.inputStateChanged(e, "labelbefore", newInput, "checkbox")} className="form-check-input checkbox" defaultValue={newInput.labelbefore}></input>
                     </div>
                     <label key={`prelabel-${args.properties.id}`} htmlFor={`input-label-before-${args.properties.id}`} className="form-check-label">{i18n.translate("Is label before input ?")}</label>
                 </div>

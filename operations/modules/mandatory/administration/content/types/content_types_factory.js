@@ -79,75 +79,82 @@ export class ContentTypeFactory extends Object {
                         db_transaction.db_quick_query(`SELECT id from forms where name=?`, [form_name]).then(res => {
                             if (Object.keys(res).length != 0) {
 
-                                let input_queries = [];
                                 let values = Object.values(inputsArray);
                                 let keys = Object.keys(inputsArray);
+                                let input_queries = [];
+
+                                const inputTransactions = async function (next) {
+
+                                    await db_transaction.db_quick_query(`INSERT INTO forms_elements (name, element, args, form_number, weight, form_id) VALUES (?, ?, ?, ?, ?, ?)`,
+                                        [next.mname, next.element, next.args, next.form_number, next.weight, next.form_id])
+
+                                }
+
+                                values.map(async (input, index) => {
+
+                                    let q = { mname: input.mname, element: input.element, args: input.args, form_number: 0, weight: index, form_id: res.id }
+                                    await inputTransactions(q);
+
+                                })
+
+
+
+                                let revision_table_query = `CREATE table IF NOT EXISTS revision_${form_name} (`;
+                                let data_table_query = `CREATE table IF NOT EXISTS data_${form_name} (revision_id INT NOT NULL, FOREIGN KEY(revision_id) REFERENCES revision_${form_name}(id), id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY (id))`
 
                                 values.map((input, index) => {
 
-                                    input_queries.push(db_transaction.db_quick_query(`INSERT INTO forms_elements (name, element, args, form_number, weight, form_id) VALUES (?, ?, ?, ?, ?, ?)`,
-                                        [input.mname, input.element, input.args, 0, index, res.id]))
-                                    Promise.all(input_queries).then((inputres, inputrej) => {
+                                    let default_q_next = keys.length == index + 1 ? ", revisionCreatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, revisionLastModifiedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY(id))" : ", ";
+                                    let default_q_submit = keys.length == index + 1 ? "revisionCreatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, revisionLastModifiedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY(id))" : "";
 
-                                        let revision_table_query = `CREATE table IF NOT EXISTS revision_${form_name} (`;
-                                        let data_table_query = `CREATE table IF NOT EXISTS data_${form_name} (revision_id INT NOT NULL, FOREIGN KEY(revision_id) REFERENCES revision_${form_name}(id), id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY (id))`
+                                    if (input.element == "input") {
 
-                                        values.map((input, index) => {
+                                        if (input.args.type == "text") {
 
-                                            let default_q_next = keys.length == index + 1 ? ", createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, lastModifiedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY(id))" : ", ";
-                                            let default_q_submit = keys.length == index + 1 ? "createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, lastModifiedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY(id))" : "";
+                                            revision_table_query = revision_table_query + `${input.args.name} VARCHAR(${input.args.maxlength}) ${default_q_next}`;
 
-                                            if (input.element == "input") {
+                                        } else if (input.args.type == "email" || input.args.type == "password") {
 
-                                                if (input.args.type == "text") {
+                                            revision_table_query = revision_table_query + `${input.args.name} VARCHAR(255) ${default_q_next}`;
 
-                                                    revision_table_query = revision_table_query + `${input.args.name} VARCHAR(${input.args.maxlength}) ${default_q_next}`;
+                                        } else if (input.args.type == "number") {
 
-                                                } else if (input.args.type == "email"  || input.args.type == "password") {
+                                            revision_table_query = revision_table_query + `${input.args.name} INT ${default_q_next}`;
 
-                                                    revision_table_query = revision_table_query + `${input.args.name} VARCHAR(255) ${default_q_next}`;
+                                        } else if (input.args.type == "checkbox") {
 
-                                                }else if (input.args.type == "number") {
+                                            revision_table_query = revision_table_query + `${input.args.name} BOOL DEFAULT false ${default_q_next}`;
 
-                                                    revision_table_query = revision_table_query + `${input.args.name} INT ${default_q_next}`;
+                                        } else {
 
-                                                } else if (input.args.type == "checkbox") {
+                                            revision_table_query = revision_table_query + default_q_submit;
 
-                                                    revision_table_query = revision_table_query + `${input.args.name} BOOL DEFAULT false ${default_q_next}`;
+                                        }
 
-                                                } else {
+                                    } else if (input.element == "select") {
 
-                                                    revision_table_query = revision_table_query + default_q_submit;
+                                        revision_table_query = revision_table_query + `${input.args.name} VARCHAR(255) ${default_q_next}`;
 
-                                                }
+                                    } else if (input.element == "fileSelect") {
 
-                                            } else if (input.element == "select") {
+                                        revision_table_query = revision_table_query + `${input.args.name} TEXT ${default_q_next}`;
 
-                                                revision_table_query = revision_table_query + `${input.args.name} VARCHAR(255) ${default_q_next}`;
+                                    } else if (input.element == "textarea" || input.element == "ckEditor") {
 
-                                            } else if (input.element == "image" || input.element == "video") {
+                                        revision_table_query = revision_table_query + `${input.args.name} LONGTEXT ${default_q_next}`;
 
-                                                revision_table_query = revision_table_query + `${input.args.name} TEXT ${default_q_next}`;
-
-                                            } else if (input.element == "textarea" || input.element == "ckeditor") {
-
-                                                revision_table_query = revision_table_query + `${input.args.name} LONGTEXT ${default_q_next}`;
-
-                                            }
-
-                                        })
-
-                                        db_transaction.db_quick_query(revision_table_query).then(() => {
-                                            db_transaction.db_quick_query(data_table_query).then(() => {
-                                                return resolve();
-                                            })
-                                        })
-
-                                    })
-
-
+                                    }
 
                                 })
+
+                                db_transaction.db_quick_query(revision_table_query).then(() => {
+                                    db_transaction.db_quick_query(data_table_query).then(() => {
+                                        return resolve();
+                                    })
+                                })
+
+
+
                             } else {
                                 return resolve();
                             }
@@ -164,18 +171,18 @@ export class ContentTypeFactory extends Object {
 
     }
 
-    getContentTypes(sentence = null){
+    getContentTypes(sentence = null) {
 
-        const resolveContentType = (res, resolve)=>{
-            if(typeof res == "object" && Object.keys(res).length === 0){
+        const resolveContentType = (res, resolve) => {
+            if (typeof res == "object" && Object.keys(res).length === 0) {
 
                 return resolve("Nothing found");
 
-            }else {
+            } else {
 
                 let contentTypeArray = [];
 
-                res.map(content_type=>{
+                res.map(content_type => {
 
                     let contentType = new ContentType();
                     contentType.setMachineName(content_type.machine_name);
@@ -190,19 +197,19 @@ export class ContentTypeFactory extends Object {
             }
         }
 
-        return new Promise((resolve, reject)=>{
+        return new Promise((resolve, reject) => {
 
-            if(sentence == null){
+            if (sentence == null) {
 
-                db_transaction.db_quick_query(`SELECT * from content_types`, null, null, false).then(res=>{
+                db_transaction.db_quick_query(`SELECT * from content_types`, null, null, false).then(res => {
 
                     resolveContentType(res, resolve);
 
                 })
 
-            }else{
+            } else {
 
-                db_transaction.db_quick_query(`SELECT * FROM content_types WHERE machine_name LIKE ? OR id LIKE ? OR template_name LIKE ?`, [`%${sentence}%`, `%${sentence}%`, `%${sentence}%`], null, false).then(res=>{
+                db_transaction.db_quick_query(`SELECT * FROM content_types WHERE machine_name LIKE ? OR id LIKE ? OR template_name LIKE ?`, [`%${sentence}%`, `%${sentence}%`, `%${sentence}%`], null, false).then(res => {
 
                     resolveContentType(res, resolve);
 
@@ -215,12 +222,12 @@ export class ContentTypeFactory extends Object {
 
     }
 
-    getContentTypeName(content_type_id){
+    getContentTypeName(content_type_id) {
 
-        return new Promise((resolve, reject)=>{
+        return new Promise((resolve, reject) => {
 
-            db_transaction.db_quick_query(`SELECT machine_name from content_types where id = ?`, [content_type_id]).then(res=>{
-                
+            db_transaction.db_quick_query(`SELECT machine_name from content_types where id = ?`, [content_type_id]).then(res => {
+
                 return resolve(res.machine_name);
             })
 

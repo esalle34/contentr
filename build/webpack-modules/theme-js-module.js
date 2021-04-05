@@ -8,7 +8,13 @@ var UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 var MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-var global = require("../global")(); //Front-end
+var global = require("../global")();
+
+var CKEditorWebpackPlugin = require('@ckeditor/ckeditor5-dev-webpack-plugin');
+
+var {
+  styles
+} = require('@ckeditor/ckeditor5-dev-utils'); //Front-end
 
 
 module.exports = function () {
@@ -22,7 +28,7 @@ module.exports = function () {
     },
     module: {
       rules: [{
-        test: /\.(js|jsx)$/,
+        test: /\.js$|jsx/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
@@ -30,6 +36,28 @@ module.exports = function () {
             presets: ["@babel/preset-flow", "@babel/preset-env", "@babel/preset-react"]
           }
         }
+      }, {
+        test: /ckeditor5-[^/\\]+[/\\]theme[/\\]icons[/\\][^/\\]+\.svg$/,
+        use: ['raw-loader']
+      }, {
+        test: /ckeditor5-[^/\\]+[/\\]theme[/\\].+\.css$/,
+        use: [{
+          loader: 'style-loader',
+          options: {
+            injectType: 'singletonStyleTag',
+            attributes: {
+              'data-cke': true
+            }
+          }
+        }, {
+          loader: 'postcss-loader',
+          options: styles.getPostCssConfig({
+            themeImporter: {
+              themePath: require.resolve('@ckeditor/ckeditor5-theme-lark')
+            },
+            minify: true
+          })
+        }]
       }]
     },
     resolve: {
@@ -43,6 +71,10 @@ module.exports = function () {
     plugins: [new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery'
+    }), new CKEditorWebpackPlugin({
+      // See https://ckeditor.com/docs/ckeditor5/latest/features/ui-language.html
+      language: 'fr',
+      addMainLanguageTranslationsToAllAssets: true
     })],
     optimization: {
       minimizer: [new UglifyJsPlugin({

@@ -126,6 +126,21 @@ class Form extends React.Component {
 				}
 
 			}
+			let fileSelect = input.elgroup.querySelector(".fileSelect");
+			if (fileSelect != null) {
+
+				fileSelect.onclick = (e) => {
+
+					store.dispatch({ type: "INVOKE_UPLOADER_W_SELECT", input: input.el })
+				}
+
+			}
+			let ckEditor = input.elgroup.querySelector(".ckEditor");
+			if (ckEditor != null) {
+
+				store.dispatch({ type: "INVOKE_CKEDITOR", input: input.el });
+
+			}
 			let country_code = input.elgroup.querySelector(".countrycode");
 			if (country_code != null) {
 				store.dispatch({ type: "GET_DEFAULT_COUNTRY", input: input.el })
@@ -436,7 +451,8 @@ class Form extends React.Component {
 
 			if (form.classList.contains("async")) {
 
-				this.addLoader(form.firstChild, "form-popin");
+				let context = (form.firstChild.tagName == "DIV" && !form.firstChild.classList.contains("hidden") && !form.firstChild.classList.contains("form-group")) ? form.firstChild : form;
+				this.addLoader(context, "form-popin");
 				e.preventDefault();
 				Request.post(form.action)
 					.send(new FormData(form))
@@ -489,7 +505,7 @@ class Form extends React.Component {
 
 						}
 
-						this.removeLoader(form.firstChild, form.firstChild.firstChild);
+						this.removeLoader(context, context.firstChild);
 
 					}, (err) => {
 
@@ -497,16 +513,16 @@ class Form extends React.Component {
 							return document.location.href = err.response.body.redirect;
 						}
 
-						if (form.firstChild.lastChild.tagName != "DL") {
+						if (context.lastChild.tagName != "DL") {
 
-							this.createLabel(form.firstChild.lastChild, JSON.parse(err.response.text), "label-hasError center", "row col justify-content-center");
+							this.createLabel(context.lastChild, JSON.parse(err.response.text), "label-hasError center", `${context == form ?"" : "row"} col justify-content-center`);
 
-						} else if (form.firstChild.lastChild.tagName == "DL") {
-							form.firstChild.lastChild.remove();
-							this.createLabel(form.firstChild.lastChild, JSON.parse(err.response.text), "label-hasError center", "row col justify-content-center");
+						} else if (context.lastChild.tagName == "DL") {
+							context.lastChild.remove();
+							this.createLabel(context.lastChild, JSON.parse(err.response.text), "label-hasError center", `${context == form ?"" : "row"} col justify-content-center`);
 						}
 
-						this.removeLoader(form.firstChild, form.firstChild.firstChild);
+						this.removeLoader(context, context.firstChild);
 
 					});
 

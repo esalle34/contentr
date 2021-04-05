@@ -29,7 +29,6 @@ var InvokeTheme = args => {
     }, th.charAt(0).toUpperCase() + th.slice(1)));
   });
   return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("label", {
-    className: "sr-only",
     htmlFor: "theme"
   }, _services.i18n.translate('Theme')), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("select", {
     id: "theme",

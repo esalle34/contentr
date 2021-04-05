@@ -35,14 +35,17 @@ function validators() {
     case _validators.VALIDATE_PASSWORD_SIGNUP:
       return Object.assign({}, state, (0, _validators.validatePasswordSignUp)(action.formId, action.el));
 
-    case _validators.VALIDATE_NAME:
-      return Object.assign({}, state, (0, _validators.validateName)(action.formId, action.el));
+    case _validators.VALIDATE_STRING:
+      return Object.assign({}, state, (0, _validators.validateString)(action.formId, action.el));
 
     case _validators.VALIDATE_URI:
       return Object.assign({}, state, (0, _validators.validateUri)(action.formId, action.el));
 
     case _validators.VALIDATE_FILE:
       return Object.assign({}, state, (0, _validators.validateFile)(action.formId, action.el));
+
+    case _validators.VALIDATE_NUMBER:
+      return Object.assign({}, state, (0, _validators.validateNumber)(action.formId, action.el));
 
     default:
       return Object.assign({}, state, {

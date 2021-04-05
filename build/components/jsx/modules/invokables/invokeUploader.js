@@ -526,7 +526,6 @@ var InvokeUploader = args => {
     }, folders.title.charAt(0).toUpperCase() + folders.title.slice(1)));
   });
   return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("label", {
-    className: "sr-only",
     htmlFor: "files"
   }, _index.i18n.translate('Files')), /*#__PURE__*/_react.default.createElement("div", {
     className: "choose-folder"

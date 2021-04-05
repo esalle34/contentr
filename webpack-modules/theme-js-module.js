@@ -3,6 +3,9 @@ const path = require('path');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const global = require("../global")();
+const CKEditorWebpackPlugin = require( '@ckeditor/ckeditor5-dev-webpack-plugin' );
+const { styles } = require( '@ckeditor/ckeditor5-dev-utils' );
+
 
 //Front-end
 
@@ -20,7 +23,7 @@ module.exports = function () {
     module: {
       rules: [
         {
-          test: /\.(js|jsx)$/,
+          test: /\.js$|jsx/,
           exclude: /node_modules/,
           use: {
             loader: 'babel-loader',
@@ -33,6 +36,33 @@ module.exports = function () {
             }
           },
         },
+        {
+          test: /ckeditor5-[^/\\]+[/\\]theme[/\\]icons[/\\][^/\\]+\.svg$/,
+          use: [ 'raw-loader' ]
+      },
+      {
+          test: /ckeditor5-[^/\\]+[/\\]theme[/\\].+\.css$/,
+          use: [
+              {
+                  loader: 'style-loader',
+                  options: {
+                      injectType: 'singletonStyleTag',
+                      attributes: {
+                          'data-cke': true
+                      }
+                  }
+              },
+              {
+                  loader: 'postcss-loader',
+                  options: styles.getPostCssConfig( {
+                      themeImporter: {
+                          themePath: require.resolve( '@ckeditor/ckeditor5-theme-lark' )
+                      },
+                      minify: true
+                  } )
+              },
+          ]
+      }
       ],
     },
     resolve: {
@@ -47,7 +77,12 @@ module.exports = function () {
       new webpack.ProvidePlugin({
         $: 'jquery',
         jQuery: 'jquery'
-      })],
+      }),
+      new CKEditorWebpackPlugin( {
+        // See https://ckeditor.com/docs/ckeditor5/latest/features/ui-language.html
+        language: 'fr',
+        addMainLanguageTranslationsToAllAssets : true
+    } )],
     optimization: {
       minimizer: [
         new UglifyJsPlugin({
