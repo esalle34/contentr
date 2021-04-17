@@ -83,21 +83,17 @@ export class ContentTypeFactory extends Object {
                                 let keys = Object.keys(inputsArray);
                                 let input_queries = [];
 
-                                const inputTransactions = async function (next) {
 
-                                    await db_transaction.db_quick_query(`INSERT INTO forms_elements (name, element, args, form_number, weight, form_id) VALUES (?, ?, ?, ?, ?, ?)`,
-                                        [next.mname, next.element, next.args, next.form_number, next.weight, next.form_id])
-
-                                }
-
-                                values.map(async (input, index) => {
-
-                                    let q = { mname: input.mname, element: input.element, args: input.args, form_number: 0, weight: index, form_id: res.id }
-                                    await inputTransactions(q);
+                                values.map((input, index) => {
+                                    
+                                    input_queries.push(db_transaction.db_quick_query(`INSERT INTO forms_elements (name, element, args, form_number, weight, form_id) VALUES (?, ?, ?, ?, ?, ?)`,
+                                    [input.mname, input.element, input.args, 0, index, res.id]))
 
                                 })
 
-
+                                input_queries.reduce((input_q, next)=>{
+                                   return input_q.then(next);
+                                })
 
                                 let revision_table_query = `CREATE table IF NOT EXISTS revision_${form_name} (`;
                                 let data_table_query = `CREATE table IF NOT EXISTS data_${form_name} (revision_id INT NOT NULL, FOREIGN KEY(revision_id) REFERENCES revision_${form_name}(id), id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY (id))`
