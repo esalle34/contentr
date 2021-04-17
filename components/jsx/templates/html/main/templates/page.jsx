@@ -9,8 +9,8 @@ const Page = (args)=>{
             <div className="col-12">
                 <image data-src={args.image} className="lazy" width="350px"></image>
             </div>
-            <div className="col-12 description" dangerouslySetInnerHTML={{__html : args.description}}/>
-            <div className="col-12 body" dangerouslySetInnerHTML={{__html : args.body}}/>
+            <div className="col-12 description" dangerouslySetInnerHTML={{__html : args.ckEditor_description}}/>
+            <div className="col-12 body" dangerouslySetInnerHTML={{__html : args.ckEditor_body}}/>
         </div>
     </div>;
     
