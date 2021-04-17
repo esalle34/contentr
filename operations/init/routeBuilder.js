@@ -32,8 +32,15 @@ module.exports = {
 
 					acceptLanguage = acceptLanguage.split(':')[1].match(/[a-zA-Z\-]{4,10}/g) || [];
 					acceptLanguage = acceptLanguage[0];
-					acceptLanguage = acceptLanguage.slice(0, 3) + acceptLanguage.charAt(3).toUpperCase() + acceptLanguage.charAt(4).toUpperCase();
-					acceptLanguage = typeof acceptLanguage != "undefined" ? acceptLanguage : i18n.getLang();
+					if(typeof acceptLanguage == "string"){
+
+						acceptLanguage = acceptLanguage.slice(0, 3) + acceptLanguage.charAt(3).toUpperCase() + acceptLanguage.charAt(4).toUpperCase();
+						acceptLanguage = typeof acceptLanguage != "undefined" ? acceptLanguage : i18n.getLang();
+
+					}else{
+						acceptLanguage = i18n.getLang();
+					}
+
 
 				} else {
 					acceptLanguage = i18n.getLang();
