@@ -86,13 +86,8 @@ export class ContentTypeFactory extends Object {
 
                                 values.map((input, index) => {
                                     
-                                    console.log(res.id);
-                                    console.log(index);
-                                    console.log(input.args);
-                                    console.log(input.element);
-                                    console.log(input.mname);
                                     input_queries.push(db_transaction.db_quick_query(`INSERT INTO forms_elements (name, element, args, form_number, weight, form_id) VALUES (?, ?, ?, ?, ?, ?)`,
-                                    [input.mname, input.element, input.args, 0, index, res.id]))
+                                    [input.mname, input.element, JSON.stringify(input.args), 0, index, res.id]))
 
                                 })
 
