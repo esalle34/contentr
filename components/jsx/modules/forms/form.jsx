@@ -100,8 +100,8 @@ class Form extends React.Component {
 		inputs.map(function (input) {
 
 
-			if((input.el.parentNode.previousSibling != null && input.el.parentNode.previousSibling.tagName == "LABEL") 
-			|| (input.el.parentNode.nextSibling != null && input.el.parentNode.nextSibling.tagName == "LABEL")){
+			if((input.el.type != "file" && input.el.parentNode.previousSibling != null && input.el.parentNode.previousSibling.tagName == "LABEL") 
+			|| (input.el.type != "file" && input.el.parentNode.nextSibling != null && input.el.parentNode.nextSibling.tagName == "LABEL")){
 
 				let events = ["keyup", "change"];
 
