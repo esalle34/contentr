@@ -31,19 +31,26 @@ const EditContent = (args)=>{
 
             let values_promise = Request.post(getContentValuesURI).send({id : el.id});
 
-            Promise.all([values_promise, view_promise]).then((values)=>{
-                console.log(values);
-            })
-
-            /*.then(()=>{
-
+            Promise.all([values_promise, view_promise]).then((fieldValues)=>{
+                let fields = Object.keys(fieldValues[0].body);
+                fields.map(field=>{
+                    let fieldDOM = document.querySelector(`input[name="${field}"]`);
+                    if(fieldDOM != null){
+                        fieldDOM.value = fieldValues[0].body[field];
+                    }
+                })
+            }).then(()=>{
                 
-
                 let form = document.getElementById(formId).getElementsByTagName("FORM")[0];
+                let idInput = document.createElement("input");
+                idInput.value = el.id;
+                idInput.type = "hidden";
+                idInput.name = "id";
+                form.firstChild.firstChild.prepend(idInput);
                 let Form = officeRegistry["form"];
                 setFormValidators(<Form key={`form-control`} form={form} store={store} />);
 
-            })*/
+            })
         }, (rej)=>{})
     }
 

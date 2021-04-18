@@ -236,7 +236,7 @@ class RouteFactory extends Object {
         case "form":
           filepath = global.BACKEND_MODULE_DIR + "/form/";
           filename = "form_service";
-          callback = "getForm";
+          callback = "get_form";
           q_check = "SELECT id from callback as c where c.callback= ? AND c.form_name = ?";
           q_check_args = [callback, route.getContentId()];
           q_c_args = [filepath, filename, callback, route.getContentId(), null, isFile];

@@ -36,7 +36,7 @@ export class ContentFactory extends Object {
                 }else{
 
                     ContentTypesService.getContentTypeName(content_type_id).then((machine_name) => {
-                        let q = `SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA=? AND TABLE_NAME=? AND COLUMN_NAME NOT LIKE "%id" AND COLUMN_NAME NOT LIKE "%createdAt" AND COLUMN_NAME NOT LIKE "%lastModifiedAt"`;
+                        let q = `SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA=? AND TABLE_NAME=? AND COLUMN_NAME NOT LIKE "%id" AND COLUMN_NAME NOT LIKE "%createdAt" AND COLUMN_NAME NOT LIKE "%lastModifiedAt" ORDER BY ordinal_position`;
                         db_transaction.db_quick_query(q, [db_transaction.db_get_infos().DB_NAME, `revision_${machine_name}`], null, false).then((columns) => {
         
                             let insert_array = [];
@@ -152,7 +152,74 @@ export class ContentFactory extends Object {
 
         })
 
+    }
 
+    getContentValues(content_id){
+
+        return new Promise((resolve, reject)=>{
+
+            ContentTypesService.getContentTypeName(null, content_id).then((machine_name) => {
+
+                db_transaction.db_quick_query(`SELECT r.*, c.id FROM content AS c INNER JOIN data_${machine_name} AS d ON d.id = c.data_id INNER JOIN revision_${machine_name} AS r ON r.id = d.revision_id WHERE c.id = ?`, [content_id])
+                .then(fieldValues=>{
+    
+                    return resolve(fieldValues);
+    
+                })
+    
+            })
+
+        })
+
+    }
+
+    updateContent(content_id, values){
+
+        return new Promise((resolve, reject)=>{
+
+            ContentTypesService.getContentTypeName(null, content_id).then((machine_name) => {
+
+                let q = `SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA=? AND TABLE_NAME=? AND COLUMN_NAME NOT LIKE "%id" AND COLUMN_NAME NOT LIKE "%createdAt" AND COLUMN_NAME NOT LIKE "%lastModifiedAt" ORDER BY ordinal_position`;
+                db_transaction.db_quick_query(q, [db_transaction.db_get_infos().DB_NAME, `revision_${machine_name}`], null, false).then((columns) => {
+
+                    let insert_array = [];
+
+                    q = `INSERT INTO revision_${machine_name} (`;
+
+                    columns.map((col, index) => {
+                        q = q + col.COLUMN_NAME;
+                        if (columns.length == index + 1) {
+                            q = q + ") VALUES (";
+                        } else {
+                            q = q + ", ";
+                        }
+                    })
+                    let j = 0;
+                    for (let key in values) {
+                        insert_array.push(values[key]);
+                        j++;
+                        if (j < Object.keys(values).length) {
+                            q = q + "?, ";
+                        } else {
+                            q = q + "?);";
+                        }
+                    }
+
+                    db_transaction.db_quick_query(q, insert_array).then(() => {
+
+                        q = `UPDATE data_${machine_name} SET revision_id = (SELECT Max(id) from revision_${machine_name}) WHERE id = ?`;
+
+                        db_transaction.db_quick_query(q, [content_id]).then(() => {
+                            return resolve();
+                        })
+
+                    })
+
+                })
+
+            })
+
+        })
 
     }
 

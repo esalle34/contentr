@@ -284,11 +284,11 @@ module.exports= {
 			
 		})
 	},
-	getContentTypeName : (content_type_id)=>{
+	getContentTypeName : (content_type_id, content_id)=>{
 		let contentTypeFactory = new ContentTypeFactory();
 		return new Promise((resolve, reject)=>{
 
-			contentTypeFactory.getContentTypeName(content_type_id).then(result=>{
+			contentTypeFactory.getContentTypeName(content_type_id, content_id).then(result=>{
 				return resolve(result);
 			})
 

@@ -130,13 +130,13 @@ const UriEditPanels = (args) => {
 
                                                 }
 
-                                            } else if (typeof formData.callback.callback != "undefined" && (formData.callback.callback == "getForm" || formData.callback.callback == "validateForm")) {
+                                            } else if (typeof formData.callback.callback != "undefined" && (formData.callback.callback == "get_form" || formData.callback.callback == "validate_form")) {
 
-                                                if (formData.callback.callback == "getForm") {
+                                                if (formData.callback.callback == "get_form") {
 
                                                     method.value = "get-form";
 
-                                                } else if (formData.callback.callback == "validateForm") {
+                                                } else if (formData.callback.callback == "validate_form") {
 
                                                     method.value = "post-callback";
 

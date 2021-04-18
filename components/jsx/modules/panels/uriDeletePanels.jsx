@@ -46,7 +46,6 @@ import { i18n } from "~/operations/modules/mandatory/i18n/services/index.js";
     let view = [];
     let view_thead = [];
     let view_submit = [];
-    console.log(args)
     if(args.datas != null && args.datas.length > 0){
 
         let parent = document.querySelector("#search-results:first-child:not(.responsive-table)");

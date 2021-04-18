@@ -30,14 +30,16 @@ module.exports = {
             }
 
             let describeInstanceRefreshes = autoScaling.describeInstanceRefreshes(params).promise();
+            let describeAutoScalingGroup = autoScaling.describeAutoScalingGroups(params).promise();
 
             try {
 
-                describeInstanceRefreshes.then(res => {
+                Promise.all([describeAutoScalingGroup, describeInstanceRefreshes]).then(res => {
                     
-                    let lastInstance = res.InstanceRefreshes[0];
+                    let lastInstance = res[1].InstanceRefreshes[0];
+                    let instanceNumber = res[0].AutoScalingGroups.Instances.length;
 
-                    if (lastInstance.Status == "Successful" || lastInstance.Status == "Cancelled" || lastInstance.Status == "Failed") {
+                    if ((lastInstance.Status == "Successful" || lastInstance.Status == "Cancelled" || lastInstance.Status == "Failed") && (instanceNumber>1)) {
                         autoScaling.startInstanceRefresh(params, (err, data) => {
 
                             if (err) {

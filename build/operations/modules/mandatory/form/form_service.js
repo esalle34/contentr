@@ -29,7 +29,7 @@ var services = {
   "content_service": content_service
 };
 module.exports = {
-  getForm: (route, req, res) => {
+  get_form: (route, req, res) => {
     var formFactory;
 
     var fetchForm = formFactory => {
@@ -90,7 +90,7 @@ module.exports = {
   },
   //Récupération à partir de l'input ms en hidden des données liés au service (file, callback, prefix)
   //exemple : content_service/create_content::uri => file/service::prefix
-  validateForm: (route, req, res) => {
+  validate_form: (route, req, res) => {
     var isValid = false;
     var newResponse = Object.assign({}, {
       errorLabel: route.i18n.translate("There was an error while validating this form", route.lang)

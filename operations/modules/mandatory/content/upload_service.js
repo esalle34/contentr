@@ -18,7 +18,7 @@ const imageminSvgo = require('imagemin-svgo');
 
 module.exports = {
 
-    initDirectories: (route, req, res) => {
+    init_directories: (route, req, res) => {
 
         let s3 = awsS3Uploads.init();
         let uploadQuery = new Promise((resolve, reject) => {
@@ -108,7 +108,7 @@ module.exports = {
 
     },
 
-    getUploadView: (route, req, res) => {
+    get_upload_view: (route, req, res) => {
 
         let body = { react_element: "getUploadView", args: { tr_title: route.i18n.translate("Files", route.lang) } };
 
@@ -116,7 +116,7 @@ module.exports = {
 
     },
 
-    getFiles: (route, req, res) => {
+    get_files: (route, req, res) => {
 
         let body = view_service.checkAccessRights(route, req, res, null, false);
 
@@ -164,7 +164,7 @@ module.exports = {
 
     },
 
-    addFolder(route, req, res) {
+    add_folder(route, req, res) {
 
         let body = view_service.checkAccessRights(route, req, res, null, false);
 
@@ -223,7 +223,7 @@ module.exports = {
 
     },
 
-    removeFile(route, req, res) {
+    remove_file(route, req, res) {
 
         let body = view_service.checkAccessRights(route, req, res, null, false);
 

@@ -23,7 +23,7 @@ module.exports = {
         let params = req.body;
         let newParams = {};
         for(let key in params){
-            if(key != "ms" && key != "form_id" && key != "content_name"){
+            if(key != "ms" && key != "form_id" && key != "content_name" && key != "id"){
                 if(key.includes("boolean_")){
                     if(params[key] == "on"){
                         params[key] = true;
@@ -35,12 +35,23 @@ module.exports = {
             }
         }
         let contentFactory = new ContentFactory();
-        contentFactory.createContent(parseInt(params.form_id), params.content_name, newParams).then((result)=>{
-            if(result == "Already exists"){
-                return res.status(409).send({errorLabel : route.i18n.translate("Content name already exists", route.lang)})
-            }
-            return res.status(200).send({validPopin : route.i18n.translate("New content added", route.lang), validPopinLink : "reload"});
-        })
+
+        if(typeof params.id !="undefined"){
+
+            contentFactory.updateContent(parseInt(params.id), newParams).then(()=>{
+                return res.status(200).send({validPopin : route.i18n.translate("Content updated", route.lang), validPopinLink : "reload"});
+            })
+            
+        }else{
+
+            contentFactory.createContent(parseInt(params.form_id), params.content_name, newParams).then((result)=>{
+                if(result == "Already exists"){
+                    return res.status(409).send({errorLabel : route.i18n.translate("Content name already exists", route.lang)})
+                }
+                return res.status(200).send({validPopin : route.i18n.translate("New content added", route.lang), validPopinLink : "reload"});
+            })
+
+        }
         
     },
 
@@ -61,7 +72,14 @@ module.exports = {
 
     getContentValues : (route, req, res)=>{
 
-        console.log("bidule");
+        let params = req.body;
+        let contentFactory = new ContentFactory();
+
+        contentFactory.getContentValues(params.id).then(fieldValues=>{
+
+            return res.status(200).send(fieldValues);
+
+        })
         
     },
 

@@ -85,14 +85,14 @@ export class ContentTypeFactory extends Object {
 
 
                                 values.map((input, index) => {
-                                    
+
                                     input_queries.push(db_transaction.db_quick_query(`INSERT INTO forms_elements (name, element, args, form_number, weight, form_id) VALUES (?, ?, ?, ?, ?, ?)`,
-                                    [input.mname, input.element, JSON.stringify(input.args), 0, index, res.id]))
+                                        [input.mname, input.element, JSON.stringify(input.args), 0, index, res.id]))
 
                                 })
 
-                                input_queries.reduce((input_q, next)=>{
-                                   return input_q.then(next);
+                                input_queries.reduce((input_q, next) => {
+                                    return input_q.then(next);
                                 })
 
                                 let revision_table_query = `CREATE table IF NOT EXISTS revision_${form_name} (`;
@@ -218,14 +218,27 @@ export class ContentTypeFactory extends Object {
 
     }
 
-    getContentTypeName(content_type_id) {
+    getContentTypeName(content_type_id = null, content_id = null) {
 
         return new Promise((resolve, reject) => {
 
-            db_transaction.db_quick_query(`SELECT machine_name from content_types where id = ?`, [content_type_id]).then(res => {
+            if (content_type_id != null) {
 
-                return resolve(res.machine_name);
-            })
+                db_transaction.db_quick_query(`SELECT machine_name from content_types where id = ?`, [content_type_id]).then(res => {
+
+                    return resolve(res.machine_name);
+                })
+
+            }else if(content_id != null){
+
+                db_transaction.db_quick_query(`SELECT machine_name FROM content AS c INNER JOIN content_types as ct ON ct.id = c.content_type_id WHERE c.id=?`, [content_id]).then(res=>{
+
+                    return resolve(res.machine_name);
+
+                })
+
+            }
+
 
         })
 
