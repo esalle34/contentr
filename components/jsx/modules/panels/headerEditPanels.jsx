@@ -327,7 +327,6 @@ const HeaderEditPanels = (args) => {
         .send({ ms : submitHeaderMS, originalHeaderElsList : typeof headerElsList.text != "undefined" ? JSON.parse(headerElsList.text) : originalHeaderElsList.body, headerElsList : headerElsList.body, header_id : header_id})
         .then(res=>{
 
-            console.log(res);
 
         }).catch((error)=>{
             console.log("Error while submitting new Header : " + error)

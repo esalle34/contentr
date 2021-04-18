@@ -28,7 +28,8 @@ const invokeCkEditor = (input)=>{
 	let CkEditor = invokables["InvokeCkEditor"];
 	
 	ReactDOM.render(
-		<CkEditor />,
+
+		<CkEditor data={input.value != null ? input.value : undefined} />,
 		input.previousSibling
 	)
 

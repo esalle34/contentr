@@ -90,12 +90,12 @@ module.exports = {
 			},
 			callback : {
 				name : `INSERT_administration_callback`,
-				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'getForm', 'pages_form')`,
+				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'get_form', 'pages_form')`,
 				message : `INSERTing pages form administration callback`
 			},
 			pages : {
 				name : `INSERT_administration`,
-				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = "form_service" AND callback = "getForm" AND form_name = "pages_form" ),(SELECT id FROM uri WHERE root_id = "administrate_pages_form"), "administrate_pages_form")`,
+				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = "form_service" AND callback = "get_form" AND form_name = "pages_form" ),(SELECT id FROM uri WHERE root_id = "administrate_pages_form"), "administrate_pages_form")`,
 				message : `INSERTing pages form administration section`,
 			},
 			pages_permissions : {
@@ -115,12 +115,12 @@ module.exports = {
 			},
 			callback : {
 				name : `INSERT_login_form_callback`,
-				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'getForm', 'login_form'  )`,
+				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'get_form', 'login_form'  )`,
 				message : `INSERTing login form callback`
 			},
 			pages : {
 				name : `INSERT_login_form`,
-				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration login | ${global_transaction.DEFAULT_SITE_TITLE}", "get", "office", (SELECT id from callback WHERE filename = 'form_service' AND callback = 'getForm' AND form_name="login_form"), (SELECT id FROM uri WHERE root_id = "login-form"), "login-form")`,
+				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration login | ${global_transaction.DEFAULT_SITE_TITLE}", "get", "office", (SELECT id from callback WHERE filename = 'form_service' AND callback = 'get_form' AND form_name="login_form"), (SELECT id FROM uri WHERE root_id = "login-form"), "login-form")`,
 				message : `INSERTing /administrate/login section` 
 			},
 			pages_permissions : {
@@ -290,12 +290,12 @@ module.exports = {
 			},
 			callback : {
 				name : `INSERT_route_create_form_callback`,
-				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'getForm', 'create_route_form' )`,
+				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'get_form', 'create_route_form' )`,
 				message : `INSERTing create-route-form callback`
 			},
 			pages : {
 				name : `INSERT_route_create_form_pages`,
-				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "get", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'getForm' AND form_name = 'create_route_form' ), (SELECT id FROM uri WHERE root_id = "create-route-form"), "create-route-form")`,
+				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "get", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'get_form' AND form_name = 'create_route_form' ), (SELECT id FROM uri WHERE root_id = "create-route-form"), "create-route-form")`,
 				message : `INSERTing /administrate/route/create section` 
 			},
 			pages_permissions : {
@@ -315,12 +315,12 @@ module.exports = {
 			},
 			callback : {
 				name : `INSERT_route_create_callback`,
-				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'validateForm', 'create_route_form' )`,
+				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'validate_form', 'create_route_form' )`,
 				message : `INSERTing create-route callback`
 			},
 			pages : {
 				name : `INSERT_route_create_pages`,
-				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'validateForm' AND form_name = 'create_route_form' ), (SELECT id FROM uri WHERE root_id = "create-route"), "create-route")`,
+				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'validate_form' AND form_name = 'create_route_form' ), (SELECT id FROM uri WHERE root_id = "create-route"), "create-route")`,
 				message : `INSERTing /administrate/route/create/post section` 
 			},
 			pages_permissions : {
@@ -340,12 +340,12 @@ module.exports = {
 			},
 			callback : {
 				name : `INSERT_route_edit_form_callback`,
-				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'getForm', 'edit_route_form' )`,
+				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'get_form', 'edit_route_form' )`,
 				message : `INSERTing edit-route-form callback`
 			},
 			pages : {
 				name : `INSERT_route_edit_form_pages`,
-				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "get", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'getForm' AND form_name = 'edit_route_form' ), (SELECT id FROM uri WHERE root_id = "edit-route-form"), "edit-route-form")`,
+				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "get", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'get_form' AND form_name = 'edit_route_form' ), (SELECT id FROM uri WHERE root_id = "edit-route-form"), "edit-route-form")`,
 				message : `INSERTing /administrate/route/edit section` 
 			},
 			pages_permissions : {
@@ -366,12 +366,12 @@ module.exports = {
 			},
 			callback : {
 				name : `INSERT_route_edit_callback`,
-				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'validateForm', 'edit_route_form' )`,
+				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'validate_form', 'edit_route_form' )`,
 				message : `INSERTing edit-route callback`
 			},
 			pages : {
 				name : `INSERT_route_edit_pages`,
-				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'validateForm' AND form_name = 'edit_route_form' ), (SELECT id FROM uri WHERE root_id = "edit-route"), "edit-route")`,
+				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'validate_form' AND form_name = 'edit_route_form' ), (SELECT id FROM uri WHERE root_id = "edit-route"), "edit-route")`,
 				message : `INSERTing /administrate/route/edit/post section` 
 			},
 			pages_permissions : {
@@ -391,12 +391,12 @@ module.exports = {
 			},
 			callback : {
 				name : `INSERT_route_remove_form_callback`,
-				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'getForm',  'remove_route_form' )`,
+				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'get_form',  'remove_route_form' )`,
 				message : `INSERTing remove-route-form callback`
 			},
 			pages : {
 				name : `INSERT_route_remove_form_pages`,
-				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "get", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'getForm' AND form_name = 'remove_route_form' ), (SELECT id FROM uri WHERE root_id = "remove-route-form"), "remove-route-form")`,
+				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "get", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'get_form' AND form_name = 'remove_route_form' ), (SELECT id FROM uri WHERE root_id = "remove-route-form"), "remove-route-form")`,
 				message : `INSERTing /administrate/route/remove section` 
 			},
 			pages_permissions : {
@@ -416,12 +416,12 @@ module.exports = {
 			},
 			callback : {
 				name : `INSERT_route_remove_callback`,
-				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'validateForm', 'remove_route_form' )`,
+				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'validate_form', 'remove_route_form' )`,
 				message : `INSERTing remove-route callback`
 			},
 			pages : {
 				name : `INSERT_route_remove_pages`,
-				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'validateForm' AND form_name = 'remove_route_form' ), (SELECT id FROM uri WHERE root_id = "remove-route"), "remove-route")`,
+				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'validate_form' AND form_name = 'remove_route_form' ), (SELECT id FROM uri WHERE root_id = "remove-route"), "remove-route")`,
 				message : `INSERTing /administrate/route/remove/post section` 
 			},
 			pages_permissions : {
@@ -441,12 +441,12 @@ module.exports = {
 			},
 			callback : {
 				name : `INSERT_route_search_callback`,
-				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'validateForm', 'search_route' )`,
+				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'validate_form', 'search_route' )`,
 				message : `INSERTing search-route callback`
 			},
 			pages : {
 				name : `INSERT_route_search_pages`,
-				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'validateForm' AND form_name = 'search_route' ), (SELECT id FROM uri WHERE root_id = "search-route"), "search-route")`,
+				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'validate_form' AND form_name = 'search_route' ), (SELECT id FROM uri WHERE root_id = "search-route"), "search-route")`,
 				message : `INSERTing /administrate/route/search section` 
 			},
 			pages_permissions : {
@@ -466,12 +466,12 @@ module.exports = {
 			},
 			callback : {
 				name : `INSERT_header_manage_form_callback`,
-				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'getForm', 'manage_header_form' )`,
+				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'get_form', 'manage_header_form' )`,
 				message : `INSERTing manage-header-form callback`
 			},
 			pages : {
 				name : `INSERT_logout`,
-				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "get", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'getForm' AND form_name = 'manage_header_form' ), (SELECT id FROM uri WHERE root_id = "manage-header-form"), "manage-header-form")`,
+				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "get", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'get_form' AND form_name = 'manage_header_form' ), (SELECT id FROM uri WHERE root_id = "manage-header-form"), "manage-header-form")`,
 				message : `INSERTing /administrate/header/manage section` 
 			},
 			pages_permissions : {
@@ -491,12 +491,12 @@ module.exports = {
 			},
 			callback : {
 				name : `INSERT_header_manage_callback`,
-				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'validateForm', 'manage_header_form_form' )`,
+				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'validate_form', 'manage_header_form_form' )`,
 				message : `INSERTing edit-header callback`
 			},
 			pages : {
 				name : `INSERT_logout`,
-				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'validateForm' AND form_name = 'manage_header_form_form'), (SELECT id FROM uri WHERE root_id = "manage-header-form-form"), "manage-header-form-form")`,
+				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'validate_form' AND form_name = 'manage_header_form_form'), (SELECT id FROM uri WHERE root_id = "manage-header-form-form"), "manage-header-form-form")`,
 				message : `INSERTing /administrate/header/manage/post section` 
 			},
 			pages_permissions : {
@@ -516,12 +516,12 @@ module.exports = {
 			},
 			callback : {
 				name : `INSERT_header_search_callback`,
-				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'validateForm', 'search_header' )`,
+				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'validate_form', 'search_header' )`,
 				message : `INSERTing search-header callback`
 			},
 			pages : {
 				name : `INSERT_header_search_pages`,
-				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'validateForm' AND form_name = 'search_header' ), (SELECT id FROM uri WHERE root_id = "search-header"), "search-header")`,
+				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'validate_form' AND form_name = 'search_header' ), (SELECT id FROM uri WHERE root_id = "search-header"), "search-header")`,
 				message : `INSERTing /administrate/header/search section` 
 			},
 			pages_permissions : {
@@ -566,12 +566,12 @@ module.exports = {
 			},
 			callback : {
 				name : `INSERT_form_create_form_callback`,
-				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'getForm', 'create_form_form' )`,
+				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'get_form', 'create_form_form' )`,
 				message : `INSERTing create-form-form callback`
 			},
 			pages : {
 				name : `INSERT_create_form_callback`,
-				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "get", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'getForm' AND form_name = 'create_form_form' ), (SELECT id FROM uri WHERE root_id = "create-form-form"), "create-form-form")`,
+				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "get", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'get_form' AND form_name = 'create_form_form' ), (SELECT id FROM uri WHERE root_id = "create-form-form"), "create-form-form")`,
 				message : `INSERTing /administrate/form/create section` 
 			},
 			pages_permissions : {
@@ -591,12 +591,12 @@ module.exports = {
 			},
 			callback : {
 				name : `INSERT_form_create_callback`,
-				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'validateForm', 'create_form_form' )`,
+				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'validate_form', 'create_form_form' )`,
 				message : `INSERTing create-form callback`
 			},
 			pages : {
 				name : `INSERT_form_create_callback`,
-				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'validateForm'  AND form_name = 'create_form_form' ), (SELECT id FROM uri WHERE root_id = "create-form"), "create-form")`,
+				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'validate_form'  AND form_name = 'create_form_form' ), (SELECT id FROM uri WHERE root_id = "create-form"), "create-form")`,
 				message : `INSERTing /administrate/form/create/post section` 
 			},
 			pages_permissions : {
@@ -616,12 +616,12 @@ module.exports = {
 			},
 			callback : {
 				name : `INSERT_form_edit_form_callback`,
-				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'getForm', 'edit_form_form' )`,
+				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'get_form', 'edit_form_form' )`,
 				message : `INSERTing edit-form-form callback`
 			},
 			pages : {
 				name : `INSERT_edit_form_callback`,
-				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "get", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'getForm' AND form_name = 'edit_form_form' ), (SELECT id FROM uri WHERE root_id = "edit-form-form"), "edit-form-form")`,
+				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "get", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'get_form' AND form_name = 'edit_form_form' ), (SELECT id FROM uri WHERE root_id = "edit-form-form"), "edit-form-form")`,
 				message : `INSERTing /administrate/form/edit section` 
 			},
 			pages_permissions : {
@@ -641,12 +641,12 @@ module.exports = {
 			},
 			callback : {
 				name : `INSERT_form_edit_callback`,
-				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'validateForm', 'edit_form_form' )`,
+				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'validate_form', 'edit_form_form' )`,
 				message : `INSERTing edit-form callback`
 			},
 			pages : {
 				name : `INSERT_form_edit_callback`,
-				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'validateForm'  AND form_name = 'edit_form_form' ), (SELECT id FROM uri WHERE root_id = "edit-form"), "edit-form")`,
+				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'validate_form'  AND form_name = 'edit_form_form' ), (SELECT id FROM uri WHERE root_id = "edit-form"), "edit-form")`,
 				message : `INSERTing /administrate/form/edit/post section` 
 			},
 			pages_permissions : {
@@ -666,12 +666,12 @@ module.exports = {
 			},
 			callback : {
 				name : `INSERT_form_remove_form_callback`,
-				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'getForm', 'remove_form_form' )`,
+				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'get_form', 'remove_form_form' )`,
 				message : `INSERTing remove-form-form callback`
 			},
 			pages : {
 				name : `INSERT_remove_form_callback`,
-				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "get", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'getForm' AND form_name = 'remove_form_form' ), (SELECT id FROM uri WHERE root_id = "remove-form-form"), "remove-form-form")`,
+				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "get", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'get_form' AND form_name = 'remove_form_form' ), (SELECT id FROM uri WHERE root_id = "remove-form-form"), "remove-form-form")`,
 				message : `INSERTing /administrate/form/remove section` 
 			},
 			pages_permissions : {
@@ -691,12 +691,12 @@ module.exports = {
 			},
 			callback : {
 				name : `INSERT_form_remove_callback`,
-				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'validateForm', 'remove-form-form' )`,
+				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'validate_form', 'remove-form-form' )`,
 				message : `INSERTing remove-form callback`
 			},
 			pages : {
 				name : `INSERT_form_remove_callback`,
-				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'validateForm' AND form_name = 'remove_form_form' ), (SELECT id FROM uri WHERE root_id = "remove-form"), "remove-form")`,
+				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'validate_form' AND form_name = 'remove_form_form' ), (SELECT id FROM uri WHERE root_id = "remove-form"), "remove-form")`,
 				message : `INSERTing /administrate/form/remove/post section` 
 			},
 			pages_permissions : {
@@ -716,12 +716,12 @@ module.exports = {
 			},
 			callback : {
 				name : `INSERT_form_request_callback`,
-				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'getForm', "request-form-post" )`,
+				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'get_form', "request-form-post" )`,
 				message : `INSERTing request-form callback`
 			},
 			pages : {
 				name : `INSERT_form_request_callback`,
-				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'getForm' AND form_name = "request-form-post" ), (SELECT id FROM uri WHERE root_id = "request-form-post"), "request-form-post")`,
+				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'get_form' AND form_name = "request-form-post" ), (SELECT id FROM uri WHERE root_id = "request-form-post"), "request-form-post")`,
 				message : `INSERTing /administrate/form/request/post section` 
 			},
 			pages_permissions : {
@@ -741,12 +741,12 @@ module.exports = {
 			},
 			callback : {
 				name : `INSERT_uploads_callback`,
-				query : `INSERT INTO callback (filepath, filename, callback) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/content/', 'upload_service', 'getUploadView')`,
+				query : `INSERT INTO callback (filepath, filename, callback) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/content/', 'upload_service', 'get_upload_view')`,
 				message : `INSERTing uploads callback`
 			},
 			pages : {
 				name : `INSERT_uploads_page`,
-				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("${global_transaction.DEFAULT_SITE_TITLE}", "get", "office", (SELECT id FROM callback WHERE filename = 'upload_service' AND callback = 'getUploadView'), (SELECT id FROM uri WHERE root_id = "uploads"), "uploads")`,
+				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("${global_transaction.DEFAULT_SITE_TITLE}", "get", "office", (SELECT id FROM callback WHERE filename = 'upload_service' AND callback = 'get_upload_view'), (SELECT id FROM uri WHERE root_id = "uploads"), "uploads")`,
 				message : `INSERTing /administrate/uploads section` 
 			},
 			pages_permissions : {
@@ -766,12 +766,12 @@ module.exports = {
 			},
 			callback : {
 				name : `INSERT_uploads_search_callback`,
-				query : `INSERT INTO callback (filepath, filename, callback) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/content/', 'upload_service', 'getFiles')`,
+				query : `INSERT INTO callback (filepath, filename, callback) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/content/', 'upload_service', 'get_files')`,
 				message : `INSERTing uploads callback`
 			},
 			pages : {
 				name : `INSERT_uploads_search_page`,
-				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'upload_service' AND callback = 'getFiles'), (SELECT id FROM uri WHERE root_id = "uploads_search"), "uploads_search")`,
+				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'upload_service' AND callback = 'get_files'), (SELECT id FROM uri WHERE root_id = "uploads_search"), "uploads_search")`,
 				message : `INSERTing /administrate/uploads/search section` 
 			},
 			pages_permissions : {
@@ -791,12 +791,12 @@ module.exports = {
 			},
 			callback : {
 				name : `INSERT_uploads_callback_add_file`,
-				query : `INSERT INTO callback (filepath, filename, callback) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/content/', 'upload_service', 'addFile')`,
+				query : `INSERT INTO callback (filepath, filename, callback) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/content/', 'upload_service', 'add_file')`,
 				message : `INSERTing uploads callback`
 			},
 			pages : {
 				name : `INSERT_uploads_page_add_file`,
-				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'upload_service' AND callback = 'addFile'), (SELECT id FROM uri WHERE root_id = "uploads-add-file"), "uploads-add-file")`,
+				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'upload_service' AND callback = 'add_file'), (SELECT id FROM uri WHERE root_id = "uploads-add-file"), "uploads-add-file")`,
 				message : `INSERTing /administrate/files/add section` 
 			},
 			pages_permissions : {
@@ -817,12 +817,12 @@ module.exports = {
 			},
 			callback : {
 				name : `INSERT_uploads_callback_add_folder`,
-				query : `INSERT INTO callback (filepath, filename, callback) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/content/', 'upload_service', 'addFolder')`,
+				query : `INSERT INTO callback (filepath, filename, callback) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/content/', 'upload_service', 'add_folder')`,
 				message : `INSERTing uploads callback`
 			},
 			pages : {
 				name : `INSERT_uploads_page_add_folder`,
-				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'upload_service' AND callback = 'addFolder' ), (SELECT id FROM uri WHERE root_id = "uploads-add-folder"), "uploads-add-folder")`,
+				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'upload_service' AND callback = 'add_folder' ), (SELECT id FROM uri WHERE root_id = "uploads-add-folder"), "uploads-add-folder")`,
 				message : `INSERTing /administrate/folders/add section` 
 			},
 			pages_permissions : {
@@ -842,12 +842,12 @@ module.exports = {
 			},
 			callback : {
 				name : `INSERT_uploads_callback_remove_file`,
-				query : `INSERT INTO callback (filepath, filename, callback) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/content/', 'upload_service', 'removeFile')`,
+				query : `INSERT INTO callback (filepath, filename, callback) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/content/', 'upload_service', 'remove_file')`,
 				message : `INSERTing uploads callback`
 			},
 			pages : {
 				name : `INSERT_uploads_page_remove_file`,
-				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'upload_service' AND callback = 'removeFile'), (SELECT id FROM uri WHERE root_id = "uploads-remove-file"), "uploads-remove-file")`,
+				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'upload_service' AND callback = 'remove_file'), (SELECT id FROM uri WHERE root_id = "uploads-remove-file"), "uploads-remove-file")`,
 				message : `INSERTing /administrate/files/remove section` 
 			},
 			pages_permissions : {
@@ -867,12 +867,12 @@ module.exports = {
 			},
 			callback : {
 				name : `INSERT_uploads_init_directories`,
-				query : `INSERT INTO callback (filepath, filename, callback) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/content/types/', 'upload_service', 'initDirectories')`,
+				query : `INSERT INTO callback (filepath, filename, callback) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/content/types/', 'upload_service', 'init_directories')`,
 				message : `INSERTing uploads callback`
 			},
 			pages : {
 				name : `INSERT_uploads_init_directories`,
-				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("${global_transaction.DEFAULT_SITE_TITLE}", "get", "office", (SELECT id FROM callback WHERE filename = 'upload_service' AND callback = 'initDirectories'), (SELECT id FROM uri WHERE root_id = "uploads-init-dir"), "uploads-init-dir")`,
+				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("${global_transaction.DEFAULT_SITE_TITLE}", "get", "office", (SELECT id FROM callback WHERE filename = 'upload_service' AND callback = 'init_directories'), (SELECT id FROM uri WHERE root_id = "uploads-init-dir"), "uploads-init-dir")`,
 				message : `INSERTing /administrate/uploads/init section` 
 			},
 			pages_permissions : {
@@ -891,12 +891,12 @@ module.exports = {
 			},
 			callback : {
 				name : `INSERT_content_types_create_form_callback`,
-				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'getForm', 'create_content_types_form' )`,
+				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'get_form', 'create_content_types_form' )`,
 				message : `INSERTing create-content-types-form callback`
 			},
 			pages : {
 				name : `INSERT_content_types_create_form_pages`,
-				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "get", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'getForm' AND form_name = 'create_content_types_form' ), (SELECT id FROM uri WHERE root_id = "create-content-types-form"), "create-content-types-form")`,
+				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "get", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'get_form' AND form_name = 'create_content_types_form' ), (SELECT id FROM uri WHERE root_id = "create-content-types-form"), "create-content-types-form")`,
 				message : `INSERTing /administrate/content/types/create section` 
 			},
 			pages_permissions : {
@@ -916,12 +916,12 @@ module.exports = {
 			},
 			callback : {
 				name : `INSERT_content_types_create_callback`,
-				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'validateForm', 'create_content_types_form' )`,
+				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'validate_form', 'create_content_types_form' )`,
 				message : `INSERTing create-content-types callback`
 			},
 			pages : {
 				name : `INSERT_content_types_create_pages`,
-				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'validateForm' AND form_name = 'create_content_types_form' ), (SELECT id FROM uri WHERE root_id = "create-content-types"), "create-content-types")`,
+				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'validate_form' AND form_name = 'create_content_types_form' ), (SELECT id FROM uri WHERE root_id = "create-content-types"), "create-content-types")`,
 				message : `INSERTing /administrate/content/types/create/post section` 
 			},
 			pages_permissions : {
@@ -941,12 +941,12 @@ module.exports = {
 			},
 			callback : {
 				name : `INSERT_content_types_edit_form_callback`,
-				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'getForm', 'edit_content_types_form' )`,
+				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'get_form', 'edit_content_types_form' )`,
 				message : `INSERTing edit-content-types-form callback`
 			},
 			pages : {
 				name : `INSERT_content_types_edit_form_pages`,
-				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "get", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'getForm' AND form_name = 'edit_content_types_form' ), (SELECT id FROM uri WHERE root_id = "edit-content-types-form"), "edit-content-types-form")`,
+				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "get", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'get_form' AND form_name = 'edit_content_types_form' ), (SELECT id FROM uri WHERE root_id = "edit-content-types-form"), "edit-content-types-form")`,
 				message : `INSERTing /administrate/content/types/edit section` 
 			},
 			pages_permissions : {
@@ -967,12 +967,12 @@ module.exports = {
 			},
 			callback : {
 				name : `INSERT_content_types_edit_callback`,
-				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'validateForm', 'edit_content_types_form' )`,
+				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'validate_form', 'edit_content_types_form' )`,
 				message : `INSERTing edit-content-types callback`
 			},
 			pages : {
 				name : `INSERT_content_types_edit_pages`,
-				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'validateForm' AND form_name = 'edit_content_types_form' ), (SELECT id FROM uri WHERE root_id = "edit-content-types"), "edit-content-types")`,
+				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'validate_form' AND form_name = 'edit_content_types_form' ), (SELECT id FROM uri WHERE root_id = "edit-content-types"), "edit-content-types")`,
 				message : `INSERTing /administrate/content/types/edit/post section` 
 			},
 			pages_permissions : {
@@ -992,12 +992,12 @@ module.exports = {
 			},
 			callback : {
 				name : `INSERT_content_types_remove_form_callback`,
-				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'getForm',  'remove_content_types_form' )`,
+				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'get_form',  'remove_content_types_form' )`,
 				message : `INSERTing remove-content-types-form callback`
 			},
 			pages : {
 				name : `INSERT_content_types_remove_form_pages`,
-				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "get", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'getForm' AND form_name = 'remove_content_types_form' ), (SELECT id FROM uri WHERE root_id = "remove-content-types-form"), "remove-content-types-form")`,
+				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "get", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'get_form' AND form_name = 'remove_content_types_form' ), (SELECT id FROM uri WHERE root_id = "remove-content-types-form"), "remove-content-types-form")`,
 				message : `INSERTing /administrate/content/types/remove section` 
 			},
 			pages_permissions : {
@@ -1017,12 +1017,12 @@ module.exports = {
 			},
 			callback : {
 				name : `INSERT_content_types_remove_callback`,
-				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'validateForm', 'remove_content_types_form' )`,
+				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'validate_form', 'remove_content_types_form' )`,
 				message : `INSERTing remove-content-types callback`
 			},
 			pages : {
 				name : `INSERT_content_types_remove_pages`,
-				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'validateForm' AND form_name = 'remove_content_types_form' ), (SELECT id FROM uri WHERE root_id = "remove-content-types"), "remove-content-types")`,
+				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'validate_form' AND form_name = 'remove_content_types_form' ), (SELECT id FROM uri WHERE root_id = "remove-content-types"), "remove-content-types")`,
 				message : `INSERTing /administrate/content/types/remove/post section` 
 			},
 			pages_permissions : {
@@ -1041,12 +1041,12 @@ module.exports = {
 			},
 			callback : {
 				name : `INSERT_content_create_form_callback`,
-				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'getForm', 'create_content_form' )`,
+				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'get_form', 'create_content_form' )`,
 				message : `INSERTing create-content-form callback`
 			},
 			pages : {
 				name : `INSERT_content_create_form_pages`,
-				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "get", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'getForm' AND form_name = 'create_content_form' ), (SELECT id FROM uri WHERE root_id = "create-content-form"), "create-content-form")`,
+				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "get", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'get_form' AND form_name = 'create_content_form' ), (SELECT id FROM uri WHERE root_id = "create-content-form"), "create-content-form")`,
 				message : `INSERTing /administrate/content/create section` 
 			},
 			pages_permissions : {
@@ -1066,12 +1066,12 @@ module.exports = {
 			},
 			callback : {
 				name : `INSERT_content_create_callback`,
-				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'validateForm', 'create_content_form' )`,
+				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'validate_form', 'create_content_form' )`,
 				message : `INSERTing create-content callback`
 			},
 			pages : {
 				name : `INSERT_content_create_pages`,
-				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'validateForm' AND form_name = 'create_content_form' ), (SELECT id FROM uri WHERE root_id = "create-content"), "create-content")`,
+				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'validate_form' AND form_name = 'create_content_form' ), (SELECT id FROM uri WHERE root_id = "create-content"), "create-content")`,
 				message : `INSERTing /administrate/content/create/post section` 
 			},
 			pages_permissions : {
@@ -1091,12 +1091,12 @@ module.exports = {
 			},
 			callback : {
 				name : `INSERT_content_edit_form_callback`,
-				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'getForm', 'edit_content_form' )`,
+				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'get_form', 'edit_content_form' )`,
 				message : `INSERTing edit-content-form callback`
 			},
 			pages : {
 				name : `INSERT_content_edit_form_pages`,
-				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "get", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'getForm' AND form_name = 'edit_content_form' ), (SELECT id FROM uri WHERE root_id = "edit-content-form"), "edit-content-form")`,
+				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "get", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'get_form' AND form_name = 'edit_content_form' ), (SELECT id FROM uri WHERE root_id = "edit-content-form"), "edit-content-form")`,
 				message : `INSERTing /administrate/content/edit section` 
 			},
 			pages_permissions : {
@@ -1116,12 +1116,12 @@ module.exports = {
 			},
 			callback : {
 				name : `INSERT_content_edit_callback`,
-				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'validateForm', 'edit_content_form' )`,
+				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'validate_form', 'edit_content_form' )`,
 				message : `INSERTing edit-content callback`
 			},
 			pages : {
 				name : `INSERT_content_edit_pages`,
-				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'validateForm' AND form_name = 'edit_content_form' ), (SELECT id FROM uri WHERE root_id = "edit-content"), "edit-content")`,
+				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'validate_form' AND form_name = 'edit_content_form' ), (SELECT id FROM uri WHERE root_id = "edit-content"), "edit-content")`,
 				message : `INSERTing /administrate/content/edit/post section` 
 			},
 			pages_permissions : {
@@ -1141,12 +1141,12 @@ module.exports = {
 			},
 			callback : {
 				name : `INSERT_content_remove_form_callback`,
-				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'getForm', 'remove_content_form' )`,
+				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'get_form', 'remove_content_form' )`,
 				message : `INSERTing remove-content-form callback`
 			},
 			pages : {
 				name : `INSERT_content_remove_form_pages`,
-				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "get", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'getForm' AND form_name = 'remove_content_form' ), (SELECT id FROM uri WHERE root_id = "remove-content-form"), "remove-content-form")`,
+				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "get", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'get_form' AND form_name = 'remove_content_form' ), (SELECT id FROM uri WHERE root_id = "remove-content-form"), "remove-content-form")`,
 				message : `INSERTing /administrate/content/remove section` 
 			},
 			pages_permissions : {
@@ -1166,12 +1166,12 @@ module.exports = {
 			},
 			callback : {
 				name : `INSERT_content_remove_callback`,
-				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'validateForm', 'remove_content_form' )`,
+				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'validate_form', 'remove_content_form' )`,
 				message : `INSERTing remove-content callback`
 			},
 			pages : {
 				name : `INSERT_content_remove_pages`,
-				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'validateForm' AND form_name = 'remove_content_form' ), (SELECT id FROM uri WHERE root_id = "remove-content"), "remove-content")`,
+				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("Administration | ${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'validate_form' AND form_name = 'remove_content_form' ), (SELECT id FROM uri WHERE root_id = "remove-content"), "remove-content")`,
 				message : `INSERTing /administrate/content/remove/post section` 
 			},
 			pages_permissions : {
@@ -1187,16 +1187,16 @@ module.exports = {
 			uri : {
 				name : `INSERT_uri_content_types_search`,
 				query : `INSERT INTO uri (uri, root_id, isSystem, isPublished) VALUES ('/administrate/content/types/search', 'content-types-search', true, true)`,
-				message : `INSERTing /administrate/uploads uri`
+				message : `INSERTing /administrate/content/types/search uri`
 			},
 			callback : {
 				name : `INSERT_content_types_search_callback`,
-				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'validateForm', 'content_types_search')`,
-				message : `INSERTing uploads callback`
+				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'validate_form', 'content_types_search')`,
+				message : `INSERTing content/types/search callback`
 			},
 			pages : {
 				name : `INSERT_content_types_search_page`,
-				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'validateForm' AND form_name='content_types_search'), (SELECT id FROM uri WHERE root_id = "content-types-search"), "content-types-search")`,
+				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'validate_form' AND form_name='content_types_search'), (SELECT id FROM uri WHERE root_id = "content-types-search"), "content-types-search")`,
 				message : `INSERTing /administrate/content/types/search section` 
 			},
 			pages_permissions : {
@@ -1212,16 +1212,16 @@ module.exports = {
 			uri : {
 				name : `INSERT_uri_content_search`,
 				query : `INSERT INTO uri (uri, root_id, isSystem, isPublished) VALUES ('/administrate/content/search', 'content-search', true, true)`,
-				message : `INSERTing /administrate/uploads uri`
+				message : `INSERTing /administrate/content/search uri`
 			},
 			callback : {
 				name : `INSERT_content_search_callback`,
-				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'validateForm', 'content_search')`,
-				message : `INSERTing uploads callback`
+				query : `INSERT INTO callback (filepath, filename, callback, form_name) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/form/', 'form_service', 'validate_form', 'content_search')`,
+				message : `INSERTing content/search callback`
 			},
 			pages : {
 				name : `INSERT_content_search_page`,
-				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'validateForm' AND form_name='content_search'), (SELECT id FROM uri WHERE root_id = "content-search"), "content-search")`,
+				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'validate_form' AND form_name='content_search'), (SELECT id FROM uri WHERE root_id = "content-search"), "content-search")`,
 				message : `INSERTing /administrate/content/types/search section` 
 			},
 			pages_permissions : {
@@ -1237,22 +1237,22 @@ module.exports = {
 			uri : {
 				name : `INSERT_uri_content_get`,
 				query : `INSERT INTO uri (uri, root_id, isSystem, isPublished) VALUES ('/administrate/content/get', 'content-get', true, true)`,
-				message : `INSERTing /administrate/uploads uri`
+				message : `INSERTing /administrate/content/get uri`
 			},
 			callback : {
 				name : `INSERT_content_get_callback`,
 				query : `INSERT INTO callback (filepath, filename, callback) VALUES ('${global_transaction.BACKEND_MODULE_DIR_SQL}/administration/content/', 'content_service', 'getContentValues')`,
-				message : `INSERTing uploads callback`
+				message : `INSERTing content/get callback`
 			},
 			pages : {
 				name : `INSERT_content_get_page`,
-				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'form_service' AND callback = 'validateForm' AND form_name='content_get'), (SELECT id FROM uri WHERE root_id = "content-get"), "content-get")`,
-				message : `INSERTing /administrate/content/types/search section` 
+				query : `INSERT INTO pages (title, method, theme, callback_id, uri_id, root_id) VALUES ("${global_transaction.DEFAULT_SITE_TITLE}", "post", "office", (SELECT id FROM callback WHERE filename = 'content_service' AND callback = 'getContentValues'), (SELECT id FROM uri WHERE root_id = "content-get"), "content-get")`,
+				message : `INSERTing /administrate/content/get section` 
 			},
 			pages_permissions : {
 				name : `INSERT_content_get_permissions`,
 				query : `INSERT INTO pages_permissions (${global_transaction.ROUTE_PERMISSIONS_PREFIX}Logout, ${global_transaction.ROUTE_PERMISSIONS_PREFIX}Login, ${global_transaction.ROUTE_PERMISSIONS_PREFIX}Contributor, ${global_transaction.ROUTE_PERMISSIONS_PREFIX}Administrator, page_id) VALUES (false, true, true, true, (SELECT id FROM pages where root_id='content-get'))`,
-				message : `INSERTing /administrate/content/types/search permissions`,
+				message : `INSERTing /administrate/content/get permissions`,
 			},
 
 		},

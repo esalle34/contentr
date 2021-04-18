@@ -20,7 +20,7 @@ const services = {
 
 module.exports = {
 
-	getForm: (route, req, res) => {
+	get_form: (route, req, res) => {
 
 		let formFactory;
 
@@ -65,7 +65,7 @@ module.exports = {
 					
 				} catch (error) {
 	
-					console.error(`Error in form_service@getForm (form_name : ${route.form_name}) : ` + error.stack);
+					console.error(`Error in form_service@get_form (form_name : ${route.form_name}) : ` + error.stack);
 					return view_service.buildErrorView(route, req, res, error);
 				}
 			})
@@ -95,7 +95,7 @@ module.exports = {
 
 	//Récupération à partir de l'input ms en hidden des données liés au service (file, callback, prefix)
 	//exemple : content_service/create_content::uri => file/service::prefix
-	validateForm : (route, req, res) =>{
+	validate_form : (route, req, res) =>{
 
 		let isValid = false;
 		let newResponse = Object.assign({}, { errorLabel: route.i18n.translate("There was an error while validating this form", route.lang) });
